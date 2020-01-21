@@ -39,7 +39,7 @@ def polimorf_add_main(main_data,sidebar_data,meta_present,wrap,fileroot,settings
 
         if main_data != ct.PCOM_NO_ENTRY:
             add_main = pcom_create_html_from_array(main_data) + template_tag
-        else:
+        elif:
             add_main = template_tag
 
         if sidebar_data != [ct.PCOM_NO_ENTRY]:

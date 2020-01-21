@@ -12,7 +12,7 @@ MorfLess is structured in two parts:
 There are 4 buckets: A source bucket, a list bucket, a search bucket and the target bucket (the website)
 A CloudTrail event is used to trigger the Step Function when a file is uploaded or deleted from the source bucket. 
 
-The Step Function consists of two Lamdbdas:
+The Step Function consists of two Lambdas:
 - RenderHtml
 - CreateListPages 
 

@@ -4,6 +4,8 @@ A Python-based serverless blog/website architecture that runs in Amazon Web Serv
 
 The initial version will deal with public links only.
 
+The website runs as a STATIC website with JS enhancements and an API search capability. MorfLess is not a web server application. It creates static content through the use of templates.
+
 # Basic Architecture
 MorfLess is structured in two parts: 
 - The core elements featuring S3 buckets and an AWS Step Function - parsing html, updating json files and JavaScript constants

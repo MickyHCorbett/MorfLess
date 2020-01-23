@@ -13,5 +13,6 @@ from libraries import read_schematic
 from libraries import second_processes
 from libraries import string_processes
 from libraries import lists
+from libraries import bucket_file_preparation
 
 from libraries import classes

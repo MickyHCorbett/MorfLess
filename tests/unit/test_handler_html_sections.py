@@ -3,11 +3,11 @@ import libraries.morflessLibs as libs
 
 # import test values and expected outputs
 # main includes sidebar data
-from html_sections_test_io.main_test_io import test_values as main_tv
-from html_sections_test_io.header_test_io import test_values as header_tv
-from html_sections_test_io.footer_test_io import test_values as footer_tv
-from html_sections_test_io.before_test_io import test_values as before_tv
-from html_sections_test_io.after_test_io import test_values as after_tv
+from unit.html_sections_test_io.main_test_io import test_values as main_tv
+from unit.html_sections_test_io.header_test_io import test_values as header_tv
+from unit.html_sections_test_io.footer_test_io import test_values as footer_tv
+from unit.html_sections_test_io.before_test_io import test_values as before_tv
+from unit.html_sections_test_io.after_test_io import test_values as after_tv
 
 # define settings element for test
 settings = libs.globals.DEFAULT_SETTINGS
@@ -93,7 +93,7 @@ class HtmlSectionsHandlerCase(unittest.TestCase):
 
             before_data = test['inputs']['before_data']
             meta_present = test['inputs']['meta_present']
-            
+
 
             result = libs.before_after.polimorf_add_before(before_data,meta_present)
             print(result)

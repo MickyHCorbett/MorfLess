@@ -3,7 +3,8 @@ import libraries.morflessLibs as libs
 
 # import test values and expected outputs
 # main includes sidebar data
-from read_schematic_test_io.get_schematic_tags_test_io import test_values as gstags_tv
+from unit.read_schematic_test_io.get_schematic_tags_test_io import test_values as gstags_tv
+from unit.read_schematic_test_io.determine_placement_test_io import test_values as dtplace_tv
 
 # define settings element for test
 settings = libs.globals.DEFAULT_SETTINGS
@@ -60,6 +61,30 @@ class ReadSchematicHandlerCase(unittest.TestCase):
             self.assertEqual(test['assertEqual']['after_found'], result['after_found'])
 
         print('\n\n===== test_pcom_get_schematic_tags - END \n\n')
+
+    def test_pcom_determine_placement(self):
+
+        for test in dtplace_tv:
+
+            print('\n' + test['remark'] + '\n')
+
+            placement = test['inputs']['placement']
+            print(format)
+
+            result = libs.read_schematic.pcom_determine_placement(placement)
+            print(result)
+
+            # check asserts in
+            for assertIn in test['assertIn']:
+                self.assertIn(assertIn, result)
+
+            # check asserts Not in
+            for assertNotIn in test['assertNotIn']:
+                self.assertNotIn(assertNotIn, result)
+
+
+        print('\n\n===== test_pcom_determine_placement - END \n\n')
+
 
 if __name__ == '__main__':
     unittest.main()

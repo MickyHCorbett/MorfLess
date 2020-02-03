@@ -5,11 +5,11 @@ Description: >-
 Parameters:
   morflessSourceBucket:
     Type: String
-    Default: docksat.space-source
+    Default: morfless-mydomain-source
     Description: The backend source files bucket defined in MorfLess setup Part 1
   morflessAppPreFix:
     Type: String
-    Default: docksat-space-dev
+    Default: morfless-mydomain
     Description: The function prefix defined in MorfLess setup Part 1
 
 Resources:

@@ -16,17 +16,17 @@ Either through the AWS CLI or through the AWS S3 Console GUI create an S3 bucket
 
 Use the following AWS CLI command to copy the content of the local package folder to S3:
 
-> aws s3 cp _local_package_bucket_/ s3://morfless-package/ --recursive
+        aws s3 cp <local_package_bucket>/ s3://morfless-package/ --recursive
 
 ## Cloud Formation Set Up
 
 The cloud formation templates can be found under [package/cloudformation](https://github.com/MickyHCorbett/MorfLess/tree/master/package/cloudformation). You can run these in the CloudFormation GUI within your AWS console or by command lines. 
 
-Before using any cloudformation template, create a separate folder for them and copy them from the git clone. That way you won't have to overwrite the defaults.
+Before using any CloudFormation template, create a separate folder for them and copy them from the git clone. That way you won't have to overwrite the defaults.
 
 ### MorfLess: Part1 - Create Morfless Elements
 
-The cloudformation file MorfLess-Part1-CreateMorflessElements.yml contains the following Parameter section:
+The CloudFormation file MorfLess-Part1-CreateMorflessElements.yml contains the following Parameter section:
 
     Parameters:
        morflessS3WebsiteBucket:
@@ -75,4 +75,10 @@ The cloudformation file MorfLess-Part1-CreateMorflessElements.yml contains the f
 
 Change the _mydomain_ and _MyDomain_ elements match what you want your website or web development site to be called. A bucket will be created that hosts the static website with the following address: 
 
-> mydomain.com.s3-website.$AWS_REGION.amazonaws.com
+        mydomain.com.s3-website.<aws-region>.amazonaws.com
+
+The file can be run from the CloudFormation GUI or by using the following command:
+
+        aws cloudformation create-stack --stack-name <morfless-deployment_name> --template-body file://path/to/file/MorfLess-Part1-CreateMorflessElements.yml --capabilities CAPABILITY_NAMED_IAM
+
+

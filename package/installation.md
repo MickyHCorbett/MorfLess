@@ -77,11 +77,41 @@ Change the _mydomain_ and _MyDomain_ elements match what you want your website o
 
         mydomain.com.s3-website.<aws-region>.amazonaws.com
 
-The file can be run from the CloudFormation GUI or by using the following command:
+The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
 
         aws cloudformation create-stack \
                 --stack-name <morfless-deployment_name> \
                 --template-body file://path/to/file/MorfLess-Part1-CreateMorflessElements.yml \
                 --capabilities CAPABILITY_NAMED_IAM
 
+### MorfLess: Part2 - Copy Default to Buckets
 
+The CloudFormation file MorfLess-Part2-CopyDefaultsToBuckets.yml contains the following Parameter section:
+
+    Parameters:
+       morflessS3WebsiteBucket:
+         Type: String
+         Default: mydomain.com
+         Description: The target bucket i.e. website. Dots can be used.
+       morflessListBucket:
+         Type: String
+         Default: morfless-mydomain-list
+         Description: The backend list bucket
+       morflessSourceBucket:
+         Type: String
+         Default: morfless-mydomain-source
+         Description: The backend source files bucket
+       morflessSearchBucket:
+         Type: String
+         Default: morfless-mydomain-search
+         Description: The backend search files bucket 
+
+Set these value to the same ones that you used in Part 1
+
+The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
+
+        aws cloudformation create-stack \
+                --stack-name <morfless-deployment_copyinit_name> \
+                --template-body file://path/to/file/MorfLess-Part1-CopyDefaultsToBuckets.yml \
+                --capabilities CAPABILITY_NAMED_IAM
+                

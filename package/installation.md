@@ -80,7 +80,7 @@ Change the _mydomain_ and _MyDomain_ elements match what you want your website o
 The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
 
         aws cloudformation create-stack \
-                --stack-name <morfless-deployment_name> \
+                --stack-name <morfless-deployment-name> \
                 --template-body file://path/to/file/MorfLess-Part1-CreateMorflessElements.yml \
                 --capabilities CAPABILITY_NAMED_IAM
 
@@ -111,7 +111,24 @@ Set these value to the same ones that you used in Part 1
 The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
 
         aws cloudformation create-stack \
-                --stack-name <morfless-deployment_copyinit_name> \
+                --stack-name <morfless-deployment-copyinit_name> \
                 --template-body file://path/to/file/MorfLess-Part2-CopyDefaultsToBuckets.yml \
                 --capabilities CAPABILITY_NAMED_IAM
                 
+## Updating settings.txt
+
+At this stage all of the elements will be in place. Go to the Cloud Formation admin panel and select the CloudFormation named _morfless-deployment-name_. Go to the Outputs tab and copy the Api Invoke Url. 
+
+In your local package folder (the copy) open settings.txt and copy the url into search_api_url={ }: section i.e.
+
+        search_api_url={ }:
+        
+will become:
+
+        search_api_url={ https://<api-ident>.execute-api.eu-west-1.amazonaws.com/prod }:
+        
+Ensure that the keyword format is maintained
+
+Upload settings.txt to the Source Bucket folder in S3.
+
+##

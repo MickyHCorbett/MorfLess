@@ -32,6 +32,6 @@ MorfLess is best used if you have a user with Admin privileges.
 
 # Options 
 
-By default, the target bucket will be of the form "<bucket_name>.s3-website.<region>.amazonaws.com". You can choose to front it with CloudFront/Route53 using a domain name of your choosing - see [Hosting a static website on S3 with CloudFront/Route53](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
+By default, the target bucket will be of the form "$TARGET_BUCKET.s3-website.$AWS_REGION.amazonaws.com". You can choose to front it with CloudFront/Route53 using a domain name of your choosing - see [Hosting a static website on S3 with CloudFront/Route53](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
   
 If you wish to run the site through Cloudfront you can also use Lambda@Edge to re-route requests (standard www to non-www etc) as a seperate microservice set-up.

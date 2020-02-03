@@ -1,0 +1,44 @@
+[
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "search.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "categories.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "authors.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "archive.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "posts.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    }
+]

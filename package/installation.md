@@ -79,6 +79,9 @@ Change the _mydomain_ and _MyDomain_ elements match what you want your website o
 
 The file can be run from the CloudFormation GUI or by using the following command:
 
-        aws cloudformation create-stack --stack-name <morfless-deployment_name> --template-body file://path/to/file/MorfLess-Part1-CreateMorflessElements.yml --capabilities CAPABILITY_NAMED_IAM
+        aws cloudformation create-stack \
+                --stack-name <morfless-deployment_name> \
+                --template-body file://path/to/file/MorfLess-Part1-CreateMorflessElements.yml \
+                --capabilities CAPABILITY_NAMED_IAM
 
 

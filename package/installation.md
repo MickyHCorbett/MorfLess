@@ -125,7 +125,7 @@ In your local package folder (the copy) open settings.txt and copy the url into 
         
 will become:
 
-        search_api_url={ https://<api-ident>.execute-api.eu-west-1.amazonaws.com/prod }:
+        search_api_url={ https://<api-ident>.execute-api.<aws-region>.amazonaws.com/prod }:
         
 Ensure that the keyword format is maintained
 

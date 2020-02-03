@@ -1,0 +1,1 @@
+Placeholder file so that copy to bucket operation succeeds. Will not be used in search as file does not end in .content

@@ -6,46 +6,46 @@ Description: |+
 Parameters:
   morflessS3WebsiteBucket:
     Type: String
-    Default: docksat.space-dev
+    Default: mydomain.com
     Description: The target bucket i.e. website. Dots can be used.
   morflessListBucket:
     Type: String
-    Default: docksat.space-list
+    Default: morfless-mydomain-list
     Description: The backend list bucket
   morflessSourceBucket:
     Type: String
-    Default: docksat.space-source
+    Default: morfless-mydomain-source
     Description: The backend source files bucket
   morflessSearchBucket:
     Type: String
-    Default: docksat.space-search
+    Default: morfless-mydomain-search
     Description: The backend search files bucket
 
   morflessPackageBucket:
     Type: String
-    Default: morfless-package-eu-west-1
+    Default: morfless-package
     Description: Bucket where source package files are held
 
   morflessLayerName:
     Type: String
-    Default: morflessLibs-docksat-space
+    Default: morflessLibs-mydomain
     Description: Unique layer for a MorfLess instance. Use dashes
 
   morflessSearchApiName:
     Type: String
-    Default: morflessTestSearchApi
+    Default: morflessMyDomainSearchApi
     Description: Morfless Search Api name
   morfessApiStageName:
     Type: String
     Default: prod
   morflessStateMachineName:
     Type: String
-    Default: morflessStateDocksatSpace
+    Default: morflessMyDomainStateMachine
     Description: State Machine Name
 
   morflessAppPreFix:
     Type: String
-    Default: docksat-space-dev2
+    Default: morfless-mydomain
     Description: The prefix for the functions associated with this instance of MorfLess. Use dashes.
 
 Resources:

@@ -112,6 +112,6 @@ The file can be run from the CloudFormation GUI or by using the following AWS CL
 
         aws cloudformation create-stack \
                 --stack-name <morfless-deployment_copyinit_name> \
-                --template-body file://path/to/file/MorfLess-Part1-CopyDefaultsToBuckets.yml \
+                --template-body file://path/to/file/MorfLess-Part2-CopyDefaultsToBuckets.yml \
                 --capabilities CAPABILITY_NAMED_IAM
                 

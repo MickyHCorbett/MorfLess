@@ -1,0 +1,22 @@
+///META:
+title={ A Morfless Serverless Test Site }:
+description={ A MorfLess site}:
+url={ / }:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+searchbar={}:
+
+///MAIN:
+%%CONTENT::
+TEXT=[
+<p>Something here formatted in html</p>
+<p>Something else but formatted using substitutions</p> ]:
+
+///FOOTER:
+%%MENU_CUSTOM: Footer-Class ::
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home" src="IMAGES/home_icon.png" class="home-ref"}:
+mlk={href="/about/" name="About"}:

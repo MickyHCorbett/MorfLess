@@ -1,0 +1,29 @@
+///META:
+title={ A new post }:
+categories={ NA }:
+description={ About Morfless }:
+url={ /about/ }:
+extract={
+
+An about page - describe yourself in as much detail as you like!
+You can also add more to this extract.
+
+}:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+mlk={href="/test2/" name="Test Page 2"}:
+mlk={href="/test1/" name="Test Page 1"}:
+searchbar={}:
+
+///MAIN:
+%%CONTENT::
+TEXT=[
+<p>This is a test site for the serverless package MorfLess, based on the AWS-compatible WordPress theme, Polimorf.</p>
+[p]Polimorf can be found at <a href="https://polimorfic.com">Polimorfic.com</a>[/p]
+[p]MorfLess uses a simplified syntax with less content validation as uploading is only down through AWS (or CLI) hence it is more secure.[/p] ]:
+
+///FOOTER:
+%%DEFAULT::

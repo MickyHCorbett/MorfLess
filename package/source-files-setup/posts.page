@@ -1,0 +1,15 @@
+// Posts template
+// Everything but main is reused for multiple post pages
+
+///META:
+title={ Blog }:
+description={ List of posts }:
+url={ / }:
+
+///HEADER:
+%%DEFAULT::
+
+///MAIN:
+
+///FOOTER:
+%%DEFAULT::

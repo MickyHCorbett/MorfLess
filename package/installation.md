@@ -18,7 +18,7 @@ Use the following AWS CLI command to copy the content of the local package folde
 
         aws s3 cp <local_package_bucket>/ s3://morfless-package/ --recursive
 
-## Cloud Formation Set Up
+## Cloud Formation Set Up Part 1
 
 The cloud formation templates can be found under [package/cloudformation](https://github.com/MickyHCorbett/MorfLess/tree/master/package/cloudformation). You can run these in the CloudFormation GUI within your AWS console or by command lines. 
 
@@ -131,4 +131,21 @@ Ensure that the keyword format is maintained
 
 Upload settings.txt to the Source Bucket folder in S3.
 
-##
+## Cloud Formation Set Up Part 2
+
+The last part of the set-up is to add notifications for the Source Bucket to then call TriggerStates which kicks off the Step Function.
+
+### MorfLess: Part3 - Assign Bucket Notifications
+
+The CloudFormation file MorfLess-Part3-MorfLess-Part3-AssignBucketNotifications.yml contains the following Parameter section:
+
+    Parameters:
+       morflessSourceBucket:
+         Type: String
+         Default: morfless-mydomain-source
+         Description: The backend source files bucket defined in MorfLess setup Part 1
+       morflessAppPreFix:
+         Type: String
+         Default: morfless-mydomain
+         Description: The function prefix defined in MorfLess setup Part 1
+      

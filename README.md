@@ -33,7 +33,7 @@ MorfLess is arranged as a worklow where a template (schematic) file is updated o
 
 Once the html file is created, the next step is to update the associated files that mimic blog database entries i.e. lists of category, author and archive information. MorfLess is a static site so associations are created using links to JavaScript constant files. These files are accessed by JavaScript handler references that have been inserted into the html when a given schematic command is present.
 
-<img src="https://github.com/MickyHCorbett/MorfLess/blob/master/MorfLessArchitecture.png" width=100% align="center" />
+<img src="https://github.com/MickyHCorbett/MorfLess/blob/master/MorflessArchitecture.png" width=100% align="center" />
 
 ## Installation 
 

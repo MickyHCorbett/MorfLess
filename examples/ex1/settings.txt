@@ -1,0 +1,83 @@
+Settings
+
+To localise templates i.e. links, change the key values
+e.g. if you want posts to be "entries", set - "posts": "entries"
+Then go to your s3 website bucket and remove the folder for "posts"
+if it has been generated
+
+
+///META:
+
+posts_per_page={ 5 }:
+post_meta_default={ title, category, author, date_created, date_modified, show_time }:
+page_meta_default={ title, author, date_created, date_modified }:
+date_format={ UK }:
+title={ A Morfless Serverless Test Site }:
+description={ }:
+
+templates={
+  {
+    "search": "search",
+    "categories": "categories",
+    "authors": "authors",
+    "archive": "archive",
+    "posts": "posts"
+  }
+}:
+
+template_main_header_text={
+  {
+    "search": "Results for: ",
+    "categories": "Categories",
+    "authors": "Authors",
+    "archive": "Monthly Archives",
+    "posts": "Posts"
+  }
+}:
+
+
+template_sub_header_text={
+
+  {
+    "categories": "Posts for category: ",
+    "authors": "Posts by author: ",
+    "archive": "Posts for month: "
+  }
+}:
+
+template_sub_header_back_link_text={
+  {
+    "categories": "Back to Categories",
+    "authors": "Back to Authors",
+    "archive": "Back to Archives"
+  }
+}:
+
+
+
+categories={
+}:
+
+author={
+}:
+
+search_api_url={ https://s5jbj10zye.execute-api.eu-west-1.amazonaws.com/prod }:
+
+
+///HEADER:
+%%DEFAULT::
+
+///BEFORE::
+NONE
+
+///MAIN:
+%%DEFAULT::
+
+///AFTER:
+NONE
+
+///SIDEBAR:
+NONE:
+
+///FOOTER:
+%%DEFAULT::

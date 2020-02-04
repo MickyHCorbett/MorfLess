@@ -106,12 +106,12 @@ The CloudFormation file MorfLess-Part2-CopyDefaultsToBuckets.yml contains the fo
          Default: morfless-mydomain-search
          Description: The backend search files bucket 
 
-Set these value to the same ones that you used in Part 1
+Set these values to the same ones that you used in Part 1
 
 The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
 
         aws cloudformation create-stack \
-                --stack-name <morfless-deployment-copyinit_name> \
+                --stack-name <morfless-deployment-copyinit-name> \
                 --template-body file://path/to/file/MorfLess-Part2-CopyDefaultsToBuckets.yml \
                 --capabilities CAPABILITY_NAMED_IAM
                 
@@ -149,3 +149,15 @@ The CloudFormation file MorfLess-Part3-MorfLess-Part3-AssignBucketNotifications.
          Default: morfless-mydomain
          Description: The function prefix defined in MorfLess setup Part 1
       
+Set these values to the same ones that you used in Part 1
+
+The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
+
+        aws cloudformation create-stack \
+                --stack-name <morfless-deployment-applynotifications-name> \
+                --template-body file://path/to/file/MorfLess-Part3-AssignBucketNotifications.yml \
+                --capabilities CAPABILITY_NAMED_IAM
+                
+That completes the setup. The application is now active and will respond to files uploaded into the Source Bucket. 
+
+Next step: Building out the site 

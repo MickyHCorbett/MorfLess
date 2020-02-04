@@ -55,3 +55,61 @@ The schematics are simple text files with the following tags:
 If it is, a list of files that are dependent on the uploaded file will be created and processed. If not the single file is processed. Dependent files can be settings.txt (if the DEFAULT command is used) or any inserted files (if the INSERT command is used)
 
 When a file is deleted, it is removed from the master list of posts and pages (postlist.json) as well as the website bucket. The file, dependencies.json, will be amended only when the dependent file is updated. This is trivial for the deleted file as content for that file will not be visible.
+
+## Identifiers
+
+The syntax is organised using 3 types of identifiers:
+
+- Schematic commands idenfied by %%<command>::
+- Sub commands identified by <sub_command>=[ <syntax> ]:
+- Keyword identified by <keyword>={ <syntax> }:
+
+The exception is for table elements called Boxes:
+
+For example, a 3-elements box (3BOX) is called as follows:
+
+        %%3_BOX::
+        BOX1:
+        <sub_command>=[ ]:
+        
+        BOX2:
+        <sub_command>=[ ]:
+        
+        BOX3:
+        <sub_command>=[ ]:
+        
+If the BOXn elements are not present the nBOX will not be processed. Currently there is support for 2, 3 and 4 Boxes.
+
+For sub-commands and keywords the opening syntax ***must be written without spaces*** from the sub-command or keyword. Spaces can be used in the syntax and after the closing identifier syntax.
+
+## Sections
+
+Elements can be grouped into a general Section element (different than an HTML5 section tag). This is done so things like a common background can be added. To add a Section, the command structure is slightly altered. Using the 3BOX example, the command identifiers are altered to start and end with a square bracket, and a Section id needs to be present:
+
+        %%SECTION::
+        {{ <section-id> }}
+        [%3_BOX:]
+        BOX1:
+        <sub_command>=[ ]:
+        
+        BOX2:
+        <sub_command>=[ ]:
+        
+        BOX3:
+        <sub_command>=[ ]:
+        
+ ## Custom classes
+ 
+ Custom classes can be added to commands by using a CUSTOM tag as follows:
+ 
+        %%SECTION_CUSTOM: custom-class ::
+        {{ <section-id> }}
+        [%3_BOX:]
+        BOX1:
+        <sub_command>=[ ]:
+        
+        BOX2:
+        <sub_command>=[ ]:
+        
+        BOX3:
+        <sub_command>=[ ]:

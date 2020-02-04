@@ -1,12 +1,13 @@
 # MorfLess
 
-A Python-based serverless blog/website architecture that runs in Amazon Web Services. MorfLess uses the PoliMorf schematic approach taking meta source files and parsing them into html files with associated linked archiecture. Supporting files (css, JavaScript etc) can be linked publicly. 
+A Python-based serverless blog/website architecture that runs in Amazon Web Services (AWS). MorfLess uses the PoliMorf schematic approach taking meta source files and parsing them into html files with associated linked archiecture. Supporting files (css, JavaScript etc) can be linked publicly. 
 
 The initial version will deal with public links only.
 
 The website runs as a STATIC website with JS enhancements and an API search capability. MorfLess is not a web server application. It creates static content through the use of templates.
 
-## Basic Architecture
+
+## Description
 MorfLess is structured in two parts: 
 - The core elements featuring S3 buckets and an AWS Step Function - parsing html, updating json files and JavaScript constants
 - Search lambda driven through API Gateway that returns data to the website
@@ -26,9 +27,21 @@ The Step Function consists of two Lambdas:
 
 The search lambda (SearchContent) scans the content in the search bucket and returns a formatted list of post and page entries.
 
+## Architecture
+
+MorfLess is arranged as a worklow where a template (schematic) file is updated or deleted from a bucket in S3 (Source Bucket). The event triggers a series of Lambdas (through the Step Function) which take the file and parse it into html, which is output into the Website Bucket. Depending on the command syntax in the file, additional information is added to meta files (stored in the List Bucket). 
+
+Once the html file is created, the next step is to update the associated files that mimic blog database entries i.e. lists of category, author and archive information. MorfLess is a static site so associations are created using links to JavaScript constant files. These files are accessed by JavaScript handler references that have been inserted into the html when a given schematic command is present.
+
+
+
+## Installation 
+
+Go to [MorfLess Installation instructions](https://github.com/MickyHCorbett/MorfLess/blob/master/package/installation.md)
 
 ## Dependencies
-MorfLess is best used if you have a user with Admin privileges. 
+You will need an AWS account and a user with Admin privileges (recommended NOT to be the root user). 
+You can use any text editor.
 
 ## Options 
 

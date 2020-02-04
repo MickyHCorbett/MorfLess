@@ -39,6 +39,7 @@ The schematics are simple text files with the following tags:
  
  MorfLess has the capability to display a page with either a full-width style or two-column style (main and sidebar). 
  
- <img src="MorfLessWebPageLayout.png" width=50% align="center" />
- 
+ <p align="center">
+ <img src="MorfLessWebPageLayout.png" width=50% />
+ </p>
  

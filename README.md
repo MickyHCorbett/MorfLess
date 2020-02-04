@@ -41,6 +41,10 @@ When a search request is made, the API Gateway communicates with Lambda and sear
 
 Go to [MorfLess Installation instructions](https://github.com/MickyHCorbett/MorfLess/blob/master/package/installation.md)
 
+## Syntax 
+
+Go to [MorfLess Syntax](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/syntax-introduction.md)
+
 ## Dependencies
 You will need an AWS account and a user with Admin privileges (recommended NOT to be the root user). 
 You can use any text editor.

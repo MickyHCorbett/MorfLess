@@ -9,19 +9,19 @@ Description: >
 Parameters:
   morflessS3WebsiteBucket:
     Type: String
-    Default: morfless-target
+    Default: mydomain.com
     Description: The target bucket i.e. website. Dots can be used.
   morflessListBucket:
     Type: String
-    Default: morfless-list
+    Default: morfless-mydomain-list
     Description: The backend list bucket
   morflessSourceBucket:
     Type: String
-    Default: morfless-source
+    Default: morfless-mydomain-source
     Description: The backend source files bucket
   morflessSearchBucket:
     Type: String
-    Default: morfless-search
+    Default: morfless-mydomain-search
     Description: The backend search files bucket
 
   BackupBucket:

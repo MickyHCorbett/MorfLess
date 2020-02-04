@@ -9,19 +9,19 @@ Description: >
 Parameters:
   morflessS3WebsiteBucket:
     Type: String
-    Default: docksat.space-dev
+    Default: mydomain.com
     Description: The target bucket i.e. website. Dots can be used.
   morflessListBucket:
     Type: String
-    Default: docksat.space-list
+    Default: morfless-mydomain-list
     Description: The backend list bucket
   morflessSourceBucket:
     Type: String
-    Default: docksat.space-source
+    Default: morfless-mydomain-source
     Description: The backend source files bucket
   morflessSearchBucket:
     Type: String
-    Default: docksat.space-search
+    Default: morfless-mydomain-search
     Description: The backend search files bucket
 
 Resources:

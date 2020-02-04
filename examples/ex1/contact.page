@@ -1,0 +1,30 @@
+///META:
+title={ Contact }:
+categories={ NA }:
+description={ Morfless Contact page }:
+url={ /contact/ }:
+extract={
+
+Contact Morfless
+
+}:
+author={ Contact }:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+searchbar={}:
+
+///MAIN:
+%%CONTENT::
+TEXT=[
+<p>Contact Morfless here: </p> ]:
+
+%%PAGINATION::
+
+///FOOTER:
+%%MENU_CUSTOM: Footer-Class ::
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home"}:
+mlk={href="/about/" name="About"}:

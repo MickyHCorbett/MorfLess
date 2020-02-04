@@ -1,0 +1,15 @@
+///META:
+title={ Not found }:
+description={ 404 page }:
+url={ /404.html }:
+
+///HEADER:
+%%DEFAULT::
+
+///MAIN:
+%%CONTENT::
+TEXT=[
+<p>Not found - go back <a href="/">Home</a></p> ]:
+
+///FOOTER:
+%%DEFAULT::

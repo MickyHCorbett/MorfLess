@@ -8,7 +8,7 @@ The recommended way to install Python is through [PyEnv](https://github.com/pyen
 
 [See here for the AWS CLI installation - version 1](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html)
 
-If you are Upgrading - see [here]([Next step: Building out the site](https://github.com/MickyHCorbett/MorfLess/blob/master/package/upgrading.md)
+If you are Upgrading - see [here](https://github.com/MickyHCorbett/MorfLess/blob/master/package/upgrading.md)
 
 ## Set-Up Files
 

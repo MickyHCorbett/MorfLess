@@ -29,11 +29,13 @@ The search lambda (SearchContent) scans the content in the search bucket and ret
 
 ## Architecture
 
-MorfLess is arranged as a worklow where a template (schematic) file is updated or deleted from a bucket in S3 (Source Bucket). The event triggers a series of Lambdas (through the Step Function) which take the file and parse it into html, which is output into the Website Bucket. Depending on the command syntax in the file, additional information is added to meta files (stored in the List Bucket). 
+MorfLess is arranged as a worklow where a template (schematic) file is updated or deleted from a bucket in S3 (Source Bucket). The event triggers a series of Lambdas (through the Step Function) which take the file and parse it into html, which is output into the Website Bucket. Depending on the command syntax in the file, additional information is added to meta files (stored in the List Bucket). Stripped down (raw) html files are also put into a Search Bucket that can be accessed through an API Gateway.
 
 Once the html file is created, the next step is to update the associated files that mimic blog database entries i.e. lists of category, author and archive information. MorfLess is a static site so associations are created using links to JavaScript constant files. These files are accessed by JavaScript handler references that have been inserted into the html when a given schematic command is present.
 
 <img src="https://github.com/MickyHCorbett/MorfLess/blob/master/MorflessArchitecture.png" width=100% align="center" />
+
+When a search request is made, the API Gateway communicates with Lambda and searches through the raw content files. Lambda will condition the result and send back a formatted list. The formatting uses the same functions that are used to create list meta files.
 
 ## Installation 
 

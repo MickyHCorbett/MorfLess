@@ -45,7 +45,7 @@ The schematics are simple text files with the following tags:
  
  ### File extensions
  
- MorfLess will trigger in the following cases:
+ Though MorfLess will trigger on any file upload, RenderHtml will perform processing in the following cases:
  
  - A file ending in ".post" or ".page" is uploaded. 
  - A file that isn't HTML or JSON is uploaded
@@ -53,3 +53,5 @@ The schematics are simple text files with the following tags:
  If a non post/page file is uploaded, RenderHtml will check it is included in the dependencies.json file stored in the List Bucket. 
 
 If it is, a list of files that are dependent on the uploaded file will be created and processed. If not the single file is processed. Dependent files can be settings.txt (if the DEFAULT command is used) or any inserted files (if the INSERT command is used)
+
+When a file is deleted, it is removed from the master list of posts and pages (postlist.json) as well as the website bucket. The file, dependencies.json, will be amended only when the dependent file is updated. This is trivial for the deleted file as content for that file will not be visible.

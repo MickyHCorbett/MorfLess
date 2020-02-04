@@ -61,7 +61,7 @@ categories={
 author={
 }:
 
-search_api_url={ https://s5jbj10zye.execute-api.eu-west-1.amazonaws.com/prod }:
+search_api_url={ }:
 
 
 ///HEADER:

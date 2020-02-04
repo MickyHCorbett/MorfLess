@@ -1,0 +1,84 @@
+///META:
+title={ A new era of posting }:
+categories={ something,interesting }:
+description={ A new post about something else }:
+extract={
+
+When you get down to it and just want to write. This is the kind of post you write!
+
+ }:
+author={Micky,Albert,Jim O'Neill}:
+url={ /deeper/level/another-post/ }:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+mlk={href="/test3-post-something-new/" name="Test Page 3"}:
+mlk={href="/something-else/" name="Something else"}:
+searchbar={}:
+
+///BEFORE:
+%%CONTENT::
+TEX=[
+<p>A before section</p> ]:
+
+///MAIN:
+
+%%STYLE::
+.some-class-again {
+background: none;
+}
+
+%%CONTENT_META::
+title={}: author={}: date_created={}:
+
+%%CONTENT::
+TEXT=[
+<p>Something here formatted in html</p>
+[p]Something else but formatted using substitutions[/p]
+[p]More formatted text and and the like[/p]
+<p>And then we can add more and more stuff or even have Javascript added</p>
+<p>This is a test of the updated and simplified Step Function - again!</p>
+
+]:
+
+%%PAGINATION_CUSTOM: pages-navig ::
+
+%%SECTION::
+{{ section-test-2 }}
+[%CONTENT:]
+TEXT=[
+<p>A section test</p> ]:
+
+///AFTER:
+%%CONTENT::
+TEXT=[
+
+
+<p>An after section</p>
+
+]:
+
+%%INSERT::
+ref={ puppies.txt }:
+
+
+
+///SIDEBAR:
+%%CONTENT::
+TEXT=[
+<p>A sidebar section</p> ]:
+
+%%MENU_CUSTOM: Sidebar-Class ::
+title={ A Sidebar menu }:
+mlk={href="/" name="Home page"}:
+mlk={href="/about/" name="About"}:
+
+///FOOTER:
+%%MENU_CUSTOM: Footer-Class ::
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home" src="IMAGES/home_icon.png" class="home-ref"}:
+mlk={href="/about/" name="About"}:
+
+%%DEFAULT::

@@ -1,0 +1,145 @@
+///META:
+title={ A new post }:
+url={ /test1-the-first-post/ }:
+
+categories={ something, another category, things to write about }:
+description={ A new post about something }:
+extract={
+
+Something longer here to describe what is going on.
+Like we can see there are more lines to add.
+
+You can add in quotes as well like "this" and even 'that'!
+
+Then more again! }:
+sticky={}:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+mlk={href="/test2/" name="Test Page 2"}:
+searchbar={}:
+
+%%STYLESHEET::
+/css/custom-style.css
+
+%%STYLE::
+  .something-class {
+    font-size: 1em;
+  }
+
+%%HEADER_CONTENT::
+<!-- add something here but watch out -->
+
+///MAIN:
+%%CONTENT_META::
+title={}:
+
+The main format here:
+
+%%CONTENT_CUSTOM: my-content-1 ::
+TEXT=[
+<p>Something here formatted in html</p>
+[p]Something else but formatted using substitutions[/p]
+[p]And then we can add other things here to see what is what and how it's formatted.[/p]
+[p]This line added to test Step Functions[/p] ]:
+
+%%CONTENT_META::
+author={}:
+category={}:
+date_created={}:
+
+%%INSERT::
+ref={ puppies.txt }:
+
+%%INSERT::
+ref={ puppies2.txt }:
+
+%%INSERT::
+ref={ puppies3.txt }:
+
+
+%%POSTLIST::
+posts_per_page={ 1 }:
+manual_sticky={}:
+list={ test1.post, !!test3.post, test2.post, !!about.page }:
+title={ A Post list }:
+
+%%STYLE::
+  .something-class-again {
+    font-size: 1em;
+  }
+
+%%3_BOX_CUSTOM: my-3-box ::
+BOX1:
+MENU=[
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home" src="IMAGES/home_icon.png" class="home-ref"}:
+mlk={href="/about/" name="About"}: ]:
+
+BOX2:
+TEXT=[
+<p>Something here</p>
+]:
+
+BOX3:
+POSTLIST=[
+posts_per_page={ 1 }:
+manual_sticky={}:
+list={ test1.post, !!test3.post, test2.post }:
+title={ A Post list in a box }:
+]:
+
+%%3_BOX_CUSTOM: my-3-box-2 ::
+
+BOX1:
+QUOTE=[
+body={ The great tragedy of science - a beautiful theory slain by an ugly fact }:
+ref={ Thomas Huxley }:
+link={ / }: ]:
+
+BOX2:
+QUOTE=[
+body={ That's one small step for a man, one giant leap for mankind }: ]:
+
+BOX3:
+QUOTE=[
+body={ My God! It's full of stars }: ]:
+
+%%QUOTE::
+body={ The great tragedy of science - a beautiful theory slain by an ugly fact }:
+ref={ Thomas Huxley }:
+link={ / }:
+
+%%POSTLIST::
+posts_per_page={ 1 }:
+list={ about.page, test2.post }:
+title={ A Second Post list }:
+
+%%PAGINATION::
+next={ about.page }:
+prev={ test3.post }:
+
+%%SECTION::
+{{ section-test }}
+[%CONTENT:]
+TEXT=[
+<p>A section test</p> ]:
+
+_CUSTOM: Footer-Class ::
+
+///FOOTER:
+%%MENU::
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home"}:
+mlk={href="/about/" name="About"}:
+
+%%SEARCHBAR::
+
+%%DEFAULT::
+
+%%STYLE::
+.something-class {
+  font-size: 1em;
+}

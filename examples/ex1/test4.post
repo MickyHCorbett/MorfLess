@@ -1,0 +1,21 @@
+///META:
+title={ A new post }:
+url={ /test4/ }:
+
+categories={ none }:
+description={ Redirect to test 2}:
+extract={}:
+
+unlisted={}:
+
+///HEADER:
+
+%%HEADER_CONTENT::
+<script>
+// redirect
+window.location.replace('/test2/');
+</script>
+
+///MAIN:
+
+///FOOTER:

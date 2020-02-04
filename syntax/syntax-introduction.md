@@ -80,11 +80,29 @@ For example, a 3-elements box (3BOX) is called as follows:
         
 If the BOXn elements are not present the nBOX will not be processed. Currently there is support for 2, 3 and 4 Boxes.
 
+For sub-commands and keywords the opening syntax ***must be written without spaces*** from the sub-command or keyword. Spaces can be used in the syntax and after the closing identifier syntax.
+
 ## Sections
 
-Elements can be grouped into a general Section element (different than an HTML5 section tag). To do this the command structure is slightly altered. Using the 3BOX example, for Section the command identifiers are altered to start and end with a square bracket, and a section id needs to be present:
+Elements can be grouped into a general Section element (different than an HTML5 section tag). This is done so things like a common background can be added. To add a Section, the command structure is slightly altered. Using the 3BOX example, the command identifiers are altered to start and end with a square bracket, and a Section id needs to be present:
 
         %%SECTION::
+        {{ <section-id> }}
+        [%3_BOX:]
+        BOX1:
+        <sub_command>=[ ]:
+        
+        BOX2:
+        <sub_command>=[ ]:
+        
+        BOX3:
+        <sub_command>=[ ]:
+        
+ ## Custom classes
+ 
+ Custom classes can be added to commands by using a CUSTOM tag as follows:
+ 
+        %%SECTION_CUSTOM: custom-class ::
         {{ <section-id> }}
         [%3_BOX:]
         BOX1:

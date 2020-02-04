@@ -8,6 +8,8 @@ The recommended way to install Python is through [PyEnv](https://github.com/pyen
 
 [See here for the AWS CLI installation - version 1](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html)
 
+If you are Upgrading - see [here]([Next step: Building out the site](https://github.com/MickyHCorbett/MorfLess/blob/master/package/upgrading.md)
+
 ## Set-Up Files
 
 Clone the repository to a folder on your local computer. Once cloned, unzip "Web-Setup.zip" into its folder. 
@@ -160,4 +162,4 @@ The file can be run from the CloudFormation GUI or by using the following AWS CL
                 
 That completes the setup. The application is now active and will respond to files uploaded into the Source Bucket. 
 
-Next step: Building out the site 
+[Next step: Building out the site](https://github.com/MickyHCorbett/MorfLess/blob/master/package/building-the-site.md) 

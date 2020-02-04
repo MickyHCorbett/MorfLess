@@ -37,7 +37,7 @@ The schematics are simple text files with the following tags:
  
  The BEFORE, AFTER and SIDEBAR tags are optional. Other meta tags are also optional.
  
- MorfLess has the capability to display a page with either a full-width style or two-column style (main and sidebar). 
+ MorfLess has the capability to display a page with either a full-width style or two-column style (main and sidebar). Note that if there is no Sidebar defined, Main is full-width
  
  <p align="center">
  <img src="MorfLessWebPageLayout.png" width=50% />

@@ -35,7 +35,7 @@ The schematics are simple text files with the following tags:
  - META tag with title and url keyword
  - The HEADER, MAIN and FOOTER tag
  
- The BEFORE, AFTER and SIDEBAR tags are optional. 
+ The BEFORE, AFTER and SIDEBAR tags are optional. Other meta tags are also optional.
  
  MorfLess has the capability to display a page with either a full-width style or two-column style (main and sidebar). 
  
@@ -43,3 +43,13 @@ The schematics are simple text files with the following tags:
  <img src="MorfLessWebPageLayout.png" width=50% />
  </p>
  
+ ### File extensions
+ 
+ MorfLess will trigger in the following cases:
+ 
+ - A file ending in ".post" or ".page" is uploaded. 
+ - A file that isn't HTML or JSON is uploaded
+ 
+ If a non post/page file is uploaded, RenderHtml will check it is included in the dependencies.json file stored in the List Bucket. 
+
+If it is, a list of files that are dependent on the uploaded file will be created and processed. If not the single file is processed. Dependent files can be settings.txt (if the DEFAULT command is used) or any inserted files (if the INSERT command is used)

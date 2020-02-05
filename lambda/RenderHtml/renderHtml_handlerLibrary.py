@@ -162,9 +162,21 @@ def delete_files(filelist,dependencies,outputLog):
     for file in filelist:
 
         # condition filename
-        outkey = file.lower().replace(".post","").replace(".page","") + "/index.html"
+        fileroot = file.lower().replace(".post","").replace(".page","")
+        outkey = fileroot + "/index.html"
+        template_key = fileroot + ".template"
+        raw_key = file + ".content"
 
-        file_deleted,outputLog = delete_content_from_s3(file,outkey,targetbucket,outputLog)
+        # check if template
+        if fileroot in libs.globals.DEFAULT_TEMPLATE_TYPES:
+            # delete from list
+            template_deleted,outputLog = delete_content_from_s3(file,template_key,listbucket,outputLog)
+        else:
+            # delete from target
+            file_deleted,outputLog = delete_content_from_s3(file,outkey,targetbucket,outputLog)
+
+        # delete from search
+        raw_deleted,outputLog = delete_content_from_s3(file,raw_key,searchbucket,outputLog)
 
         # update postlist
         if file_deleted:
@@ -414,9 +426,9 @@ def delete_content_from_s3(file,outkey,bucket,log):
         file_deleted = True
         log['files_processed'] = 'Y'
 
-        log_detail = 'File: {} deleted from source, File {} deleted from site'.format(file,outkey)
+        log_detail = 'File: {} deleted from bucket {}, File {} deleted from site'.format(file,bucket,outkey)
     except:
-        log_detail = 'File: {} not deleted from source (or does not exist), File {} not deleted from site (or does not exist)'.format(file,outkey)
+        log_detail = 'File: {} not deleted from bucket {} (or does not exist), File {} not deleted from site (or does not exist)'.format(file,bucket,outkey)
 
     # update output log
     log[file] = log_detail

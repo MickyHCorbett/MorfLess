@@ -167,6 +167,8 @@ def delete_files(filelist,dependencies,outputLog):
         template_key = fileroot + ".template"
         raw_key = file + ".content"
 
+        file_deleted = False
+
         # check if template
         if fileroot in libs.globals.DEFAULT_TEMPLATE_TYPES:
             # delete from list

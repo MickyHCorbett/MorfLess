@@ -8,7 +8,7 @@ MorfLess uses the following schematic commands in relation to their placement. T
 | NAV | Insert the nav bar | HEADER only |
 | MENU | Insert a menu | All placements |
 | QUOTE | Add a quote | All placements |
-| CONTENT | Add a quote | All placements |
+| CONTENT | Add content i.e. text/html | All placements |
 | CONTENT_META |  Add the title, author, category, date modified and date created information to a post/page| MAIN only |
 | POSTLIST | Add a list of posts or pages | All placements except HEADER |
 | SECTION | Adds a general div element that wraps other commands creating a section | All placements except HEADER |

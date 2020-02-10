@@ -15,17 +15,17 @@ class HtmlOut:
     def __init__(self, content, log, site_settings, list_meta, filename, dependencies, postlist):
         self.log = log
         self.site_settings = site_settings
-        self.categories = list_meta['categories']
-        self.authors = list_meta['authors']
+        self.list_meta = list_meta
+
         self.filename = filename
         self.fileroot = filename.lower().replace('.post','').replace('.page','')
         # check type of file
-        self.is_root = sp.pcom_check_root(self.fileroot,self.site_settings)
+        self.is_root = sp.pcom_check_root(self.fileroot)
         self.is_template,self.is_search = sp.pcom_filter_template(self.fileroot,self.site_settings)
         # adjust fileroot for search
         if self.is_search:
             self.fileroot = sp.pcom_create_template_fileroot(self.fileroot,self.site_settings)
-            
+
         # variable for adding template to page
         self.add_template = {}
         # reset some settings
@@ -110,7 +110,7 @@ class HtmlOut:
         self.content_meta_info = sp.pcom_get_content_meta_info(self.html_array)
         __post = ls.pcom_find_post(self.postlist,self.filename)
         self.html_array = \
-        he.pcom_insert_content_meta_data(self.html_array,self.content_meta_info,self.site_settings,__post,self.is_template)
+        he.pcom_insert_content_meta_data(self.html_array,self.content_meta_info,self.site_settings,self.list_meta,__post,self.is_template)
 
     def insert_additions_into_html(self, placement):
         args = {'html': self.html,
@@ -126,7 +126,7 @@ class HtmlOut:
         self.html = sp.pcom_insert_additions_into_html(args)
 
     def get_raw_content(self):
-        if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
+        if not self.is_search and not self.meta[ct.PCOM_META_UNLISTED]:
             self.raw_content = sp.pcom_create_raw_content(self.html, self.meta)
 
     # updates
@@ -144,10 +144,11 @@ class HtmlOut:
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
             __ppp = self.site_settings['posts_per_page']
             post = ls.pcom_find_post(self.postlist,self.filename)
-            self.categories = ls.pcom_update_categories_from_postlist_data(self.categories,post['categories'],__ppp,post['type'])
+            self.list_meta['categories'] = \
+            ls.pcom_update_categories_from_postlist_data(self.list_meta['categories'],post['categories'],__ppp,post['type'])
 
     def update_authors(self):
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
             __ppp = self.site_settings['posts_per_page']
             post = ls.pcom_find_post(self.postlist,self.filename)
-            self.authors = ls.pcom_update_authors_from_postlist_data(self.authors,post['authors'],__ppp)
+            self.list_meta['authors'] = ls.pcom_update_authors_from_postlist_data(self.list_meta['authors'],post['authors'],__ppp)

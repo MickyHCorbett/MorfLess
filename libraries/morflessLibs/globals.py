@@ -6,30 +6,63 @@ from libraries import meta_defaults as md
 # defines the output file
 # change the value to suit language
 
-DEFAULT_TEMPLATE_TYPES = { 'search': 'search',
-'categories': 'categories',
-'authors': 'authors',
-'archive': 'archive',
-'posts': 'posts'
+DEFAULT_TEMPLATE_TYPES = { ct.PCOM_SETTINGS_TYPE_SEARCH: 'search',
+ct.PCOM_SETTINGS_TYPE_CATEGORIES: 'categories',
+ct.PCOM_SETTINGS_TYPE_AUTHORS: 'authors',
+ct.PCOM_SETTINGS_TYPE_ARCHIVE: 'archive',
+ct.PCOM_SETTINGS_TYPE_POSTS: 'posts'
 }
 
-DEFAULT_TEMPLATE_MAIN_HEADER_TEXT = { "search": "Results for: ",
-"categories": "Categories",
-"authors": "Authors",
-"archive": "Monthly Archives",
-"posts": "Posts"
+DEFAULT_TEMPLATE_SEARCH_CONTENT = {\
+    ct.PCOM_SETTINGS_TYPE_CATEGORIES: {
+        'name': ct.PCOM_SETTINGS_TYPE_CATEGORIES.capitalize(),
+        'thumbnail': '/images/Polimorf-shapes-background-orange.jpg',
+        'description': 'Posts listed by category'
+    },
+    ct.PCOM_SETTINGS_TYPE_AUTHORS: {
+        'name': ct.PCOM_SETTINGS_TYPE_AUTHORS.capitalize(),
+        'thumbnail': '/images/Polimorf-shapes-background-yellow.jpg',
+        'description': 'Posts and pages listed by author'
+    },
+    ct.PCOM_SETTINGS_TYPE_ARCHIVE: {
+        'name': ct.PCOM_SETTINGS_TYPE_ARCHIVE.capitalize(),
+        'thumbnail': '/images/Polimorf-shapes-background-black.jpg',
+        'description': 'Monthly archives arranged by most recent to older'
+    },
+    ct.PCOM_SETTINGS_TYPE_POSTS: {
+        'name': ct.PCOM_SETTINGS_TYPE_POSTS.capitalize(),
+        'thumbnail': '/images/Polimorf-shapes-background-darkblue.jpg',
+        'description': 'Posts by various authors and in various categories'
+    },
+    'index': {
+        'name': 'Home',
+        'thumbnail': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        'description': 'Welcome to the site! Feel free to browse around and follow the links to other pages and posts'
+    },
+    '404': {
+        'name': 'Not Found',
+        'thumbnail': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        'description': "When you can't find anything you end up here!"
+    }
+}
+
+DEFAULT_TEMPLATE_MAIN_HEADER_TEXT={ ct.PCOM_SETTINGS_TYPE_SEARCH: "Results for: ",
+ct.PCOM_SETTINGS_TYPE_CATEGORIES: "Categories",
+ct.PCOM_SETTINGS_TYPE_AUTHORS: "Authors",
+ct.PCOM_SETTINGS_TYPE_ARCHIVE: "Monthly Archives",
+ct.PCOM_SETTINGS_TYPE_POSTS: "Posts"
 }
 
 DEFAULT_TEMPLATE_SUB_HEADER_TEXT = {
-"categories": "Posts for Category: ",
-"authors": "Posts by author: ",
-"archive": "Posts updated on: "
+ct.PCOM_SETTINGS_TYPE_CATEGORIES: "Posts for Category: ",
+ct.PCOM_SETTINGS_TYPE_AUTHORS: "Posts by author: ",
+ct.PCOM_SETTINGS_TYPE_ARCHIVE: "Posts updated on: "
 }
 
 DEFAULT_TEMPLATE_SUB_HEADER_BACK_LINK_TEXT = {
-"categories": "Back to Categories",
-"authors": "Back to Authors",
-"archive": "Back to Archives"
+ct.PCOM_SETTINGS_TYPE_CATEGORIES: "Back to Categories",
+ct.PCOM_SETTINGS_TYPE_AUTHORS: "Back to Authors",
+ct.PCOM_SETTINGS_TYPE_ARCHIVE: "Back to Archives"
 }
 DEFAULT_CONTENT_POST_META = ['title',
 'category',
@@ -55,6 +88,8 @@ DEFAULT_SETTINGS = {'site_title': md.DEFAULT_SITE_TITLE,
 'default_before': '',
 'default_after': '',
 'default_main': '',
+'default_header_additions': [],
+'default_footer_additions': [],
 'header_additions': [],
 'footer_additions': [],
 'add_settings_to_dependencies': [],
@@ -71,6 +106,7 @@ DEFAULT_SETTINGS = {'site_title': md.DEFAULT_SITE_TITLE,
 'template_sub_header_back_link_text': DEFAULT_TEMPLATE_SUB_HEADER_BACK_LINK_TEXT,
 'default_content_post_meta': DEFAULT_CONTENT_POST_META,
 'default_content_page_meta': DEFAULT_CONTENT_PAGE_META,
+'template_search_content': DEFAULT_TEMPLATE_SEARCH_CONTENT,
 'postlist_present': False
 }
 

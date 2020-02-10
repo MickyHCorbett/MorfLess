@@ -7,6 +7,9 @@ from libraries import string_processes as sp
 
 #
 import json
+
+json_simple = 'no_array'
+json_nested = 'nested'
 #
 def pcom_process_meta_syntax(syntax):
 
@@ -137,46 +140,50 @@ def pcom_process_settings_meta_syntax(syntax,settings):
                 settings['site_description'] = commands['command_syntax'].rstrip().lstrip()
 
         if commands['command'] == ct.PCOM_META_CATEGORIES:
-            categories_string = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['category_info'] = json.loads(categories_string,encoding='utf-8')
-            except:
-                settings['category_info'] = { 'name': ct.PCOM_JSON_LOAD_ERROR}
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['category_info'] = updates
+            else:
+                settings['category_info'] = { 'name': ct.PCOM_JSON_LOAD_ERROR }
 
         if commands['command'] == ct.PCOM_META_AUTHOR:
-            author_string = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['author_info'] = json.loads(author_string,encoding='utf-8')
-            except:
-                settings['author_info'] = { 'name': ct.PCOM_JSON_LOAD_ERROR}
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['author_info'] = updates
+            else:
+                settings['author_info'] = { 'name': ct.PCOM_JSON_LOAD_ERROR }
 
         if commands['command'] == ct.PCOM_META_TEMPLATE_TYPES:
-            template_types = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['template_types'] = json.loads(template_types,encoding='utf-8')
-            except:
-                settings = pcom_set_json_load_error(settings,'template_types')
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['template_types'] = \
+                pcom_update_json_based_settings(settings['template_types'],updates,json_simple)
 
         if commands['command'] == ct.PCOM_META_TEMPLATE_MAIN_HEADER_TEXT:
-            template_main_header_text = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['template_main_header_text'] = json.loads(template_main_header_text,encoding='utf-8')
-            except:
-                settings = pcom_set_json_load_error(settings,'template_main_header_text')
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['template_main_header_text'] = \
+                pcom_update_json_based_settings(settings['template_main_header_text'],updates,json_simple)
 
         if commands['command'] == ct.PCOM_META_TEMPLATE_SUB_HEADER_TEXT:
-            template_sub_header_text = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['template_sub_header_text'] = json.loads(template_sub_header_text,encoding='utf-8')
-            except:
-                settings = pcom_set_json_load_error(settings,'template_sub_header_text')
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['template_sub_header_text'] = \
+                pcom_update_json_based_settings(settings['template_sub_header_text'],updates,json_simple)
 
         if commands['command'] == ct.PCOM_META_TEMPLATE_SUB_HEADER_BACK_LINK_TEXT:
-            template_sub_header_back_link_text = commands['command_syntax'].rstrip().lstrip()
-            try:
-                settings['template_sub_header_back_link_text'] = json.loads(template_sub_header_back_link_text,encoding='utf-8')
-            except:
-                settings = pcom_set_json_load_error(settings,'template_sub_header_back_link_text')
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['template_sub_header_back_link_text'] = \
+                pcom_update_json_based_settings(settings['template_sub_header_back_link_text'],updates,json_simple)
+
+        if commands['command'] == ct.PCOM_META_TEMPLATE_SEARCH_CONTENT:
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['template_search_content'] = \
+                pcom_update_json_based_settings(settings['template_search_content'],updates,json_nested)
+
+                print(settings['template_search_content'])
 
         if commands['command'] == ct.PCOM_CONTENT_META_POST_SETTINGS_DEFAULT:
             settings['default_content_post_meta'] = commands['command_syntax'].rstrip().lstrip()
@@ -199,3 +206,22 @@ def pcom_set_json_load_error(settings,member):
         settings[member][ind] = ct.PCOM_JSON_LOAD_ERROR
 
     return settings
+
+def pcom_update_json_based_settings(settings_element,updates,json_type):
+
+    if updates:
+
+        if json_type == json_simple:
+            for k,v in settings_element.items():
+                if k in updates:
+                    settings_element[k] = updates[k]
+
+        if json_type == json_nested:
+            # used for template search
+            for k,v in settings_element.items():
+                if k in updates:
+                    for kk,vv in settings_element[k].items():
+                        if kk in updates[k]:
+                            settings_element[k][kk] = updates[k][kk]
+
+    return settings_element

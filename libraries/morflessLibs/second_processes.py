@@ -8,7 +8,7 @@ from libraries import lists as ls
 
 import json
 
-def pcom_process_postlist(postlist_info,postlist,settings,fileroot):
+def pcom_process_postlist(postlist_info,postlist,settings,list_meta,fileroot):
 
     postlist_constant = ct.PCOM_NO_ENTRY
     processed = False
@@ -60,9 +60,9 @@ def pcom_process_postlist(postlist_info,postlist,settings,fileroot):
 
                 if post['postname'] != ct.PCOM_NO_ENTRY:
                     if list_of_stickies:
-                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_end,ignore_meta=True)
+                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_meta,list_end,ignore_meta=True)
                     else:
-                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_end)
+                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_meta,list_end)
                     postlist_constant += sp.pcom_add_3tabs_to_content_line(entry_html)
 
                 if list_end:
@@ -84,7 +84,7 @@ def pcom_process_postlist(postlist_info,postlist,settings,fileroot):
                         list_end = True
 
                     if post['postname'] != ct.PCOM_NO_ENTRY:
-                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_end,manual_sticky=True)
+                        entry_html =  he.pcom_create_post_list_entry(post,settings,list_meta,list_end,manual_sticky=True)
                         postlist_constant += sp.pcom_add_3tabs_to_content_line(entry_html)
 
                     if list_end:
@@ -143,7 +143,7 @@ def pcom_create_sub_template_title(type,settings,sub):
     return sub_title,back_link
 
 
-def pcom_determine_post_list_from_type(postlist,archive,settings,type,sub):
+def pcom_determine_post_list_from_type(postlist,archive,settings,list_meta,type,sub):
 
     list_of_posts = []
 
@@ -155,21 +155,21 @@ def pcom_determine_post_list_from_type(postlist,archive,settings,type,sub):
 
     if type == ct.PCOM_SETTINGS_TYPE_AUTHORS:
         # get posts and pages
-        list_of_posts = ls.pcom_find_sub_list(postlist['posts'],settings['author_info'],type,sub,'',True)
+        list_of_posts = ls.pcom_find_sub_list(postlist['posts'],list_meta['authors']['authors'],type,sub,'',True)
 
     if type == ct.PCOM_SETTINGS_TYPE_ARCHIVE:
         list_of_posts = ls.pcom_find_sub_list_archive(archive,postlist,sub,'post')
 
     return list_of_posts
 
-def pcom_process_template_postlist(postlist,archive,type,settings,fileroot,sub=''):
+def pcom_process_template_postlist(postlist,archive,type,settings,list_meta,fileroot,sub=''):
 
     processed = False
     postlist_constant = ''
     sub_title = ''
     back_link = ''
 
-    list_of_posts = pcom_determine_post_list_from_type(postlist,archive,settings,type,sub)
+    list_of_posts = pcom_determine_post_list_from_type(postlist,archive,settings,list_meta,type,sub)
     sub_title,back_link = pcom_create_sub_template_title(type,settings,sub)
 
     # order most recent first
@@ -201,7 +201,7 @@ def pcom_process_template_postlist(postlist,archive,type,settings,fileroot,sub='
                 list_end = True
 
             if post['postname'] != ct.PCOM_NO_ENTRY:
-                entry_html =  he.pcom_create_post_list_entry(post,settings,list_end)
+                entry_html =  he.pcom_create_post_list_entry(post,settings,list_meta,list_end)
                 postlist_constant += sp.pcom_add_3tabs_to_content_line(entry_html)
 
     postlist_constant += ct.T2 + '],' + ct.NL
@@ -216,7 +216,7 @@ def pcom_process_template_postlist(postlist,archive,type,settings,fileroot,sub='
                 list_end = True
 
             if post['postname'] != ct.PCOM_NO_ENTRY:
-                entry_html =  he.pcom_create_post_list_entry(post,settings,list_end)
+                entry_html =  he.pcom_create_post_list_entry(post,settings,list_meta,list_end)
                 postlist_constant += sp.pcom_add_3tabs_to_content_line(entry_html)
 
             if list_end:
@@ -458,7 +458,7 @@ def pcom_process_pagination(postlist,pg_name,fileroot,info):
 
 # --- PROCESS PAGES sesction
 
-def pcom_process_posts_page(postlist,archive,settings,log,template_content):
+def pcom_process_posts_page(postlist,archive,settings,list_meta,log,template_content):
 
     info_out = {'template_content': '',
     's3url': '',
@@ -477,7 +477,7 @@ def pcom_process_posts_page(postlist,archive,settings,log,template_content):
 
         # create postlist js
         fileroot = post_type
-        posts_constant,processed = pcom_process_template_postlist(postlist,archive,post_type,settings,fileroot)
+        posts_constant,processed = pcom_process_template_postlist(postlist,archive,post_type,settings,list_meta,fileroot)
 
         if processed:
             info_out['template_content'] = template_content
@@ -490,7 +490,7 @@ def pcom_process_posts_page(postlist,archive,settings,log,template_content):
 
     return info_out,log
 
-def pcom_process_info_base_pages(info_list,base_type,template_content,postlist,archive,settings,log):
+def pcom_process_info_base_pages(info_list,base_type,template_content,postlist,archive,settings,list_meta,log):
 
     info_out = {'template_content': '',
     's3url': '',
@@ -527,7 +527,7 @@ def pcom_process_info_base_pages(info_list,base_type,template_content,postlist,a
             for ind,info in enumerate(base_sub_info):
                 sub_content = pcom_update_template_meta(template_content,info)
                 sub_js_constant,processed = \
-                pcom_process_template_postlist(postlist,archive,base_type,settings,info['fileroot'],sub=info['title'])
+                pcom_process_template_postlist(postlist,archive,base_type,settings,list_meta,info['fileroot'],sub=info['title'])
 
                 base_sub_info[ind]['template_content'] = sub_content
                 base_sub_info[ind]['js_constant'] = sub_js_constant
@@ -561,7 +561,7 @@ def pcom_process_search_config(settings):
 
     return list_constant
 
-def pcom_create_search_response(search_content,postlist,settings):
+def pcom_create_search_response(search_content,postlist,settings,list_meta):
 
     # json data with js formatting for elements
 
@@ -570,16 +570,49 @@ def pcom_create_search_response(search_content,postlist,settings):
     if search_content:
 
         for ind2,entry in enumerate(search_content):
-            if ind2 == (len(search_content)-1):
-                list_end = '';
 
+            # check post list
             post = ls.pcom_find_post(postlist,entry['name'])
             if post['postname'] != ct.PCOM_NO_ENTRY:
 
-                entry_html = he.pcom_create_search_post_list_entry(post,settings,ignore_meta=True)
+                entry_html = he.pcom_create_search_post_list_entry(post,settings,list_meta,ignore_meta=True)
+                entry_html = sp.pcom_add_3tabs_to_content_line(entry_html)
+                # create json compliant data
+                entry_html = json.dumps(entry_html,indent=4)
+                list_data['entries'].append(entry_html)
+
+            # check template search content
+            post = ls.pcom_find_template_search_content(settings,entry['name'])
+            print(json.dumps(post))
+
+            if post['name'] != ct.PCOM_NO_ENTRY:
+
+                url = sp.pcom_create_template_search_content_url(entry['name'],settings)
+                entry_html = he.pcom_create_template_search_list_entry(post,url,settings)
                 entry_html = sp.pcom_add_3tabs_to_content_line(entry_html)
                 # create json compliant data
                 entry_html = json.dumps(entry_html,indent=4)
                 list_data['entries'].append(entry_html)
 
     return list_data
+
+def pcom_search_content(search_content,search_term):
+
+    results = []
+
+    if search_term and search_content:
+
+        for ind,entry in enumerate(search_content):
+            search_term = search_term.lower().replace("'",ct.JS_APOS_REPLACE)
+            search_content[ind]['count'] = entry['content'].lower().count(search_term)
+
+        # order
+        search_content_ordered = sorted(search_content, key=lambda entry: entry['count'],reverse=True)
+
+        for entry in search_content_ordered:
+            entry_name = entry['name'].replace('.content','')
+            if entry['count'] > 0:
+                searched = {'name': entry_name, 'count': entry['count']}
+                results.append(searched)
+
+    return results

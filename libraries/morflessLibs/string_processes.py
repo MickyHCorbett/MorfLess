@@ -47,6 +47,23 @@ def pcom_create_url(file,meta):
 
     return outkey,type
 
+def pcom_create_template_search_content_url(file,settings):
+
+    url = "/"
+    fileroot = ''
+    if file.lower().find('.page') > -1:
+        fileroot = file.replace('.page','')
+
+    if fileroot:
+        if fileroot == "index":
+            url = '/'
+        elif fileroot == "404":
+            url = '404.html'
+        elif fileroot in settings['template_search_content']:
+            url = '/' + pcom_create_template_fileroot(fileroot,settings) + '/'
+
+    return url
+
 def pcom_filter_template(fileroot,settings):
 
     is_template = False
@@ -60,7 +77,7 @@ def pcom_filter_template(fileroot,settings):
 
     return is_template,is_search
 
-def pcom_check_root(fileroot,settings):
+def pcom_check_root(fileroot):
 
     is_root= False
 
@@ -97,7 +114,7 @@ def pcom_replace_quotes(text):
     return text
 
 def pcom_find_author_full_name(name,authors):
-
+    # if 'name' is in the array it means there is an error
     if 'name' not in authors:
         for author in authors:
             if name.lower() == author['name'].lower() or name.lower() == author['shortname'].lower():
@@ -721,13 +738,19 @@ def pcom_assign_content_meta(content_meta_list):
 
 def pcom_strip_string(content):
 
-    sub_for_space = '8.1.1.8'
+    sub_for_space = '8SP8'
+    sub_for_dots = 'D9D9'
+    sub_for_new_line = '34NL43'
     # replace spaces
     content = content.replace(' ',sub_for_space)
+    content = content.replace('.',sub_for_dots)
+    content = content.replace('\n',sub_for_new_line)
     # strip
-    ''.join(e for e in content if e.isalnum())
-    # re sub spaces
+    content = ''.join(e for e in content if e.isalnum())
+    # re sub spaces, dots and new line
     content = content.replace(sub_for_space,' ')
+    content = content.replace(sub_for_dots,'.')
+    content = content.replace(sub_for_new_line,'\n')
 
     return content
 
@@ -737,20 +760,35 @@ def pcom_strip_string(content):
 
 def pcom_create_raw_content(content,meta):
 
-    # remove head and style from html content
+    # remove head, style from html content
     head_start_end = pcom_get_strings_syntax_separator(content,"</head>",True)
     content = head_start_end['syntax_after']
 
-    style_tags_start_found = pcom_build_dictionary(gb.DEFAULT_STRING_SEPARATOR)
-    style_tags_start_found['syntax_after'] = ''
+    start_found = pcom_build_dictionary(gb.DEFAULT_STRING_SEPARATOR)
+    start_found['syntax_after'] = ''
 
-    while style_tags_start_found['syntax_after'] != ct.PCOM_NO_ENTRY:
-        style_tags_start_found = pcom_get_strings_syntax_separator(content,"<style>",True)
-        if style_tags_start_found['command_found']:
-            style_tags_start_end = pcom_get_strings_syntax_separator(content,"</style>",True)
-            if style_tags_start_end['command_found']:
+    while start_found['syntax_after'] != ct.PCOM_NO_ENTRY:
+        start_found = pcom_get_strings_syntax_separator(content,"<style>",True)
+        if start_found['command_found']:
+            tags_start_end = pcom_get_strings_syntax_separator(content,"</style>",True)
+            if tags_start_end['command_found']:
                 # remove style content
-                content = style_tags_start_found['syntax_before'] + style_tags_start_end['syntax_after']
+                content = start_found['syntax_before'] + tags_start_end['syntax_after']
+
+
+
+    # remove script content
+    start_found = pcom_build_dictionary(gb.DEFAULT_STRING_SEPARATOR)
+    start_found['syntax_after'] = ''
+    #
+    while start_found['syntax_after'] != ct.PCOM_NO_ENTRY:
+        start_found = pcom_get_strings_syntax_separator(content,"<script>",True)
+        if start_found['command_found']:
+            tags_start_end = pcom_get_strings_syntax_separator(start_found['syntax_after'],"</script>",True)
+            if tags_start_end['command_found']:
+                # remove style content
+                content = start_found['syntax_before'] + tags_start_end['syntax_after']
+
 
     clean_section = re.compile('<.*?>')
     raw_content = re.sub(clean_section, '', content).rstrip().lstrip()

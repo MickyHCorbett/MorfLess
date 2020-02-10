@@ -65,7 +65,7 @@ PCOM_SETTINGS_SIDEBAR = 'SETTINGS_SIDEBAR'
 PCOM_SETTINGS_FOOTER = 'SETTINGS_FOOTER'
 
 PCOM_SETTINGS_TYPE_POSTS = 'posts'
-PCOM_SETTINGS_TYPE_CATEGORIES= 'categories'
+PCOM_SETTINGS_TYPE_CATEGORIES = 'categories'
 PCOM_SETTINGS_TYPE_AUTHORS = 'authors'
 PCOM_SETTINGS_TYPE_ARCHIVE = 'archive'
 PCOM_SETTINGS_TYPE_SEARCH = 'search'
@@ -84,10 +84,10 @@ PCOM_REQ_FILE_AUTHORS = 'authors.json'
 PCOM_REQ_FILE_ARCHIVE = 'archive.json'
 PCOM_REQ_FILE_DEPENDENCIES = 'dependencies.json'
 
-PCOM_REQ_FILE_TEMPLATES = { 'posts': 'posts.template',
-'categories': 'categories.template',
-'authors': 'authors.template',
-'archive': 'archive.template' }
+PCOM_REQ_FILE_TEMPLATES = { PCOM_SETTINGS_TYPE_POSTS: 'posts.template',
+PCOM_SETTINGS_TYPE_CATEGORIES: 'categories.template',
+PCOM_SETTINGS_TYPE_AUTHORS: 'authors.template',
+PCOM_SETTINGS_TYPE_ARCHIVE: 'archive.template' }
 
 # dependency list tags
 PCOM_DEPENDENCY_LIST_FILENAME = 'filename'
@@ -127,6 +127,7 @@ PCOM_META_IGNORE_QUOTES = '!$!'
 PCOM_META_TEMPLATE_MAIN_HEADER_TEXT = 'template_main_header_text'
 PCOM_META_TEMPLATE_SUB_HEADER_TEXT = 'template_sub_header_text'
 PCOM_META_TEMPLATE_SUB_HEADER_BACK_LINK_TEXT = 'template_sub_header_back_link_text'
+PCOM_META_TEMPLATE_SEARCH_CONTENT = 'template_search_content'
 
 # use system schematic settings
 PCOM_DEFAULT_COMMAND = 'DEFAULT'

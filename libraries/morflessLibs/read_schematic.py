@@ -23,11 +23,11 @@ def get_settings(content):
     out = me.pcom_process_settings_meta_syntax(schematic_content['meta'],out)
 
     default_header,settings = polimorf_process_settings_schematic(schematic_content['header'],args,ct.PCOM_SETTINGS_HEADER, type_none, out)
-    default_before,settings = polimorf_process_settings_schematic(schematic_content['before'],args,ct.PCOM_SETTINGS_BEFORE, type_none, out)
-    default_main,settings = polimorf_process_settings_schematic(schematic_content['main'],args,ct.PCOM_SETTINGS_MAIN, type_none, out)
-    default_after,settings = polimorf_process_settings_schematic(schematic_content['after'],args,ct.PCOM_SETTINGS_AFTER, type_none, out)
-    default_sidebar,settings = polimorf_process_settings_schematic(schematic_content['sidebar'],args,ct.PCOM_SETTINGS_SIDEBAR, type_none, out)
-    default_footer,settings = polimorf_process_settings_schematic(schematic_content['footer'],args,ct.PCOM_SETTINGS_FOOTER, type_none, out)
+    default_before,settings = polimorf_process_settings_schematic(schematic_content['before'],args,ct.PCOM_SETTINGS_BEFORE, type_none, settings)
+    default_main,settings = polimorf_process_settings_schematic(schematic_content['main'],args,ct.PCOM_SETTINGS_MAIN, type_none, settings)
+    default_after,settings = polimorf_process_settings_schematic(schematic_content['after'],args,ct.PCOM_SETTINGS_AFTER, type_none, settings)
+    default_sidebar,settings = polimorf_process_settings_schematic(schematic_content['sidebar'],args,ct.PCOM_SETTINGS_SIDEBAR, type_none, settings)
+    default_footer,settings = polimorf_process_settings_schematic(schematic_content['footer'],args,ct.PCOM_SETTINGS_FOOTER, type_none, settings)
 
     out['default_header'] = sp.pcom_create_html_from_array(default_header)
     out['default_before'] = sp.pcom_create_html_from_array(default_before)
@@ -35,6 +35,10 @@ def get_settings(content):
     out['default_after'] = sp.pcom_create_html_from_array(default_after)
     out['default_sidebar'] = sp.pcom_create_html_from_array(default_sidebar)
     out['default_footer'] = sp.pcom_create_html_from_array(default_footer)
+    out['default_header_additions'] = settings['header_additions']
+    out['default_footer_additions'] = settings['footer_additions']
+    out['header_additions'] = []
+    out['footer_additions'] = []
 
     return out
 
@@ -196,6 +200,7 @@ def polimorf_process_settings_schematic(schematic,args,placement,type,settings):
     # default output
     # convert placements to those used in parsing the html
     placement_for_html = pcom_determine_placement(placement)
+    schematic_orig = schematic
 
     if schematic == ct.PCOM_NO_ENTRY:
         out = [ct.PCOM_NO_ENTRY]
@@ -221,6 +226,26 @@ def polimorf_process_settings_schematic(schematic,args,placement,type,settings):
             # append to out data
             command = schematic_commands['command']
             out.append(syntax)
+
+        # loop over additions
+        # set command data array
+        schematic = schematic_orig
+        type = ct.PCOM_NO_ENTRY
+        schematic_commands = sp.pcom_build_dictionary(gb.DEFAULT_GET_FIRST_COMMAND_OUTPUTS)
+        schematic_commands['next_command'] = ""
+
+        while schematic_commands['next_command'] != ct.PCOM_NO_ENTRY:
+            schematic_commands = sp.pcom_get_first_command(schematic,args)
+            settings = he.pcom_addition_selection(schematic_commands['command'],schematic_commands['command_syntax'],placement_for_html, type, settings)
+            schematic = schematic_commands['next_command']
+            # append to out data
+            command = schematic_commands['command']
+
+        # if placement_for_html == ct.PCOM_HEADER_PLACEMENT:
+        #     out.extend(settings['header_additions'])
+        #
+        # if placement_for_html == ct.PCOM_FOOTER_PLACEMENT:
+        #     out.extend(settings['footer_additions'])
 
     return out,settings
 
@@ -260,7 +285,7 @@ def polimorf_process_schematic_sections(data, settings,filename,fileroot):
             out_html += header.polimorf_add_header(data['header'],meta_present) + ct.NL
 
         if data['before'] != [ct.PCOM_NO_ENTRY]:
-            out_html += before_after.polimorf_add_before(data['before'],meta_present)
+            out_html += before_after.polimorf_add_before(data['before'],data['sidebar'],meta_present)
         else:
             add_main_wrap = True
 
@@ -271,7 +296,7 @@ def polimorf_process_schematic_sections(data, settings,filename,fileroot):
             add_after_wrap = True
 
         if data['after'] != [ct.PCOM_NO_ENTRY]:
-            out_html += before_after.polimorf_add_after(data['after'],meta_present, add_after_wrap) + ct.NL
+            out_html += before_after.polimorf_add_after(data['after'],data['sidebar'],meta_present, add_after_wrap) + ct.NL
         else:
             out_html += sch.PM_MAIN_WRAP_CLOSE + ct.NL
 

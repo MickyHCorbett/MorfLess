@@ -20,9 +20,16 @@ def pcom_command_selection(command,syntax,placement,type,settings):
             out = eval(function_call + args)
 
         # if default command add settings file once to valid insert list
+        # include default header and footer additions depending on placement
         if proc_com['command'] == ct.PCOM_DEFAULT_COMMAND:
             if ct.PCOM_REQ_FILE_SETTINGS not in settings['add_settings_to_dependencies']:
                 settings['add_settings_to_dependencies'].append(ct.PCOM_REQ_FILE_SETTINGS)
+
+            if placement == ct.PCOM_HEADER_PLACEMENT:
+                settings['header_additions'].extend(settings['default_header_additions'])
+
+            if placement == ct.PCOM_FOOTER_PLACEMENT:
+                settings['footer_additions'].extend(settings['default_footer_additions'])
 
         if proc_com['command'] == ct.PCOM_POST_LIST_COMMAND:
             settings['postlist_present'] = True
@@ -732,7 +739,7 @@ def pcom_find_content_meta_keywords(syntax):
 
     return list
 
-def pcom_insert_content_meta_data(html_array,content_meta_info,settings,post,is_template):
+def pcom_insert_content_meta_data(html_array,content_meta_info,settings,list_meta,post,is_template):
 
     if content_meta_info:
 
@@ -750,10 +757,14 @@ def pcom_insert_content_meta_data(html_array,content_meta_info,settings,post,is_
                       out_html += ct.T3 + '<h1>' + post['title'] + '</h1>' + ct.NL
 
                     if info['category']:
-                        out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_CATEGORIES,no_js=True)
+                        p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
+                        out_html += \
+                        pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,no_js=True)
 
                     if info['author']:
-                        out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_AUTHORS,no_js=True)
+                        p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
+                        out_html += \
+                        pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,no_js=True)
 
                     if info['date_created']:
                         out_html += pcom_insert_date_created(post,settings,info['show_time'])
@@ -902,7 +913,7 @@ def pcom_process_postlist_keywords(syntax):
 # Create post entry using default image and post
 # Outputs to screen
 #
-def pcom_create_post_list_entry(post,settings,list_end,manual_sticky=False,ignore_meta=False,no_js=False):
+def pcom_create_post_list_entry(post,settings,list_meta,list_end,manual_sticky=False,ignore_meta=False,no_js=False):
 
     next_entry = "'"
     if not list_end:
@@ -936,9 +947,11 @@ def pcom_create_post_list_entry(post,settings,list_end,manual_sticky=False,ignor
     out_html += ct.T5 + '<h2><a href="' + post['url'] + '">' + post['title'] + '</a></h2>' + js_escape + ct.NL
 
     if post['type'] != 'page':
-        out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_CATEGORIES,add_escape=True)
+        p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
+        out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=True)
 
-    out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_AUTHORS,add_escape=True)
+    p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
+    out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=True)
 
     out_html += ct.T5 + '<p>' + extract.replace('\n','<br/>') + '</p>' + js_escape + ct.NL
 
@@ -947,7 +960,7 @@ def pcom_create_post_list_entry(post,settings,list_end,manual_sticky=False,ignor
 
     return out_html
 
-def pcom_create_search_post_list_entry(post,settings,ignore_meta=False):
+def pcom_create_search_post_list_entry(post,settings,list_meta,ignore_meta=False):
 
     extract = post['extract']
     extract = sp.pcom_replace_quotes(extract)
@@ -971,9 +984,11 @@ def pcom_create_search_post_list_entry(post,settings,ignore_meta=False):
     out_html += ct.T5 + '<h2><a href="' + post['url'] + '">' + post['title'] + '</a></h2>' + ct.NL
 
     if post['type'] != 'page':
-        out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_CATEGORIES,add_escape=False,no_js=True)
+        p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
+        out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=False,no_js=True)
 
-    out_html += pcom_insert_author_category_in_post_list(post,settings,ct.PCOM_SETTINGS_TYPE_AUTHORS,add_escape=False,no_js=True)
+    p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
+    out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=False,no_js=True)
 
     out_html += ct.T5 + '<p>' + extract.replace('\n','<br/>') + '</p>' + ct.NL
 
@@ -983,34 +998,61 @@ def pcom_create_search_post_list_entry(post,settings,ignore_meta=False):
     return out_html
 
 # creates category, author etc  element for main info page list
-def pcom_create_info_list_entry(entry,url,settings,list_end):
+def pcom_create_info_list_entry(entry,url,settings,list_end,no_js=False):
 
     next_entry = "'"
     if not list_end:
         next_entry = "',"
 
+    js_escape = ct.JS_ESCAPE
+    if no_js:
+        js_escape = ''
+
     entry_name = sp.pcom_replace_quotes(entry['name'])
     entry_name_alt = entry['name'].replace("'","-").replace(" ","-")
     description = sp.pcom_replace_quotes(entry['description'])
 
-    out_html = "'" + ct.JS_ESCAPE + ct.NL
-    out_html += sch.PM_POST_LIST_POST_CONTENT_OPEN + ct.JS_ESCAPE + ct.NL
-    out_html += sch.PM_POST_LIST_POST_IMAGE_OPEN + ct.JS_ESCAPE + ct.NL
+    out_html = "'" + js_escape + ct.NL
+    out_html += sch.PM_POST_LIST_POST_CONTENT_OPEN + js_escape + ct.NL
+    out_html += sch.PM_POST_LIST_POST_IMAGE_OPEN + js_escape + ct.NL
 
     if not entry['thumbnail']:
         entry['thumbnail'] = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
 
-    out_html += ct.T4 + '<a href="' + url + '">' + ct.JS_ESCAPE + ct.NL
-    out_html += ct.T5 + '<img src="' + entry['thumbnail'] + '" alt="' + entry_name_alt + '"  />' + ct.JS_ESCAPE + ct.NL
-    out_html += sch.PM_POST_LIST_POST_IMAGE_CLOSE + ct.JS_ESCAPE + ct.NL
-    out_html += sch.PM_POST_LIST_BLOG_ENTRY_OPEN + ct.JS_ESCAPE + ct.NL
-    out_html += ct.T5 + '<h2><a href="' + url + '">' + entry_name + '</a></h2>' + ct.JS_ESCAPE + ct.NL
-    out_html += ct.T5 + '<p>' + description.replace('\n','<br/>') + '</p>' + ct.JS_ESCAPE + ct.NL
-    out_html += sch.PM_POST_LIST_BLOG_ENTRY_CLOSE + ct.JS_ESCAPE + ct.NL
+    out_html += ct.T4 + '<a href="' + url + '">' + js_escape + ct.NL
+    out_html += ct.T5 + '<img src="' + entry['thumbnail'] + '" alt="' + entry_name_alt + '"  />' + js_escape + ct.NL
+    out_html += sch.PM_POST_LIST_POST_IMAGE_CLOSE + js_escape + ct.NL
+    out_html += sch.PM_POST_LIST_BLOG_ENTRY_OPEN + js_escape + ct.NL
+    out_html += ct.T5 + '<h2><a href="' + url + '">' + entry_name + '</a></h2>' + js_escape + ct.NL
+    out_html += ct.T5 + '<p>' + description.replace('\n','<br/>') + '</p>' + js_escape + ct.NL
+    out_html += sch.PM_POST_LIST_BLOG_ENTRY_CLOSE + js_escape + ct.NL
     out_html += sch.PM_POST_LIST_POST_CONTENT_CLOSE + next_entry + ct.NL
 
     return out_html
 
+def pcom_create_template_search_list_entry(entry,url,settings):
+
+    entry_name = sp.pcom_replace_quotes(entry['name'])
+    entry_name_alt = entry['name'].replace("'","-").replace(" ","-")
+    description = sp.pcom_replace_quotes(entry['description'])
+
+    out_html = ''
+    out_html += sch.PM_POST_LIST_POST_CONTENT_OPEN + ct.NL
+    out_html += sch.PM_POST_LIST_POST_IMAGE_OPEN + ct.NL
+
+    if not entry['thumbnail']:
+        entry['thumbnail'] = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+
+    out_html += ct.T4 + '<a href="' + url + '">' + ct.NL
+    out_html += ct.T5 + '<img src="' + entry['thumbnail'] + '" alt="' + entry_name_alt + '"  />' + ct.NL
+    out_html += sch.PM_POST_LIST_POST_IMAGE_CLOSE + ct.NL
+    out_html += sch.PM_POST_LIST_BLOG_ENTRY_OPEN + ct.NL
+    out_html += ct.T5 + '<h2><a href="' + url + '">' + entry_name + '</a></h2>' + ct.NL
+    out_html += ct.T5 + '<p>' + description.replace('\n','<br/>') + '</p>' + ct.NL
+    out_html += sch.PM_POST_LIST_BLOG_ENTRY_CLOSE + ct.NL
+    out_html += sch.PM_POST_LIST_POST_CONTENT_CLOSE
+
+    return out_html
 
 def pcom_create_archive_entry(entry,base_name,settings):
 
@@ -1023,7 +1065,7 @@ def pcom_create_archive_entry(entry,base_name,settings):
     return out_html
 
 # creates category, author etc  element for main info page list
-def pcom_insert_author_category_in_post_list(post,settings,type,add_escape=False,no_js=False):
+def pcom_insert_author_category_in_post_list(post,settings,list_meta_array,type,add_escape=False,no_js=False):
 
     out_html = ''
     delimiter = ',&nbsp;'
@@ -1049,7 +1091,7 @@ def pcom_insert_author_category_in_post_list(post,settings,type,add_escape=False
                 delimiter = ''
 
             if type == ct.PCOM_SETTINGS_TYPE_AUTHORS:
-                entry = sp.pcom_find_author_full_name(entry,settings['author_info'])
+                entry = sp.pcom_find_author_full_name(entry,list_meta_array)
                 entry_for_url = entry
                 entry = sp.pcom_replace_quotes(entry)
                 sub_url = entry_for_url.lower().replace("'","-").replace(' ','-')
@@ -1150,7 +1192,7 @@ def pcom_insert_styling_command(syntax,custom_class,placement,type,settings):
     syntax = sp.pcom_add_tab_to_content_line(syntax)
     # if not empty echo to screen within style tags
     if syntax != "":
-        out_html = ct.T1 + '<!-- custom inline styling -->'
+        out_html = ct.NL + ct.T1 + '<!-- custom inline styling -->'
         out_html += ct.NL + ct.T1 + '<style>'
         out_html += ct.NL + ct.T1 + syntax.rstrip().lstrip()
         out_html += ct.NL + ct.T1 + '</style>'
@@ -1224,13 +1266,17 @@ def pcom_process_section_command(syntax,custom_class,placement,type,settings):
     if section_data['command_found']:
         section_name = section_data['command_syntax']
 
+        section_sub_tab = ''
+        if placement == ct.PCOM_MAIN_PLACEMENT:
+            section_sub_tab = ct.PCOM_SECTION_SIDEBAR_TAB
+
         # remove name and set as schematic
         schematic = section_data['command'] + section_data['syntax_after']
 
         if schematic == ct.PCOM_NO_ENTRY:
             out = ct.PCOM_NO_ENTRY
         else:
-            start_section = (ct.PCOM_SECTION_SIDEBAR_TAB + '<div id="' + section_name + '"' +
+            start_section = (section_sub_tab + '<div id="' + section_name + '"' +
             sch.PM_ADD_SECTION_CLASS + custom_class + '">' + ct.NL)
             out += start_section + ct.NL
 
@@ -1249,6 +1295,6 @@ def pcom_process_section_command(syntax,custom_class,placement,type,settings):
                 out += syntax + ct.NL
 
             # close div
-            out += ct.PCOM_SECTION_SIDEBAR_TAB + '</div><!-- end of section -->' + ct.NL
+            out += section_sub_tab + '</div><!-- end of section -->' + ct.NL
 
     return out,settings

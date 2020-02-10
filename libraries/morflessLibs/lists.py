@@ -30,6 +30,20 @@ def pcom_find_post(postlist,postname):
 
     return post
 
+def pcom_find_template_search_content(settings,file):
+
+    fileroot = ''
+    if file.lower().find('.page') > -1:
+        fileroot = file.replace('.page','')
+
+    print(fileroot)
+    post = {'name': ct.PCOM_NO_ENTRY }
+    if fileroot:
+        if fileroot in settings['template_search_content']:
+            post = settings['template_search_content'][fileroot]
+
+    return post
+
 
 def pcom_find_post_index(post):
     index = 0
@@ -279,10 +293,10 @@ def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, ty
             ('url', url),
             ('title', meta['page_title']),
             ('postname', name),
-            ('description', sp.pcom_strip_string(meta['page_description'])),
+            ('description', meta['page_description']),
             ('categories', cats),
             ('authors', authors),
-            ('extract',sp.pcom_strip_string(meta['page_extract'])),
+            ('extract',meta['page_extract']),
             ('thumbnail',meta['thumb_link']),
             ('creation_date', date),
             ('creation_time', time),
@@ -292,8 +306,8 @@ def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, ty
     else:
         # update other attributes in current post
         post['title'] = meta['page_title']
-        post['description'] = sp.pcom_strip_string(meta['page_description'])
-        post['extract'] = sp.pcom_strip_string(meta['page_extract'])
+        post['description'] = meta['page_description']
+        post['extract'] = meta['page_extract']
         post['thumbnail'] = meta['thumb_link']
         post['date_modified'] = date
         post['time_modified'] = time
@@ -447,20 +461,35 @@ def pcom_update_categories_from_settings(categories,settings_categories,posts_pe
         for settings_category in settings_categories:
             # check to see if already there
             cat_present = False
-            for ind, category in enumerate(categories['categories']):
-                if settings_category['name'] == category['name']:
-                    cat_present = True
-                    # update data
-                    category['thumbnail'] = settings_category['thumbnail']
-                    category['description'] = sp.pcom_strip_string(settings_category['description'])
 
-                    categories['categories'][ind] = category
+            for ind, category in enumerate(categories['categories']):
+
+                if 'name' in settings_category:
+
+                    if settings_category['name'] == category['name']:
+                        cat_present = True
+                        # update data
+                        category['thumbnail'] = settings_category['thumbnail']
+                        category['description'] = settings_category['description']
+
+                        categories['categories'][ind] = category
 
             if not cat_present:
-                new_category = OrderedDict([ ('name', settings_category['name']),
-                    ('thumbnail', settings_category['thumbnail']),
-                    ('description', sp.pcom_strip_string(settings_category['description'])) ])
-                categories['categories'].append(new_category)
+                if 'name' in settings_category:
+
+                    thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                    if 'thumbnail' in settings_category:
+                        if settings_category['thumbnail']:
+                            thumbnail = settings_category['thumbnail']
+
+                    description = ''
+                    if 'description' in settings_category:
+                        description = settings_category['description']
+
+                    new_category = OrderedDict([ ('name', settings_category['name']),
+                        ('thumbnail', thumbnail),
+                        ('description', description) ])
+                    categories['categories'].append(new_category)
 
         # update no of pages
         categories['no_of_category_pages'] = pcom_calculate_posts_per_page(len(categories['categories']),posts_per_page)
@@ -474,23 +503,42 @@ def pcom_update_authors_from_settings(authors,settings_authors,posts_per_page):
         for settings_author in settings_authors:
             # check to see if already there
             author_present =  False
-            for ind,author in enumerate(authors['authors']):
-                if settings_author['name'] == author['name'] or settings_author['shortname'] == author['shortname']:
-                    author_present = True
-                    # update data
-                    author['name'] = settings_author['name']
-                    author['shortname'] = settings_author['shortname']
-                    author['thumbnail'] = settings_author['thumbnail']
-                    author['description'] = sp.pcom_strip_string(settings_author['description'])
 
-                    authors['authors'][ind] = author
+            for ind,author in enumerate(authors['authors']):
+
+                if 'name' in settings_author and 'shortname' in settings_author:
+
+                    if settings_author['name'] == author['name'] or settings_author['shortname'] == author['shortname']:
+                        author_present = True
+                        # update data
+                        if 'name' in settings_author:
+                            author['name'] = settings_author['name']
+                        if 'shortname' in settings_author:
+                            author['shortname'] = settings_author['shortname']
+                        if 'thumbnail' in settings_author:
+                            author['thumbnail'] = settings_author['thumbnail']
+                        if 'description' in settings_author:
+                            author['description'] = settings_author['description']
+
+                        authors['authors'][ind] = author
 
             if not author_present:
-                new_author = OrderedDict([ ('name', settings_author['name']),
-                    ('shortname', settings_author['shortname']),
-                    ('thumbnail', settings_author['thumbnail']),
-                    ('description', sp.pcom_strip_string(settings_author['description'])) ])
-                authors['authors'].append(new_author)
+                if 'name' in settings_author and 'shortname' in settings_author:
+
+                    thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                    if 'thumbnail' in settings_author:
+                        if settings_author['thumbnail']:
+                            thumbnail = settings_author['thumbnail']
+
+                    description = ''
+                    if 'description' in settings_author:
+                        description = settings_author['description']
+
+                    new_author = OrderedDict([ ('name', settings_author['name']),
+                        ('shortname', settings_author['shortname']),
+                        ('thumbnail', thumbnail),
+                        ('description', description) ])
+                    authors['authors'].append(new_author)
 
         # update no of pages
         authors['no_of_author_pages'] = pcom_calculate_posts_per_page(len(authors['authors']),posts_per_page)

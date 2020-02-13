@@ -7,6 +7,7 @@ from unit.test_handler_read_schematic import ReadSchematicHandlerCase
 from unit.test_handler_string_processes_1 import StringProcesses1HandlerCase
 from unit.test_handler_string_processes_2 import StringProcesses2HandlerCase
 from unit.test_handler_lists_1 import ListsHandler1Case
+from unit.test_handler_meta_elements import MetaElementsCase
 
 def suite():
     suite = unittest.TestSuite()
@@ -15,6 +16,7 @@ def suite():
     suite.addTest(StringProcesses1HandlerCase())
     suite.addTest(StringProcesses2HandlerCase())
     suite.addTest(ListsHandler1Case())
+    suite.addTest(MetaElementsCase())
     return suite
 
 if __name__ == '__main__':

@@ -54,7 +54,7 @@ ct.PCOM_SETTINGS_TYPE_POSTS: "Posts"
 }
 
 DEFAULT_TEMPLATE_SUB_HEADER_TEXT = {
-ct.PCOM_SETTINGS_TYPE_CATEGORIES: "Posts for Category: ",
+ct.PCOM_SETTINGS_TYPE_CATEGORIES: "Posts for category: ",
 ct.PCOM_SETTINGS_TYPE_AUTHORS: "Posts by author: ",
 ct.PCOM_SETTINGS_TYPE_ARCHIVE: "Posts updated on: "
 }

@@ -204,13 +204,6 @@ def pcom_process_settings_meta_syntax(syntax,settings):
     return settings
 
 
-def pcom_set_json_load_error(settings,member):
-
-    for ind,entry in settings[member]:
-        settings[member][ind] = ct.PCOM_JSON_LOAD_ERROR
-
-    return settings
-
 def pcom_update_json_based_settings(settings_element,updates,json_type):
 
     if updates:

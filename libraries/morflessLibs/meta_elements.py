@@ -183,7 +183,11 @@ def pcom_process_settings_meta_syntax(syntax,settings):
                 settings['template_search_content'] = \
                 pcom_update_json_based_settings(settings['template_search_content'],updates,json_nested)
 
-                print(settings['template_search_content'])
+        if commands['command'] == ct.PCOM_META_DEFAULT_AUTHOR:
+            updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            if error != ct.PCOM_JSON_LOAD_ERROR:
+                settings['default_author'] = \
+                pcom_update_json_based_settings(settings['default_author'],updates,json_simple)
 
         if commands['command'] == ct.PCOM_CONTENT_META_POST_SETTINGS_DEFAULT:
             settings['default_content_post_meta'] = commands['command_syntax'].rstrip().lstrip()

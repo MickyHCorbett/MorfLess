@@ -135,10 +135,9 @@ class HtmlOut:
         # get type and url from file name
         # only update is meta not NONE
         if self.meta != ct.PCOM_NO_ENTRY and not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
-            __ppp = self.site_settings['posts_per_page']
             __df = self.site_settings['date_format']
             __url,__type = sp.pcom_create_url(self.filename,self.meta)
-            self.postlist = ls.pcom_update_postlist(self.postlist,self.filename,__url,self.meta,__df,__type,__ppp)
+            self.postlist = ls.pcom_update_postlist(self.postlist,self.filename,__url,self.meta,__df,__type,self.site_settings)
 
     def update_categories(self):
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:

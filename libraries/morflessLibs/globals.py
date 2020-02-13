@@ -71,6 +71,12 @@ DEFAULT_CONTENT_POST_META = ['title',
 'date_modified',
 'show_time']
 
+DEFAULT_AUTHOR = { 'name': md.DEFAULT_AUTHOR,
+'shortname': md.DEFAULT_AUTHOR,
+'thumbnail': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+'description': ''
+}
+
 DEFAULT_CONTENT_PAGE_META = {'title': True,
 'author': True,
 'date_created': True,
@@ -96,6 +102,7 @@ DEFAULT_SETTINGS = {'site_title': md.DEFAULT_SITE_TITLE,
 'current_file': ct.PCOM_NO_ENTRY,
 'category_info': {},
 'author_info': {},
+'default_author': DEFAULT_AUTHOR,
 'content_meta_info': {},
 'sticky': '',
 'search_api_url': '',

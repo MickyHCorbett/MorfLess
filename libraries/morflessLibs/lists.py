@@ -7,6 +7,7 @@ from libraries import globals as gb
 from libraries import constants as ct
 from libraries import schematics as sch
 from libraries import string_processes as sp
+from libraries import meta_defaults as md
 
 from collections import OrderedDict
 
@@ -255,8 +256,10 @@ def pcom_post_process_dependencies(dependency_list,filename,valid_inserts):
 
 # POSTLIST
 
-def pcom_update_postlist(postlist,postname,url,meta,date_format,type,posts_per_page):
+def pcom_update_postlist(postlist,postname,url,meta,date_format,type,settings):
     # check if postname in post
+    posts_per_page = settings['posts_per_page']
+    def_author = settings['default_author']
     post_exists = False
     post_entry = {}
     date = pcom_get_date(date_format)
@@ -267,23 +270,30 @@ def pcom_update_postlist(postlist,postname,url,meta,date_format,type,posts_per_p
             if post['postname'] == postname:
                 post_exists = True
                 # update meta and update time
-                postlist['posts'][ind] = pcom_update_postlist_entry(post, url, postname, meta, date, time, False, post['index'], post['type'])
+                postlist['posts'][ind] = \
+                pcom_update_postlist_entry(post, url, postname, meta, date, time, False, post['index'], post['type'], def_author)
 
         if not post_exists:
             # add post
             postlist['post_index'] += 1
             postlist['no_posts'] += 1
-            post_entry = pcom_update_postlist_entry(post_entry, url, postname, meta, date, time, True, postlist['post_index'],type)
+            post_entry = \
+            pcom_update_postlist_entry(post_entry,url,postname,meta,date,time,True,postlist['post_index'],type,def_author)
             postlist['posts'].append(post_entry)
 
         postlist['no_of_post_pages'] = pcom_calculate_posts_per_page(postlist['no_posts'],posts_per_page)
 
     return postlist
 
-def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, type):
+def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, type, def_author):
 
     cats = pcom_get_comma_list(meta['categories'])
     authors = pcom_get_comma_list(meta['authors'])
+
+    # check against default author if author is default
+    if authors == [md.DEFAULT_AUTHOR]:
+        if def_author['name'] != md.DEFAULT_AUTHOR:
+            authors = [ def_author['name'] ]
 
     # update post meta - if new add creation date and time
     if new:

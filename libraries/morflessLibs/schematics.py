@@ -279,6 +279,8 @@ PM_SUB_TEMPLATE_BACK_LINK = (ct.T3 + '<div class="pm-pagination-header-backlink 
 PM_TEMPLATE_ARCHIVE_MAIN_LINK_FORMAT = (ct.T3 + '<p class="pm-archive-links"><a href="/' + PM_ARCHIVE_BASE + '/'
         + PM_ARCHIVE_BASE_SUB + '">' + PM_ARCHIVE_BASE_SUB + '</a></p>')
 
+PM_TEMPLATE_BODY_NAME = "$$TEMPLATE_BODYNAME$$"
+PM_TEMPLATE_BODY_CLASS = '<body class="body-' + PM_TEMPLATE_BODY_NAME + PM_TEMPLATE_JS_NAME + '">'
 # ======
 # SEARCHBAR TYPES
 # =====

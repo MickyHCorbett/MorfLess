@@ -35,6 +35,11 @@ def polimorf_head_and_title(meta_present,settings,meta,filename,fileroot):
         else:
             description = meta['page_description'].replace('"','')
 
+    # template class in body
+    body_tag = """<body>"""
+    if is_template and not is_search:
+        body_tag = sch.PM_TEMPLATE_BODY_CLASS.replace(sch.PM_TEMPLATE_BODY_NAME,template_name)
+
     add_description = '"' + description + '"'
 
     out_html = ct.PCOM_NO_ENTRY
@@ -52,7 +57,8 @@ def polimorf_head_and_title(meta_present,settings,meta,filename,fileroot):
         + ct.T1 + """<link rel="stylesheet" href="/css/style-responsive.css" type="text/css" media="screen">""" + ct.NL
         + ct.T1 + sch.HEADER_ADDITIONS_START + ct.NL
         + ct.T1 + sch.HEADER_ADDITIONS_END + ct.NL +
-        """</head>""" + ct.NL)
+        """</head>""" + ct.NL
+        + body_tag + ct.NL)
 
     return out_html
 

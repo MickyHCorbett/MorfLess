@@ -580,7 +580,9 @@ def pcom_update_authors_from_settings(authors,settings_authors,settings):
         # update default author in settings
         for ind,author in enumerate(authors['authors']):
 
-            if author['name'] != settings['default_author']['name']:
+            if author['name'] == settings['default_author']['name'] or \
+            author['shortname'] == settings['default_author']['shortname']:
+
                 author['name'] = settings['default_author']['name']
                 author['shortname'] = settings['default_author']['shortname']
                 author['thumbnail'] = settings['default_author']['thumb_link']

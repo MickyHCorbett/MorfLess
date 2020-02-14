@@ -198,6 +198,10 @@ def pcom_process_settings_meta_syntax(syntax,settings):
         if commands['command'] == ct.PCOM_META_SEARCH_API_URL:
             settings['search_api_url'] = commands['command_syntax'].rstrip().lstrip()
 
+        if commands['command'] == ct.PCOM_META_DEFAULT_THUMB_LINK:
+            if commands['command_syntax'] != ct.PCOM_NO_ENTRY:
+                settings['default_thumb_link'] = commands['command_syntax'].rstrip().lstrip()
+
         # update syntax
         syntax = commands['syntax_after']
 

@@ -271,29 +271,34 @@ def pcom_update_postlist(postlist,postname,url,meta,date_format,type,settings):
                 post_exists = True
                 # update meta and update time
                 postlist['posts'][ind] = \
-                pcom_update_postlist_entry(post, url, postname, meta, date, time, False, post['index'], post['type'], def_author)
+                pcom_update_postlist_entry(post, url, postname, meta, date, time, False, post['index'], post['type'], settings)
 
         if not post_exists:
             # add post
             postlist['post_index'] += 1
             postlist['no_posts'] += 1
             post_entry = \
-            pcom_update_postlist_entry(post_entry,url,postname,meta,date,time,True,postlist['post_index'],type,def_author)
+            pcom_update_postlist_entry(post_entry,url,postname,meta,date,time,True,postlist['post_index'],type,settings)
             postlist['posts'].append(post_entry)
 
         postlist['no_of_post_pages'] = pcom_calculate_posts_per_page(postlist['no_posts'],posts_per_page)
 
     return postlist
 
-def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, type, def_author):
+def pcom_update_postlist_entry(post, url, name, meta, date, time, new, index, type, settings):
 
     cats = pcom_get_comma_list(meta['categories'])
     authors = pcom_get_comma_list(meta['authors'])
 
     # check against default author if author is default
     if authors == [md.DEFAULT_AUTHOR]:
-        if def_author['name'] != md.DEFAULT_AUTHOR:
-            authors = [ def_author['name'] ]
+        if settings['default_author']['name'] != md.DEFAULT_AUTHOR:
+            authors = [ settings['default_author']['name'] ]
+
+    # check for defined default thumbnail
+    if meta['thumb_link'] == sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+        if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+            meta['thumb_link'] = settings['default_thumb_link']
 
     # update post meta - if new add creation date and time
     if new:

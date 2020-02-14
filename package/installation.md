@@ -162,4 +162,4 @@ The file can be run from the CloudFormation GUI or by using the following AWS CL
                 
 That completes the setup. The application is now active and will respond to files uploaded into the Source Bucket. 
 
-[Next step: Building out the site](https://github.com/MickyHCorbett/MorfLess/blob/master/package/building-the-site.md) 
+[Next step: Building out the site](https://github.com/MickyHCorbett/MorfLess/blob/master/user-guide/building-the-site.md) 

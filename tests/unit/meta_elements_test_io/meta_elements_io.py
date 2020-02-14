@@ -170,6 +170,25 @@ test_values_2 = [\
     """,
     'assertEqual': 'this',
     'assertNotEqual': ct.PCOM_NO_ENTRY
+    },
+
+{   'remark': 'Test Case 17:pcom_process_settings_meta_syntax - default thumbnail empty',
+    'element': 'default_thumb_link',
+    'input': """
+        default_thumbnail={ }:
+    """,
+    'assertEqual': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+    'assertNotEqual': ''
+    },
+
+{   'remark': 'Test Case 18:pcom_process_settings_meta_syntax - content meta page',
+    'element': 'default_content_page_meta',
+    'input': """
+
+        default_thumbnail={ this }:
+    """,
+    'assertEqual': 'this',
+    'assertNotEqual': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
     }
 
 ]

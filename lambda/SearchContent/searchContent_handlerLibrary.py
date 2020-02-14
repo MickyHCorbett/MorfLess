@@ -71,8 +71,8 @@ def build_list_meta(site_settings,log):
     authors,log = process_json_files(authors_file,listbucket,log)
 
     # update categories and authors from settings
-    categories = libs.lists.pcom_update_categories_from_settings(categories,site_settings['category_info'],site_settings['posts_per_page'])
-    authors = libs.lists.pcom_update_authors_from_settings(authors,site_settings['author_info'],site_settings['posts_per_page'])
+    categories = libs.lists.pcom_update_categories_from_settings(categories,site_settings['category_info'],site_settings)
+    authors = libs.lists.pcom_update_authors_from_settings(authors,site_settings['author_info'],site_settings)
 
     list_meta = {'categories': categories, 'authors': authors }
 

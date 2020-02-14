@@ -73,7 +73,7 @@ DEFAULT_CONTENT_POST_META = ['title',
 
 DEFAULT_AUTHOR = { 'name': md.DEFAULT_AUTHOR,
 'shortname': md.DEFAULT_AUTHOR,
-'thumbnail': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+'thumb_link': sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
 'description': ''
 }
 

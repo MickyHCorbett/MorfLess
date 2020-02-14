@@ -469,7 +469,9 @@ def pcom_get_pagination_info(html_array,postlist,postname,fileroot):
 # ---
 
 
-def pcom_update_categories_from_settings(categories,settings_categories,posts_per_page):
+def pcom_update_categories_from_settings(categories,settings_categories,settings):
+
+    posts_per_page = settings['posts_per_page']
 
     if 'name' not in settings_categories:
 
@@ -493,6 +495,9 @@ def pcom_update_categories_from_settings(categories,settings_categories,posts_pe
                 if 'name' in settings_category:
 
                     thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                    if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                        thumbnail = settings['default_thumb_link']
+
                     if 'thumbnail' in settings_category:
                         if settings_category['thumbnail']:
                             thumbnail = settings_category['thumbnail']
@@ -511,9 +516,20 @@ def pcom_update_categories_from_settings(categories,settings_categories,posts_pe
 
     return categories
 
-def pcom_update_authors_from_settings(authors,settings_authors,posts_per_page):
+def pcom_update_authors_from_settings(authors,settings_authors,settings):
 
+    posts_per_page = settings['posts_per_page']
+
+    # initial filter - error will have name and error
     if 'name' not in settings_authors:
+
+        if not settings_authors or settings_authors == ct.PCOM_NO_ENTRY:
+            if settings['default_author']:
+                new_author = OrderedDict([ ('name', settings['default_author']['name']),
+                    ('shortname', settings['default_author']['shortname']),
+                    ('thumbnail', settings['default_author']['thumb_link']),
+                    ('description', settings['default_author']['description']) ])
+                authors['authors'].append(new_author)
 
         for settings_author in settings_authors:
             # check to see if already there
@@ -541,6 +557,9 @@ def pcom_update_authors_from_settings(authors,settings_authors,posts_per_page):
                 if 'name' in settings_author and 'shortname' in settings_author:
 
                     thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                    if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                        thumbnail = settings['default_thumb_link']
+
                     if 'thumbnail' in settings_author:
                         if settings_author['thumbnail']:
                             thumbnail = settings_author['thumbnail']
@@ -558,9 +577,22 @@ def pcom_update_authors_from_settings(authors,settings_authors,posts_per_page):
         # update no of pages
         authors['no_of_author_pages'] = pcom_calculate_posts_per_page(len(authors['authors']),posts_per_page)
 
+        # update default author in settings
+        for ind,author in enumerate(authors['authors']):
+
+            if author['name'] != settings['default_author']['name']:
+                author['name'] = settings['default_author']['name']
+                author['shortname'] = settings['default_author']['shortname']
+                author['thumbnail'] = settings['default_author']['thumb_link']
+                author['description'] = settings['default_author']['description']
+
+                authors['authors'][ind] = author
+
     return authors
 
-def pcom_update_categories_from_postlist_data(categories,cat_list,posts_per_page,type):
+def pcom_update_categories_from_postlist_data(categories,cat_list,settings,type):
+
+    posts_per_page = settings['posts_per_page']
 
     if categories:
         if type == 'post':
@@ -572,8 +604,12 @@ def pcom_update_categories_from_postlist_data(categories,cat_list,posts_per_page
                         cat_present = True
 
                 if not cat_present:
+                    thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                    if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                        thumbnail = settings['default_thumb_link']
+
                     new_category = OrderedDict([ ('name', request_cat),
-                        ('thumbnail', sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK),
+                        ('thumbnail',thumbnail),
                         ('description', '') ])
                     categories['categories'].append(new_category)
 
@@ -582,7 +618,9 @@ def pcom_update_categories_from_postlist_data(categories,cat_list,posts_per_page
 
     return categories
 
-def pcom_update_authors_from_postlist_data(authors,author_list,posts_per_page):
+def pcom_update_authors_from_postlist_data(authors,author_list,settings):
+
+    posts_per_page = settings['posts_per_page']
 
     if authors:
         for request_author in author_list:
@@ -593,9 +631,13 @@ def pcom_update_authors_from_postlist_data(authors,author_list,posts_per_page):
                     author_present = True
 
             if not author_present:
+                thumbnail = sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+                if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                    thumbnail = settings['default_thumb_link']
+
                 new_author = OrderedDict([ ('name', request_author),
                     ('shortname', request_author),
-                    ('thumbnail', sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK),
+                    ('thumbnail', thumbnail),
                     ('description', '') ])
                 authors['authors'].append(new_author)
 

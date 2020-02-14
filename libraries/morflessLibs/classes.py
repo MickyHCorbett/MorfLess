@@ -141,13 +141,11 @@ class HtmlOut:
 
     def update_categories(self):
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
-            __ppp = self.site_settings['posts_per_page']
             post = ls.pcom_find_post(self.postlist,self.filename)
             self.list_meta['categories'] = \
-            ls.pcom_update_categories_from_postlist_data(self.list_meta['categories'],post['categories'],__ppp,post['type'])
+            ls.pcom_update_categories_from_postlist_data(self.list_meta['categories'],post['categories'],self.site_settings,post['type'])
 
     def update_authors(self):
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
-            __ppp = self.site_settings['posts_per_page']
             post = ls.pcom_find_post(self.postlist,self.filename)
-            self.list_meta['authors'] = ls.pcom_update_authors_from_postlist_data(self.list_meta['authors'],post['authors'],__ppp)
+            self.list_meta['authors'] = ls.pcom_update_authors_from_postlist_data(self.list_meta['authors'],post['authors'],self.site_settings)

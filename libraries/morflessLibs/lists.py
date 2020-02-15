@@ -519,23 +519,30 @@ def pcom_update_categories_from_settings(categories,settings_categories,settings
 def pcom_update_authors_from_settings(authors,settings_authors,settings):
 
     posts_per_page = settings['posts_per_page']
+    default_present = False
 
     # initial filter - error will have name and error
     if 'name' not in settings_authors:
 
         if settings_authors == ct.PCOM_NO_ENTRY or settings['default_author']:
 
-            thumbnail = settings['default_author']['thumbnail']
+            # check not present already
+            for author in authors['authors']:
+                if author['name'] == settings['default_author']['name']:
+                    default_present = True
 
-            if thumbnail == sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
-                if thumbnail != settings['default_thumb_link']:
-                    thumbnail = settings['default_thumb_link']
+            if not default_present:
+                thumbnail = settings['default_author']['thumbnail']
 
-            new_author = OrderedDict([ ('name', settings['default_author']['name']),
-                ('shortname', settings['default_author']['shortname']),
-                ('thumbnail', thumbnail),
-                ('description', settings['default_author']['description']) ])
-            authors['authors'].append(new_author)
+                if thumbnail == sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                    if thumbnail != settings['default_thumb_link']:
+                        thumbnail = settings['default_thumb_link']
+
+                new_author = OrderedDict([ ('name', settings['default_author']['name']),
+                    ('shortname', settings['default_author']['shortname']),
+                    ('thumbnail', thumbnail),
+                    ('description', settings['default_author']['description']) ])
+                authors['authors'].append(new_author)
 
         for settings_author in settings_authors:
             # check to see if already there

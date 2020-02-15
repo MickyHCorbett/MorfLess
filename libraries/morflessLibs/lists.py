@@ -524,18 +524,18 @@ def pcom_update_authors_from_settings(authors,settings_authors,settings):
     if 'name' not in settings_authors:
 
         if settings_authors == ct.PCOM_NO_ENTRY or settings['default_author']:
-            if settings['default_author']:
 
-                thumbnail = settings['default_author']['thumb_link']
-                if thumbnail == sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
-                    if settings['default_thumb_link'] != sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
-                        thumbnail = settings['default_thumb_link']
+            thumbnail = settings['default_author']['thumbnail']
 
-                new_author = OrderedDict([ ('name', settings['default_author']['name']),
-                    ('shortname', settings['default_author']['shortname']),
-                    ('thumbnail', thumbnail),
-                    ('description', settings['default_author']['description']) ])
-                authors['authors'].append(new_author)
+            if thumbnail == sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK:
+                if thumbnail != settings['default_thumb_link']:
+                    thumbnail = settings['default_thumb_link']
+
+            new_author = OrderedDict([ ('name', settings['default_author']['name']),
+                ('shortname', settings['default_author']['shortname']),
+                ('thumbnail', thumbnail),
+                ('description', settings['default_author']['description']) ])
+            authors['authors'].append(new_author)
 
         for settings_author in settings_authors:
             # check to see if already there
@@ -591,7 +591,7 @@ def pcom_update_authors_from_settings(authors,settings_authors,settings):
 
                 author['name'] = settings['default_author']['name']
                 author['shortname'] = settings['default_author']['shortname']
-                author['thumbnail'] = settings['default_author']['thumb_link']
+                author['thumbnail'] = settings['default_author']['thumbnail']
                 author['description'] = settings['default_author']['description']
 
                 authors['authors'][ind] = author

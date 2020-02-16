@@ -889,6 +889,14 @@ def pcom_process_postlist_keywords(syntax):
         if ( commands['command'] == ct.PCOM_POST_LIST_ENTRY_LIST_KEYWORD ):
             entry = commands['command_syntax'].rstrip().lstrip()
             entry = entry.replace('[','').replace(']','')
+
+            # strip down and rejoin
+            entries = entry.split(',')
+            for ind,ent in enumerate(entries):
+                entries[ind] = ent.strip()
+
+            entry = ','.join(entries)
+
             keywords[ct.PCOM_POST_LIST_ENTRY_LIST_KEYWORD] = entry
 
         if ( commands['command'] == ct.PCOM_POST_LIST_TITLE_KEYWORD ):

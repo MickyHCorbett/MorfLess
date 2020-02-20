@@ -16,6 +16,10 @@ Clone the repository to a folder on your local computer. Once cloned, unzip "Web
 
 Either through the AWS CLI or through the AWS S3 Console GUI create an S3 bucket that will be the repository for the default files. For example it could be called ***morfless-package***
 
+Before copying the files from the local package folder, decide what kind of site you want. The folder in question is "source-files-setup". There are two options:
+- A blog - copy all the files in this folder using the command
+- Not a blog - copy only 404.page, index.page, authors.page, search.page and settings.txt. Remove the files: categories.page, archive.page and posts.page, then use the command below
+
 Use the following AWS CLI command to copy the content of the local package folder to S3:
 
         aws s3 cp <local_package_bucket>/ s3://morfless-package/ --recursive

@@ -23,6 +23,34 @@ Before copying the files from the local package folder, decide what kind of site
 Use the following AWS CLI command to copy the content of the local package folder to S3:
 
         aws s3 cp <local_package_bucket>/ s3://morfless-package/ --recursive
+        
+## Set-up Buckets 
+
+The 4 buckets used for MorfLess are set up separately using the CloudFormation template Morfless-CreateBuckets.yml. This is done as deleting and recreating buckets can cause issues if you link your site to CloudFront. It also means you can decide to leave the content as is and just respin up the functions and apis.
+
+The CloudFormation file MorfLess-CreateBuckets.yml contains the following Parameter section:
+
+    Parameters:
+       morflessS3WebsiteBucket:
+         Type: String
+         Default: mydomain.com
+         Description: The target bucket i.e. website. Dots can be used.
+       morflessListBucket:
+         Type: String
+         Default: morfless-mydomain-list
+         Description: The backend list bucket
+       morflessSourceBucket:
+         Type: String
+         Default: morfless-mydomain-source
+         Description: The backend source files bucket
+       morflessSearchBucket:
+         Type: String
+         Default: morfless-mydomain-search
+         Description: The backend search files bucket  
+         
+Change the _mydomain_ and _MyDomain_ elements to match what you want your website or web development site to be called. A bucket will be created that hosts the static website with the following address: 
+
+        mydomain.com.s3-website.<aws-region>.amazonaws.com
 
 ## Cloud Formation Set Up Part 1
 
@@ -79,9 +107,7 @@ The CloudFormation file MorfLess-Part1-CreateMorflessElements.yml contains the f
          Default: morfless-mydomain
          Description: The prefix for the functions associated with this instance of MorfLess. Use dashes.
 
-Change the _mydomain_ and _MyDomain_ elements match what you want your website or web development site to be called. A bucket will be created that hosts the static website with the following address: 
-
-        mydomain.com.s3-website.<aws-region>.amazonaws.com
+Change the _mydomain_ and _MyDomain_ elements to match the bucket names you set up.
 
 The file can be run from the CloudFormation GUI or by using the following AWS CLI command:
 

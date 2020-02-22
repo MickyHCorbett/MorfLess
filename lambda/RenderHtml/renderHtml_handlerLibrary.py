@@ -81,6 +81,9 @@ def process_uploaded_files(filelist,dependencies,outputLog):
 
     list_meta,outputLog = build_list_meta(site_settings,outputLog)
 
+    print("Initial default header additions: {}".format(site_settings['default_header_additions']))
+    print("Initial default footer additions: {}".format(site_settings['default_footer_additions']))
+
     if filelist:
 
         outputLog['files_processed'] = 'Y'
@@ -94,6 +97,9 @@ def process_uploaded_files(filelist,dependencies,outputLog):
                 # create HtmlOut object
                 htmlOut = libs.classes.HtmlOut(content, outputLog, site_settings, list_meta, file, dependencies, postlist)
 
+                print("Iteration {} default header additions: {}".format(ind, site_settings['default_header_additions']))
+                print("Iteration {} default footer additions: {}".format(ind, site_settings['default_footer_additions']))
+                
                 # process schematic
                 htmlOut = process_schematic(htmlOut)
 

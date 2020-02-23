@@ -24,3 +24,12 @@ As as a reminder the placements are as follows (* means mandatory):
 - AFTER
 - SIDEBAR
 - FOOTER*
+
+There are also Addition commands:
+
+| Command | Use  | Placement |
+| :-------| :----| :-------- |
+| HEADER_ADDITIONS | Adds text and scripts to the head | HEADER only |
+| FOOTER_ADDITIONS | Adds text and scripts just before close body tag | FOOTER only |
+
+

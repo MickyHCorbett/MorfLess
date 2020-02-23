@@ -27,8 +27,6 @@ searchbucket = os.environ["SEARCH_BUCKET"]
 s3resource = boto3.resource('s3')
 s3client = boto3.client('s3')
 
-site_settings = {}
-
 def determine_upload_type(fr,dependencies,outputLog):
 
     filelist = []
@@ -75,6 +73,7 @@ def build_list_meta(site_settings,log):
 def process_uploaded_files(filelist,dependencies,outputLog):
 
     site_settings,outputLog = get_site_settings(outputLog)
+
     postlist,outputLog = process_json_files(post_list_file,listbucket,outputLog)
     archive,outputLog = process_json_files(archive_file,listbucket,outputLog)
     postlists_info,outputLog = process_json_files(postlists_info_file,listbucket,outputLog)
@@ -85,6 +84,8 @@ def process_uploaded_files(filelist,dependencies,outputLog):
     if filelist:
 
         outputLog['files_processed'] = 'Y'
+        outputLog['default_header_additions'] = site_settings['default_header_additions']
+        outputLog['default_footer_additions'] = site_settings['default_footer_additions']
 
         for file in filelist:
 
@@ -137,9 +138,6 @@ def process_uploaded_files(filelist,dependencies,outputLog):
 
         # set log
         outputLog = htmlOut.log
-
-        outputLog['default_header_additions'] = site_settings['default_header_additions']
-        outputLog['default_footer_additions'] = site_settings['default_footer_additions']
 
         # update postlists_info file after processing files
         outputLog = update_list_json_info(postlists_info,postlists_info_file,outputLog)

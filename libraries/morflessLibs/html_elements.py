@@ -26,10 +26,11 @@ def pcom_command_selection(command,syntax,placement,type,settings):
                 settings['add_settings_to_dependencies'].append(ct.PCOM_REQ_FILE_SETTINGS)
 
             if placement == ct.PCOM_HEADER_PLACEMENT:
-                settings['header_additions'].extend(settings['default_header_additions'])
+                settings['add_default_header_additions'] = True
 
             if placement == ct.PCOM_FOOTER_PLACEMENT:
-                settings['footer_additions'].extend(settings['default_footer_additions'])
+                settings['add_default_footer_additions'] = True
+
 
         if proc_com['command'] == ct.PCOM_POST_LIST_COMMAND:
             settings['postlist_present'] = True
@@ -1188,52 +1189,33 @@ def pcom_insert_quote_box_command(syntax,custom_class,placement,type,settings):
 
 
 # ========
-# STYLE command - add extra css within schematic of by remote
-# ========
-#
-# Adds an inline style statement anywhere the structure (except head)
-
-def pcom_insert_styling_command(syntax,custom_class,placement,type,settings):
-    # replace site constants
-    out_html = ''
-    syntax = sp.pcom_site_constants_replacement(syntax)
-    syntax = sp.pcom_add_tab_to_content_line(syntax)
-    # if not empty echo to screen within style tags
-    if syntax != "":
-        out_html = ct.NL + ct.T1 + '<!-- custom inline styling -->'
-        out_html += ct.NL + ct.T1 + '<style>'
-        out_html += ct.NL + ct.T1 + syntax.rstrip().lstrip()
-        out_html += ct.NL + ct.T1 + '</style>'
-
-    return out_html
-
-
-# ========
-# STYLESHEETS - also for fonts
-# ========
-
-def pcom_insert_stylesheet_reference(syntax,custom_class,placement,type,settings):
-
-    # only called in header
-    if placement == ct.PCOM_HEADER_PLACEMENT:
-    # if not empty set global
-        if syntax != "" or syntax != ct.PCOM_NO_ENTRY:
-            style_link = '<link rel="stylesheet" href="' + syntax + '" type="text/css" media="screen">'
-            settings['header_additions'].append(style_link)
-
-    return settings
-
-# ========
 # HEADER CONTENT
 # ========
 
 def pcom_add_header_content_to_head(syntax,custom_class,placement,type,settings):
 
+    args = {'open': ct.PCOM_KEYWORD_OPEN, 'close': ct.PCOM_KEYWORD_CLOSE }
+    # initialise open and close syntax
+    commands = sp.pcom_build_dictionary(gb.DEFAULT_OPEN_CLOSE_SYNTAX_OUT_ARRAY)
+    commands['command'] = ''
+
     # only called in header
     if placement == ct.PCOM_HEADER_PLACEMENT:
-    # if not empty set global
-        if syntax != "" or syntax != ct.PCOM_NO_ENTRY:
-            settings['header_additions'].append(syntax)
+
+        if syntax:
+
+            #process syntax for body and reference (ref)
+            while commands['command'] != ct.PCOM_NO_ENTRY:
+
+                commands = sp.pcom_process_command_open_close_syntax(syntax,args)
+                # filter out any custom classes - these should be applied to the top level
+                command_custom = pcom_process_custom_command(commands['command'])
+                # process for text and reference
+                if command_custom['command'] == ct.PCOM_HEADER_CONTENT_KEYWORD:
+                    settings['header_additions'].append(commands['command_syntax'])
+
+                #update syntax
+                syntax = commands['syntax_after']
 
     return settings
 
@@ -1243,11 +1225,28 @@ def pcom_add_header_content_to_head(syntax,custom_class,placement,type,settings)
 
 def pcom_add_footer_content_to_footer(syntax,custom_class,placement,type,settings):
 
+    args = {'open': ct.PCOM_KEYWORD_OPEN, 'close': ct.PCOM_KEYWORD_CLOSE }
+    # initialise open and close syntax
+    commands = sp.pcom_build_dictionary(gb.DEFAULT_OPEN_CLOSE_SYNTAX_OUT_ARRAY)
+    commands['command'] = ''
+
     # only called in header
     if placement == ct.PCOM_FOOTER_PLACEMENT:
-    # if not empty set global
-        if syntax != "" or syntax != ct.PCOM_NO_ENTRY:
-            settings['footer_additions'].append(syntax)
+
+        if syntax:
+
+            #process syntax for body and reference (ref)
+            while commands['command'] != ct.PCOM_NO_ENTRY:
+
+                commands = sp.pcom_process_command_open_close_syntax(syntax,args)
+                # filter out any custom classes - these should be applied to the top level
+                command_custom = pcom_process_custom_command(commands['command'])
+                # process for text and reference
+                if command_custom['command'] == ct.PCOM_FOOTER_CONTENT_KEYWORD:
+                    settings['footer_additions'].append(commands['command_syntax'])
+
+                #update syntax
+                syntax = commands['syntax_after']
 
     return settings
 

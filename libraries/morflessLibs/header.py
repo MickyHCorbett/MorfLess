@@ -55,6 +55,8 @@ def polimorf_head_and_title(meta_present,settings,meta,filename,fileroot):
         + ct.T1 + """<link rel="stylesheet" href="/css/normalize.css" type="text/css" media="screen">""" + ct.NL
         + ct.T1 + """<link rel="stylesheet" href="/css/style-core.css" type="text/css" media="screen">""" + ct.NL
         + ct.T1 + """<link rel="stylesheet" href="/css/style-responsive.css" type="text/css" media="screen">""" + ct.NL
+        + ct.T1 + sch.DEFAULT_HEADER_ADDITIONS_START + ct.NL
+        + ct.T1 + sch.DEFAULT_HEADER_ADDITIONS_END + ct.NL
         + ct.T1 + sch.HEADER_ADDITIONS_START + ct.NL
         + ct.T1 + sch.HEADER_ADDITIONS_END + ct.NL +
         """</head>""" + ct.NL

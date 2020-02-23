@@ -33,6 +33,8 @@ class HtmlOut:
         self.site_settings['add_settings_to_dependencies'] = []
         self.site_settings['header_additions'] = []
         self.site_settings['footer_additions'] = []
+        self.site_settings['add_default_header_additions'] = False
+        self.site_settings['add_default_header_additions'] = False
 
         self.dependencies = dependencies
         self.all_data = {}
@@ -60,11 +62,7 @@ class HtmlOut:
         self.html_array = self.html.splitlines(True)
 
     def combine_array(self):
-        __data = ''
-        for __line in self.html_array:
-            __data += __line
-
-        self.html = __data
+        self.html = ''.join(self.html_array)
 
     def process_schematic_sections(self):
         # get sections
@@ -108,9 +106,9 @@ class HtmlOut:
 
     def process_content_meta(self):
         self.content_meta_info = sp.pcom_get_content_meta_info(self.html_array)
-        __post = ls.pcom_find_post(self.postlist,self.filename)
+        post = ls.pcom_find_post(self.postlist,self.filename)
         self.html_array = \
-        he.pcom_insert_content_meta_data(self.html_array,self.content_meta_info,self.site_settings,self.list_meta,__post,self.is_template)
+        he.pcom_insert_content_meta_data(self.html_array,self.content_meta_info,self.site_settings,self.list_meta,post,self.is_template)
 
     def insert_additions_into_html(self, placement):
         args = {'html': self.html,
@@ -123,7 +121,16 @@ class HtmlOut:
         'is_template': self.is_template,
         'is_search': self.is_search}
 
+        default_additions = ''
+
         self.html = sp.pcom_insert_additions_into_html(args)
+        self.html,default_additions = sp.pcom_insert_default_additions_into_html(args['settings'],self.html,placement)
+
+        if placement == ct.PCOM_HEADER_PLACEMENT:
+            self.site_settings['header_additions'].append(default_additions)
+
+        if placement == ct.PCOM_FOOTER_PLACEMENT:
+            self.site_settings['footer_additions'].append(default_additions)
 
     def get_raw_content(self):
         if not self.is_search and not self.meta[ct.PCOM_META_UNLISTED]:
@@ -135,9 +142,9 @@ class HtmlOut:
         # get type and url from file name
         # only update is meta not NONE
         if self.meta != ct.PCOM_NO_ENTRY and not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
-            __df = self.site_settings['date_format']
-            __url,__type = sp.pcom_create_url(self.filename,self.meta)
-            self.postlist = ls.pcom_update_postlist(self.postlist,self.filename,__url,self.meta,__df,__type,self.site_settings)
+            df = self.site_settings['date_format']
+            url,type = sp.pcom_create_url(self.filename,self.meta)
+            self.postlist = ls.pcom_update_postlist(self.postlist,self.filename,url,self.meta,df,type,self.site_settings)
 
     def update_categories(self):
         if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:

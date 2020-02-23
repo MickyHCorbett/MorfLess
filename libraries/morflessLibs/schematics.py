@@ -217,13 +217,20 @@ PM_ADD_SECTION_CLASS = """ class="pm-section"""
 # DEFAULT FOOTER SCRIPTS
 SCRIPT_ADDITION_TAG_START = '<!-- custom footer additions -->'
 SCRIPT_ADDITION_TAG_END = '<!-- end of custom footer additions -->'
-HEADER_ADDITIONS_START = '<!-- custom head additions -->'
-HEADER_ADDITIONS_END = '<!-- end of custom head additions -->'
+HEADER_ADDITIONS_START = ct.T1 + "<!-- custom head additions -->"
+HEADER_ADDITIONS_END = ct.T1 + '<!-- end of custom head additions -->'
+DEFAULT_HEADER_ADDITIONS_START = ct.T1 + '<!-- head additions -->'
+DEFAULT_HEADER_ADDITIONS_END = ct.T1 + '<!-- end of head additions -->'
+DEFAULT_FOOTER_ADDITIONS_START = '<!-- footer additions -->'
+DEFAULT_FOOTER_ADDITIONS_END = '<!-- end of footer additions -->'
+
 DEFAULT_FOOTER_SCRIPTS =  (ct.NL + '<!-- standard scripts-->' + ct.NL
 + '<script src="/js/vendor/jquery-3.1.0.js"></script>' + ct.NL
 + '<script src="/js/nav-menu-drop-down.js"></script>' + ct.NL
 + '<script src="/js/width-change-zoom-fix.js"></script>'+ ct.NL
 + '<!-- end of standard scripts-->' + ct.NL
++ DEFAULT_FOOTER_ADDITIONS_START + ct.NL
++ DEFAULT_FOOTER_ADDITIONS_END + ct.NL
 + SCRIPT_ADDITION_TAG_START + ct.NL
 + SCRIPT_ADDITION_TAG_END + ct.NL)
 

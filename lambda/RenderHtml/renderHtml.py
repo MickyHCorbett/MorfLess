@@ -18,9 +18,13 @@ def handler(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
-    outputLog = {'inserts_processed': [], 'search_content': [], 'files_processed': 'N',
-    'default_header_additions': [], 'default_footer_additions': [], 'file_header_additions': [],
-    'file_header_additions': [], 'file_footer_additions': []}
+    outputLog = {'inserts_processed': [],
+    'search_content': [],
+    'files_processed': 'N',
+    'default_header_additions': [],
+    'default_footer_additions': [],
+    'file_header_additions': [],
+    'file_footer_additions': []}
 
     bucket_request = event["detail"]["requestParameters"]["bucketName"]
 

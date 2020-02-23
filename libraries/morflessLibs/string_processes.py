@@ -496,7 +496,48 @@ def pcom_site_constants_replacement(content):
     return content_update
 
 # add text for additions
+def pcom_insert_default_additions_into_html(additions,content,placement):
+
+    list = ''
+    tab = ct.T1
+    
+    # additions are added to header or footer
+    if placement == ct.PCOM_HEADER_PLACEMENT:
+        start_tag = sch.DEFAULT_HEADER_ADDITIONS_START
+        end_tag = sch.DEFAULT_HEADER_ADDITIONS_END
+
+        if additions['add_default_header_additions']:
+            list = additions['default_header_additions']
+
+    if placement == ct.PCOM_FOOTER_PLACEMENT:
+        start_tag = sch.DEFAULT_FOOTER_ADDITIONS_START
+        end_tag = sch.DEFAULT_FOOTER_ADDITIONS_END
+        tab = ''
+
+        if additions['add_default_footer_additions']:
+            list = additions['default_footer_additions']
+
+    # tags are present by design
+    # find tags
+    split_strings = pcom_get_strings_syntax_separator(content,start_tag,True)
+    content_before = split_strings['syntax_before'].replace(start_tag,'') + ct.NL + start_tag + ct.NL
+
+    split_strings = pcom_get_strings_syntax_separator(content,end_tag,True)
+    content_after = end_tag + ct.NL + tab + split_strings['syntax_after']
+
+    # add data
+    content_additions = list
+    if placement == ct.PCOM_HEADER_PLACEMENT:
+        content_additions = pcom_add_tab_to_content_line(content_additions)
+
+    content = content_before + content_additions + content_after
+
+    return content,list
+
+
 def pcom_insert_additions_into_html(args):
+
+    list = []
 
     content = args['html']
     additions = args['settings']
@@ -515,13 +556,11 @@ def pcom_insert_additions_into_html(args):
         start_tag = sch.HEADER_ADDITIONS_START
         end_tag = sch.HEADER_ADDITIONS_END
         list = additions['header_additions']
-        tab = ct.T1
 
     if placement == ct.PCOM_FOOTER_PLACEMENT:
         start_tag = sch.SCRIPT_ADDITION_TAG_START
         end_tag = sch.SCRIPT_ADDITION_TAG_END
         list = additions['footer_additions']
-        tab = ''
 
         if additions['postlist_present']:
             postlist_insert = sch.POSTLIST_SCRIPTS.replace(sch.PM_POSTLIST_PLACEHOLDER,js_constant_name)
@@ -542,7 +581,6 @@ def pcom_insert_additions_into_html(args):
             list.append(postlist_template_insert)
 
         if is_search:
-            #search_template_insert = sch.PM_SEARCHBAR_JS_INSERT.replace(sch.PM_SEARCH_API_URL,additions['search_api_url'])
             list.append(sch.PM_SEARCHBAR_JS_INSERT)
 
     # replace search url
@@ -552,19 +590,21 @@ def pcom_insert_additions_into_html(args):
     # tags are present by design
     # find tags
     split_strings = pcom_get_strings_syntax_separator(content,start_tag,True)
-    content_before = split_strings['syntax_before'].replace(start_tag,'') + ct.NL + tab + start_tag + ct.NL
+    content_before = split_strings['syntax_before'].replace(start_tag,'') + ct.NL + start_tag + ct.NL
 
     split_strings = pcom_get_strings_syntax_separator(content,end_tag,True)
-    content_after = tab + end_tag + ct.NL + split_strings['syntax_after']
+    content_after = end_tag + ct.NL + split_strings['syntax_after']
 
     # add data
-    additions = pcom_create_html_from_array(list)
+    content_additions = pcom_create_html_from_array(list)
     if placement == ct.PCOM_HEADER_PLACEMENT:
-        additions = pcom_add_tab_to_content_line(additions)
+        content_additions = pcom_add_tab_to_content_line(content_additions)
 
-    content = content_before + additions + content_after
+    content = content_before + content_additions + content_after
 
     return content
+
+
 
 def pcom_get_insert_info(html_array):
     info = []

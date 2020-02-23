@@ -94,8 +94,10 @@ DEFAULT_SETTINGS = {'site_title': md.DEFAULT_SITE_TITLE,
 'default_before': '',
 'default_after': '',
 'default_main': '',
-'default_header_additions': [],
-'default_footer_additions': [],
+'default_header_additions': '',
+'default_footer_additions': '',
+'add_default_header_additions': False,
+'add_default_footer_additions': False,
 'header_additions': [],
 'footer_additions': [],
 'add_settings_to_dependencies': [],
@@ -194,11 +196,10 @@ ct.PCOM_POST_LIST_COMMAND:'pcom_add_post_list_command',
 ct.PCOM_SECTION_COMMAND:'pcom_process_section_command',
 ct.PCOM_INSERT_COMMAND:'pcom_process_insert_command',
 ct.PCOM_INSERT_PAGINATION_COMMAND:'pcom_insert_pagination_command',
-ct.PCOM_INSERT_SEARCHBAR_COMMAND:'pcom_insert_searchbar_command',
-ct.PCOM_INSERT_STYLING_COMMAND:'pcom_insert_styling_command'}
+ct.PCOM_INSERT_SEARCHBAR_COMMAND:'pcom_insert_searchbar_command'}
 
 # addition functions list - global is predefined as empty in pcom_defaults
-ADDITIONS_LIST = { ct.PCOM_INSERT_STYLESHEET_REF_COMMAND:'pcom_insert_stylesheet_reference',
+ADDITIONS_LIST = {\
 ct.PCOM_HEADER_CONTENT_COMMAND:'pcom_add_header_content_to_head',
 ct.PCOM_FOOTER_CONTENT_COMMAND:'pcom_add_footer_content_to_footer',
 ct.PCOM_INSERT_ADDITIONS_COMMAND:'pcom_process_insert_additions_command' }

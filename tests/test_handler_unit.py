@@ -9,14 +9,12 @@ from unit.test_handler_string_processes_2 import StringProcesses2HandlerCase
 from unit.test_handler_lists_1 import ListsHandler1Case
 from unit.test_handler_meta_elements import MetaElementsCase
 
+from mockAws.test_handler_bucket_operations import RenderHtmlBucketOperations
+from mockAws.test_handler_bucket_operations import CreateListPagesBucketOperations
+from mockAws.test_handler_bucket_operations import SearchContentBucketOperations
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(HtmlSectionsHandlerCase())
-    suite.addTest(ReadSchematicHandlerCase())
-    suite.addTest(StringProcesses1HandlerCase())
-    suite.addTest(StringProcesses2HandlerCase())
-    suite.addTest(ListsHandler1Case())
-    suite.addTest(MetaElementsCase())
     return suite
 
 if __name__ == '__main__':

@@ -235,6 +235,36 @@ class CreateListPagesBucketOperations(unittest.TestCase):
         self.assertTrue(CONTENT_DISPOSITION in obj)
         self.assertEqual(obj[CONTENT_DISPOSITION],'inline')
 
+@mock_s3
+class SearchContentBucketOperations(unittest.TestCase):
+
+    # set up bucket
+    def setUp(self):
+        class_dir = os.getcwd()
+        file_source = os.path.join(class_dir,FILE_SOURCE)
+
+        self.source_content = get_file_content(file_source)
+        self.log = {}
+        self.read_content = ''
+
+        # create bucket and write content to it
+        self.s3resource = boto3.resource('s3', region_name=REGION)
+        self.s3resource.create_bucket(Bucket=BUCKETNAME)
+
+        self.s3client = boto3.client('s3', region_name=REGION)
+        self.s3client.put_object(Bucket=BUCKETNAME, Key=FILENAME, Body=self.source_content)
+
+
+    def tearDown(self):
+        self.log = {}
+        self.source_content = ''
+        self.read_content = ''
+        # delete content from s3 and delete bucket
+        bucket = self.s3resource.Bucket(BUCKETNAME)
+        for key in bucket.objects.all():
+            key.delete()
+        bucket.delete()
+
 
     @testCall
     def test_searchContent_get_content_from_s3(self):

@@ -419,17 +419,14 @@ def write_content_to_s3(bucket,outkey,content,type):
 def delete_content_from_s3(file,outkey,bucket,log):
 
     file_deleted = False
-    try:
-        s3client.delete_object(
-            Bucket=bucket,
-            Key=outkey)
 
-        file_deleted = True
-        log['files_processed'] = 'Y'
+    s3client.delete_object(
+        Bucket=bucket,
+        Key=outkey)
 
-        log_detail = 'File: {} deleted from bucket {}, File {} deleted from site'.format(file,bucket,outkey)
-    except:
-        log_detail = 'File: {} not deleted from bucket {} (or does not exist), File {} not deleted from site (or does not exist)'.format(file,bucket,outkey)
+    file_deleted = True
+    log['files_processed'] = 'Y'
+    log_detail = 'File: {} deleted from bucket {}, File {} deleted from site'.format(file,bucket,outkey)
 
     # update output log
     log[file] = log_detail

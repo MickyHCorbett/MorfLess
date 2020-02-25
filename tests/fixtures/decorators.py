@@ -7,7 +7,7 @@ from functools import wraps
 def testCall(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        print('\n\n===== test_{} - START \n\n'.format(func.__name__))
+        print('\n\n===== {} - START \n\n'.format(func.__name__))
         func(*args, **kwargs)
-        print('\n\n===== test_{} - END \n\n'.format(func.__name__))
+        print('\n\n===== {} - END \n\n'.format(func.__name__))
     return wrapper

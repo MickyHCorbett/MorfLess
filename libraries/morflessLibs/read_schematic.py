@@ -40,8 +40,11 @@ def get_settings(content):
     out['default_after'] = sp.pcom_create_html_from_array(default_after)
     out['default_sidebar'] = sp.pcom_create_html_from_array(default_sidebar)
     out['default_footer'] = sp.pcom_create_html_from_array(default_footer)
-    out['default_header_additions'] = sp.pcom_create_html_from_array(default_header_additions)
-    out['default_footer_additions'] = sp.pcom_create_html_from_array(default_footer_additions)
+
+    if default_header_additions and default_header_additions != ct.PCOM_NO_ENTRY:
+        out['default_header_additions'] = sp.pcom_create_html_from_array(default_header_additions)
+    if default_footer_additions and default_footer_additions != ct.PCOM_NO_ENTRY:
+        out['default_footer_additions'] = sp.pcom_create_html_from_array(default_footer_additions)
 
     return out
 

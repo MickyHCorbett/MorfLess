@@ -1,0 +1,15 @@
+This is a list of settings
+
+///META:
+
+///HEADER:
+
+///BEFORE:
+
+///MAIN:
+
+///AFTER:
+
+///SIDEBAR:
+
+///FOOTER:

@@ -1,7 +1,7 @@
 import unittest
 import libraries.morflessLibs as libs
 import boto3
-import os
+import os, json
 
 """
 set environment to allow
@@ -22,8 +22,10 @@ from fixtures.decorators import testCall
 from collections import OrderedDict
 
 # constants for test
-SETTINGS_NAME = 'settings.txt'
-SETTINGS_FILE = "tests/mockAws/default_source/settings.txt"
+SETTINGS_FILE = 'settings.txt'
+POSTLIST_FILE = 'postlist.json'
+ARCHIVE_FILE = 'archive.json'
+DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
 FILENAME = "test_file.txt"
 OTHERFILE = "test_file_other.txt"
@@ -66,8 +68,37 @@ HTML_TEXT = """
 STANDARD_TEXT = """
 Something here
 """
-
 CONTENT_DISPOSITION = 'ContentDisposition'
+
+CATEGORIES_DEFAULT = {
+    "no_of_category_pages": 1,
+    "categories": [
+    ]
+}
+AUTHORS_DEFAULT = {
+    "no_of_author_pages": 1,
+    "authors": [
+    ]
+}
+LIST_META_DEFAULT = { \
+'categories': CATEGORIES_DEFAULT,
+'authors': AUTHORS_DEFAULT
+}
+
+DEPENDENCIES_DEFAULT = [\
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    }
+]
 
 @mock_s3
 class RenderHtmlReadWrites(unittest.TestCase):
@@ -79,8 +110,12 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.maxDiff = None
 
         class_dir = os.getcwd()
-        file_source = os.path.join(class_dir,SETTINGS_FILE)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,SETTINGS_FILE)
         self.settings_content = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLIST_FILE)
+        self.postlist_default = json.loads(get_file_content(file_source))
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,ARCHIVE_FILE)
+        self.archive_default = json.loads(get_file_content(file_source))
 
         # create bucket and write json content to it
         self.s3resource = boto3.resource('s3', region_name=REGION)
@@ -92,7 +127,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
 
         self.s3client = boto3.client('s3', region_name=REGION)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=JSON_FILE, Body=JSON_TEXT)
-        self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_NAME, Body=self.settings_content)
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_content)
 
 
     def tearDown(self):
@@ -100,6 +135,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.source_content = ''
         self.read_content = ''
         self.settings_content = {}
+        self.postlist_default = {}
         # delete content from s3 and delete buckets
 
         # source
@@ -127,7 +163,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
     @testCall
     def test_renderHtml_read_writes(self):
 
-        # read json content
+        # process_json_files
 
         print('\nTest 1 - process json file\n')
         self.read_content,self.log = rdl.process_json_files(JSON_FILE, rdl.listbucket,self.log)
@@ -147,7 +183,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.assertEqual(self.log[OTHER_JSON],log_message)
 
 
-        # write json content
+        # write_source_json
         self.log = {}
 
         print('\nTest 3 - write_source_json\n')
@@ -166,7 +202,9 @@ class RenderHtmlReadWrites(unittest.TestCase):
         log_message = 'JSON File: {} processed and updated'.format(JSON_FILE_2)
         self.assertEqual(write_log[JSON_FILE_2],log_message)
 
-        # update info json  - any json can be used
+        # update_list_json_info
+        #  - any json can be used
+
         print('\nTest 4 - update list json info\n')
         self.log = {}
         info = JSON_TEXT
@@ -176,7 +214,8 @@ class RenderHtmlReadWrites(unittest.TestCase):
         log_message = 'JSON File: {} processed and updated'.format(JSON_FILE)
         self.assertEqual(self.log[JSON_FILE],log_message)
 
-        # read settings
+        # get_site_settings
+
         print('\nTest 5 - get settings - file does not contain usable data so default settings returned with empty section defaults\n')
         self.log = {}
         self.read_content,self.log = rdl.get_site_settings(self.log)
@@ -193,6 +232,118 @@ class RenderHtmlReadWrites(unittest.TestCase):
         print('Settings content {}:'.format(self.read_content))
         self.assertEqual(settings, self.read_content)
         self.assertEqual(self.log,{})
+
+        # update_dependencies
+
+        print('\nTest 6 - update dependencies - check content\n')
+        # create htmlOut class component
+        postlist = {}
+        file = 'test1.post'
+        self.log = {}
+        htmlOut = libs.classes.HtmlOut('', self.log, settings, LIST_META_DEFAULT, file, DEPENDENCIES_DEFAULT, postlist)
+        htmlOut = rdl.update_dependencies(htmlOut)
+        print(htmlOut.log)
+
+        # check data
+        # read file for confirmation - reset log
+        processed,self.read_content,self.log = rdl.get_content_from_s3(rdl.dep_file, rdl.listbucket,self.log)
+        # python library defined in json format
+        self.assertEqual(DEPENDENCIES_DEFAULT, json.loads(self.read_content))
+
+        # write to search - use htmlOut
+        print('\nTest 7 - write to search - check content\n')
+
+        self.log = {}
+        htmlOut.raw_content = STANDARD_TEXT
+        htmlOut.log = {'search_content': []}
+        log_message = 'File test1.post raw content output as test1.post.content'
+        htmlOut = rdl.write_to_search(htmlOut)
+        print(htmlOut.log)
+
+        # read file for confirmation - reset log
+        processed,self.read_content,self.log = rdl.get_content_from_s3('test1.post.content', rdl.searchbucket,self.log)
+        # raw text
+        self.assertEqual(STANDARD_TEXT, self.read_content)
+        self.assertEqual(htmlOut.log['search_content'],[log_message])
+
+
+        print('\nTest 8 - write to search - no data\n')
+
+        self.log = {}
+        htmlOut.raw_content = ''
+        htmlOut.filename = 'test2.post'
+        htmlOut.log = {'search_content': []}
+        htmlOut = rdl.write_to_search(htmlOut)
+        print('Log message: {}'.format(htmlOut.log))
+
+        # read file for confirmation - reset log
+        processed,self.read_content,self.log = rdl.get_content_from_s3('test2.post.content', rdl.searchbucket,self.log)
+        # raw text
+        self.assertFalse(processed)
+        self.assertEqual(htmlOut.log['search_content'],[])
+
+        # update_list_meta_files - use htmlOut
+
+        print('\nTest 9 - update list meta - check content\n')
+        htmlOut.log = {}
+        htmlOut = rdl.update_list_meta_files(htmlOut,LIST_META_DEFAULT)
+        print(htmlOut.log)
+
+        # check data
+        # read category and author file for confirmation - reset log
+        processed,self.read_content,self.log = rdl.get_content_from_s3(rdl.cat_file, rdl.listbucket,self.log)
+        self.assertEqual(CATEGORIES_DEFAULT, json.loads(self.read_content))
+        processed,self.read_content,self.log = rdl.get_content_from_s3(rdl.authors_file, rdl.listbucket,self.log)
+        self.assertEqual(AUTHORS_DEFAULT, json.loads(self.read_content))
+
+        # write to buckets - use htmlOut
+
+        print('\nTest 10 - write_to_buckets - standard text\n')
+
+        self.log = {}
+        htmlOut.filename = 'test3.page'
+        htmlOut.html = STANDARD_TEXT
+        htmlOut.log = {}
+        htmlOut.meta['url'] = '/test3/'
+
+        htmlOut = rdl.write_to_buckets(htmlOut)
+        print(htmlOut.log)
+
+        log_message = 'File: test3.page processed and output as test3/index.html'
+        self.assertEqual(htmlOut.log['test3.page'],log_message)
+        # content in target bucket
+        processed,self.read_content,self.log = rdl.get_content_from_s3('test3/index.html', rdl.targetbucket,self.log)
+        self.assertEqual(STANDARD_TEXT, self.read_content)
+
+        print('\n\ntest3/index.html : {}'.format(self.read_content))
+
+        # update postlist - use htmlOut
+
+        print('\nTest 11 - update postlist\n')
+
+        self.log = {}
+        htmlOut.log = {}
+        htmlOut.postlist = self.postlist_default
+
+        htmlOut = rdl.update_postlist(htmlOut)
+        print(htmlOut.log)
+
+        processed,self.read_content,self.log = rdl.get_content_from_s3(POSTLIST_FILE, rdl.listbucket,self.log)
+        self.assertEqual(self.postlist_default, json.loads(self.read_content))
+
+        # update archive - use htmlOut
+
+        print('\nTest 12 - update archive\n')
+
+        self.log = {}
+        self.settings_content = libs.globals.DEFAULT_SETTINGS
+        self.log = rdl.update_archive_info(self.archive_default,self.postlist_default,self.settings_content,ARCHIVE_FILE,self.log)
+        print(self.log)
+
+        processed,self.read_content,self.log = rdl.get_content_from_s3(ARCHIVE_FILE, rdl.listbucket,self.log)
+        self.assertEqual(self.archive_default, json.loads(self.read_content))
+        log_messsage = 'JSON File: archive.json processed and updated'
+        self.assertEqual(self.log['archive.json'], log_messsage)
 
 
 

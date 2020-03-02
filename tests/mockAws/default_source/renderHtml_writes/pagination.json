@@ -1,0 +1,32 @@
+[
+  {
+      "name": "pagination--about.js",
+      "fileroot": "about",
+      "pagination": {
+          "index": 51,
+          "postname": "about.page",
+          "type": false,
+          "fileroot": "about"
+      }
+  },
+  {
+      "name": "pagination--test2.js",
+      "fileroot": "test2",
+      "pagination": {
+          "index": 77,
+          "postname": "test2.post",
+          "type": true,
+          "fileroot": "test2"
+      }
+  },
+  {
+      "name": "pagination--test1.js",
+      "fileroot": "test1",
+      "pagination": {
+          "index": 120,
+          "postname": "test1.post",
+          "type": true,
+          "fileroot": "test1"
+      }
+  }
+]

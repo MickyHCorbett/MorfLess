@@ -1,0 +1,59 @@
+[
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "search.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "categories.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "test1.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "about.page",
+        "dependencies": [
+            "puppies.txt"
+        ]
+    },
+    {
+        "filename": "test2.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "test3.post",
+        "dependencies": [
+            "puppies.txt"
+        ]
+    },
+    {
+        "filename": "details/test1.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    }
+]

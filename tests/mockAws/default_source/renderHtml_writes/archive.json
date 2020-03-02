@@ -1,0 +1,67 @@
+{
+    "created": [
+        {
+            "name": "09-2018",
+            "fileroot": "09_2018",
+            "posts": [],
+            "pages": [
+                "contact.page"
+            ]
+        },
+        {
+            "name": "10-2018",
+            "fileroot": "10_2018",
+            "posts": [
+                "test3.post"
+            ],
+            "pages": [
+                "about.page"
+            ]
+        },
+        {
+            "name": "09-2019",
+            "fileroot": "09_2019",
+            "posts": [
+                "test2.post"
+            ],
+            "pages": []
+        },
+        {
+            "name": "10-2019",
+            "fileroot": "10_2019",
+            "posts": [
+                "test1.post"
+            ],
+            "pages": []
+        },
+        {
+            "name": "02-2020",
+            "fileroot": "02_2020",
+            "posts": [
+                "test5.post",
+                "test6.post"
+            ],
+            "pages": [
+                "about-polimorfic.page"
+            ]
+        }
+    ],
+    "modified": [
+        {
+            "name": "02-2020",
+            "fileroot": "02_2020",
+            "posts": [
+                "test3.post",
+                "test2.post",
+                "test1.post",
+                "test5.post",
+                "test6.post"
+            ],
+            "pages": [
+                "contact.page",
+                "about.page",
+                "about-polimorfic.page"
+            ]
+        }
+    ]
+}

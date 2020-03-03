@@ -33,4 +33,26 @@ There are also Addition commands:
 | HEADER_ADDITIONS | Adds text and scripts to the head | HEADER only |
 | FOOTER_ADDITIONS | Adds text and scripts just before close body tag | FOOTER only |
 
+## Schematic Tags
+
+Each page or post (saved as a .post or .page) needs a minimum of information to be processed. The following schematic is that absolute basic that will allow html content to be created:
+
+    ///META:
+    title={ <something> }:
+    url={ /<link>/<to>/<something>/ }:
+    
+    ///HEADER:
+    %%DEFAULT::
+    
+    ///MAIN:
+    %%DEFAULT::
+    
+    ///FOOTER:
+    %%DEFAULT::
+    
+The tags "///xxxxx:" are **Schematic Tags** in that they represent the different sections of a html document, with the META section representing backend information that can be organised and indexed separately. 
+
+In the example about there is one **Schematic Command** in the form "%%xxxxx::". MorfLess will parse this text by Schematic Tag then by Schematic Command. If the Schematic Command syntax is incorrect the command and all its subcommands or keywords will be ignored.
+    
+
 

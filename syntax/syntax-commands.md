@@ -108,11 +108,11 @@ Note: The CONTENT command generates a "post" class containing the content. Outer
         
 Only the element is given the custom class. The idea here is that because there is a Sidebar the structure is more defined so manipulation of elements is more specific. The Outer and Inner wrappers are shared by more than one element.
 
-## Subschematic Commands and Keywords
+## Sub-schematic Commands and Keywords
 
-For some schematic commands, subschematic commands and keywords are used whereas for other commands, only keywords are used. This was just programming choice and came from development use. In future versions of MorfLess it could be made more consistent. For now it is just worth remembering the syntax:
+For some schematic commands, sub-schematic commands and keywords are used whereas for other commands, only keywords are used. This is because some commands can be called as subcommands so rather than repeat syntax a standard approach was used. For example the MENU command can be called as a schematic command or as s sub-schematic command within a BOX command. 
 
-Subschematic commands are written as:
+Sub-schematic commands are written as:
             
         <subcommand>=[ <syntax> ]:
         

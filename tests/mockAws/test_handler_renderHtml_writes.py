@@ -233,9 +233,24 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.assertEqual(settings, self.read_content)
         self.assertEqual(self.log,{})
 
+
+        print('\nTest 6 - get settings - no settings file in bucket\n')
+        # delete settings file from bucket
+        self.s3client.delete_object(
+            Bucket=rdl.sourcebucket,
+            Key='settings.txt')
+        self.log = {}
+        self.read_content,self.log = rdl.get_site_settings(self.log)
+
+        print('Log: {}'.format(self.log))
+        print('Settings content {}:'.format(self.read_content))
+        log_message = 'File: settings.txt not processed - does not exist'
+        self.assertEqual(libs.constants.PCOM_NO_ENTRY, self.read_content)
+        self.assertEqual(self.log['settings.txt'],log_message)
+
         # update_dependencies
 
-        print('\nTest 6 - update dependencies - check content\n')
+        print('\nTest 7 - update dependencies - check content\n')
         # create htmlOut class component
         postlist = {}
         file = 'test1.post'
@@ -251,7 +266,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.assertEqual(DEPENDENCIES_DEFAULT, json.loads(self.read_content))
 
         # write to search - use htmlOut
-        print('\nTest 7 - write to search - check content\n')
+        print('\nTest 8 - write to search - check content\n')
 
         self.log = {}
         htmlOut.raw_content = STANDARD_TEXT
@@ -267,7 +282,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
         self.assertEqual(htmlOut.log['search_content'],[log_message])
 
 
-        print('\nTest 8 - write to search - no data\n')
+        print('\nTest 9 - write to search - no data\n')
 
         self.log = {}
         htmlOut.raw_content = ''
@@ -284,7 +299,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
 
         # update_list_meta_files - use htmlOut
 
-        print('\nTest 9 - update list meta - check content\n')
+        print('\nTest 10 - update list meta - check content\n')
         htmlOut.log = {}
         htmlOut = rdl.update_list_meta_files(htmlOut,LIST_META_DEFAULT)
         print(htmlOut.log)
@@ -298,7 +313,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
 
         # write to buckets - use htmlOut
 
-        print('\nTest 10 - write_to_buckets - standard text\n')
+        print('\nTest 11 - write_to_buckets - standard text\n')
 
         self.log = {}
         htmlOut.filename = 'test3.page'
@@ -319,7 +334,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
 
         # update postlist - use htmlOut
 
-        print('\nTest 11 - update postlist\n')
+        print('\nTest 12 - update postlist\n')
 
         self.log = {}
         htmlOut.log = {}
@@ -333,7 +348,7 @@ class RenderHtmlReadWrites(unittest.TestCase):
 
         # update archive - use htmlOut
 
-        print('\nTest 12 - update archive\n')
+        print('\nTest 13 - update archive\n')
 
         self.log = {}
         self.settings_content = libs.globals.DEFAULT_SETTINGS

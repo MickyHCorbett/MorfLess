@@ -110,7 +110,7 @@ Only the element is given the custom class. The idea here is that because there 
 
 ## Sub-schematic Commands and Keywords
 
-For some schematic commands, sub-schematic commands and keywords are used whereas for other commands, only keywords are used. This is because some commands can be called as subcommands so rather than repeat syntax a standard approach was used. For example the MENU command can be called as a schematic command or as s sub-schematic command within a BOX command. 
+For some schematic commands, sub-schematic commands and keywords are used whereas for other commands, only keywords are used. This is because some commands can be called as sub-commands so rather than repeat syntax a standard approach was used. For example the MENU command can be called as a schematic command or as a sub-schematic command within a BOX command.
 
 Sub-schematic commands are written as:
             

@@ -311,7 +311,7 @@ def pcom_add_content_command(syntax, custom_class, placement, type, settings):
             post_open = sch.PM_POST_OPEN_FOOTER
             post_close = sch.PM_POST_CLOSE_FOOTER
 
-        if (placement == ct.PCOM_MAIN_PLACEMENT or placement == ct.PCOM_MAIN_WITH_SIDEBAR_PLACEMENT or placement == ct.PCOM_FOOTER_PLACEMENT or placement == ct.PCOM_SIDEBAR_PLACEMENT) and valid_content:
+        if valid_content:
             out_html = sp.pcom_open_placement_class(custom_class,placement)
             out_html += sp.pcom_open_custom_class_div(custom_class,post_open) + ct.NL
             out_html += out_content + ct.NL

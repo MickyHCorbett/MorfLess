@@ -1,4 +1,5 @@
 import unittest
+
 import libraries.morflessLibs as libs
 
 # import test values and expected outputs
@@ -9,14 +10,17 @@ from unit.html_sections_test_io.footer_test_io import test_values as footer_tv
 from unit.html_sections_test_io.before_test_io import test_values as before_tv
 from unit.html_sections_test_io.after_test_io import test_values as after_tv
 
+from fixtures.decorators import testCall
+
 # define settings element for test
 settings = libs.globals.DEFAULT_SETTINGS
 
 class HtmlSectionsHandlerCase(unittest.TestCase):
 
+    @testCall
     def test_polimorf_add_main(self):
 
-        for test in main_tv:
+        for ind,test in enumerate(main_tv):
 
             print('\n' + test['remark'] + '\n')
 
@@ -32,18 +36,19 @@ class HtmlSectionsHandlerCase(unittest.TestCase):
             print(result)
 
             # check asserts in
-            for assertIn in test['assertIn']:
-                self.assertIn(assertIn, result)
+            with self.subTest(i=ind+1):
+                for assertIn in test['assertIn']:
+                    self.assertIn(assertIn, result)
 
-            # check asserts Not in
-            for assertNotIn in test['assertNotIn']:
-                self.assertNotIn(assertNotIn, result)
+                # check asserts Not in
+                for assertNotIn in test['assertNotIn']:
+                    self.assertNotIn(assertNotIn, result)
 
-        print('\n\n===== test_polimorf_add_main - END \n\n')
 
+    @testCall
     def test_polimorf_add_header(self):
 
-        for test in header_tv:
+        for ind,test in enumerate(header_tv):
 
             print('\n' + test['remark'] + '\n')
 
@@ -54,18 +59,19 @@ class HtmlSectionsHandlerCase(unittest.TestCase):
             print(result)
 
             # check asserts in
-            for assertIn in test['assertIn']:
-                self.assertIn(assertIn, result)
+            with self.subTest(i=ind+1):
+                for assertIn in test['assertIn']:
+                    self.assertIn(assertIn, result)
 
-            # check asserts Not in
-            for assertNotIn in test['assertNotIn']:
-                self.assertNotIn(assertNotIn, result)
+                # check asserts Not in
+                for assertNotIn in test['assertNotIn']:
+                    self.assertNotIn(assertNotIn, result)
 
-        print('\n\n===== test_polimorf_add_header - END \n\n')
 
+    @testCall
     def test_polimorf_add_footer(self):
 
-        for test in footer_tv:
+        for ind,test in enumerate(footer_tv):
 
             print('\n' + test['remark'] + '\n')
 
@@ -76,60 +82,64 @@ class HtmlSectionsHandlerCase(unittest.TestCase):
             print(result)
 
             # check asserts in
-            for assertIn in test['assertIn']:
-                self.assertIn(assertIn, result)
+            with self.subTest(i=ind+1):
+                for assertIn in test['assertIn']:
+                    self.assertIn(assertIn, result)
 
-            # check asserts Not in
-            for assertNotIn in test['assertNotIn']:
-                self.assertNotIn(assertNotIn, result)
+                # check asserts Not in
+                for assertNotIn in test['assertNotIn']:
+                    self.assertNotIn(assertNotIn, result)
 
-        print('\n\n===== test_polimorf_add_footer - END \n\n')
 
+    @testCall
     def test_polimorf_add_before(self):
 
-        for test in before_tv:
+        for ind,test in enumerate(before_tv):
 
             print('\n' + test['remark'] + '\n')
 
             before_data = test['inputs']['before_data']
+            sidebar_data = test['inputs']['sidebar_data']
             meta_present = test['inputs']['meta_present']
 
 
-            result = libs.before_after.polimorf_add_before(before_data,meta_present)
+            result = libs.before_after.polimorf_add_before(before_data,sidebar_data,meta_present)
             print(result)
 
-            # check asserts in
-            for assertIn in test['assertIn']:
-                self.assertIn(assertIn, result)
+            with self.subTest(i=ind+1):
+                # check asserts in
+                for assertIn in test['assertIn']:
+                    self.assertIn(assertIn, result)
 
-            # check asserts Not in
-            for assertNotIn in test['assertNotIn']:
-                self.assertNotIn(assertNotIn, result)
+                # check asserts Not in
+                for assertNotIn in test['assertNotIn']:
+                    self.assertNotIn(assertNotIn, result)
 
-        print('\n\n===== test_polimorf_add_before - END \n\n')
 
+    @testCall
     def test_polimorf_add_after(self):
 
-        for test in after_tv:
+        for ind,test in enumerate(after_tv):
 
             print('\n' + test['remark'] + '\n')
 
             after_data = test['inputs']['after_data']
             meta_present = test['inputs']['meta_present']
+            sidebar_data = test['inputs']['sidebar_data']
             wrap = test['inputs']['wrap']
 
-            result = libs.before_after.polimorf_add_after(after_data,meta_present,wrap)
+            result = libs.before_after.polimorf_add_after(after_data,sidebar_data,meta_present,wrap)
             print(result)
 
-            # check asserts in
-            for assertIn in test['assertIn']:
-                self.assertIn(assertIn, result)
+            with self.subTest(i=ind+1):
+                # check asserts in
+                for assertIn in test['assertIn']:
+                    self.assertIn(assertIn, result)
 
-            # check asserts Not in
-            for assertNotIn in test['assertNotIn']:
-                self.assertNotIn(assertNotIn, result)
-
-        print('\n\n===== test_polimorf_add_after - END \n\n')
+                # check asserts Not in
+                for assertNotIn in test['assertNotIn']:
+                    self.assertNotIn(assertNotIn, result)
+                    
 
 if __name__ == '__main__':
     unittest.main()

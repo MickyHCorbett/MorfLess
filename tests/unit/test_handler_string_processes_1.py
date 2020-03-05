@@ -4,12 +4,14 @@ import libraries.morflessLibs as libs
 # import test values and expected outputs
 # main includes sidebar data
 import unit.string_processes_test_io.string_processes_1_functions_io as tv
+from fixtures.decorators import testCall
 
 # define settings element for test
 settings = libs.globals.DEFAULT_SETTINGS
 
 class StringProcesses1HandlerCase(unittest.TestCase):
 
+    @testCall
     def test_pcom_process_json(self):
 
         for test in tv.test_values_1:
@@ -26,8 +28,7 @@ class StringProcesses1HandlerCase(unittest.TestCase):
             self.assertEqual(test['assertEqual'], result)
             self.assertNotEqual(test['assertNotEqual'], result)
 
-        print('\n\n===== test_pcom_process_json - END \n\n')
-
+    @testCall
     def test_pcom_write_json(self):
 
         for test in tv.test_values_2:
@@ -43,8 +44,7 @@ class StringProcesses1HandlerCase(unittest.TestCase):
             # check asserts in
             self.assertEqual(test['assertEqual'].rstrip().lstrip(), result.rstrip().lstrip())
 
-        print('\n\n===== test_pcom_write_json - END \n\n')
-
+    @testCall
     def test_pcom_create_url(self):
 
         for test in tv.test_values_3:
@@ -62,9 +62,8 @@ class StringProcesses1HandlerCase(unittest.TestCase):
             self.assertEqual(test['assertEqual']['outkey'],outkey)
             self.assertEqual(test['assertEqual']['type'],type)
 
-        print('\n\n===== test_pcom_create_url - END \n\n')
 
-
+    @testCall
     def test_pcom_filter_template(self):
 
         for test in tv.test_values_4:
@@ -80,9 +79,7 @@ class StringProcesses1HandlerCase(unittest.TestCase):
             self.assertEqual(test['assertEqual']['is_template'],is_template)
             self.assertEqual(test['assertEqual']['is_search'],is_search)
 
-        print('\n\n===== test_pcom_filter_template - END \n\n')
-
-
+    @testCall
     def test_pcom_check_root(self):
 
         print('\n' + 'Test case 1:pcom_check_root - fileroot = index,is_root TRUE' + '\n')
@@ -116,7 +113,6 @@ class StringProcesses1HandlerCase(unittest.TestCase):
         print(is_root)
         self.assertFalse(is_root)
 
-        print('\n\n===== test_pcom_check_root - END \n\n')
 
 if __name__ == '__main__':
     unittest.main()

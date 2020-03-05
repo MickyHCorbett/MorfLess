@@ -5,11 +5,12 @@ import libraries.morflessLibs as libs
 # main includes sidebar data
 import unit.meta_elements_test_io.meta_elements_io as tv
 
-# define settings element for test
+from fixtures.decorators import testCall
 
 
 class MetaElementsCase(unittest.TestCase):
 
+    @testCall
     def test_pcom_process_meta_syntax_none(self):
 
         for ind,test in enumerate(tv.test_values_1):
@@ -28,8 +29,8 @@ class MetaElementsCase(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result)
                 self.assertNotEqual(test['assertNotEqual'], result)
 
-        print('\n\n===== test_pcom_update_authors_from_settings - END \n\n')
 
+    @testCall
     def test_pcom_process_meta_syntax_single_entries(self):
 
         for ind,test in enumerate(tv.test_values_2):
@@ -49,8 +50,8 @@ class MetaElementsCase(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result[test_element])
                 self.assertNotEqual(test['assertNotEqual'], result[test_element])
 
-        print('\n\n===== test_pcom_update_authors_from_settings - END \n\n')
 
+    @testCall
     def test_pcom_process_meta_syntax_multi_entries(self):
 
         for ind,test in enumerate(tv.test_values_3):
@@ -70,8 +71,8 @@ class MetaElementsCase(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result[test_element])
                 self.assertNotEqual(test['assertNotEqual'], result[test_element])
 
-        print('\n\n===== test_pcom_update_authors_from_settings - END \n\n')
 
+    @testCall
     def test_pcom_process_meta_syntax(self):
 
         for ind,test in enumerate(tv.test_values_4):
@@ -89,8 +90,8 @@ class MetaElementsCase(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result)
                 self.assertNotEqual(test['assertNotEqual'], result)
 
-        print('\n\n===== test_pcom_update_authors_from_settings - END \n\n')
 
+    @testCall
     def test_pcom_update_json_based_settings(self):
 
         for ind,test in enumerate(tv.test_values_5):
@@ -110,7 +111,6 @@ class MetaElementsCase(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result)
                 self.assertNotEqual(test['assertNotEqual'], result)
 
-        print('\n\n===== test_pcom_update_authors_from_settings - END \n\n')
 
 if __name__ == '__main__':
     unittest.main()

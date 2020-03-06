@@ -1,8 +1,20 @@
 # Upgrading
 
-In the event that you update any of the core files in Libraries or in the lambdas, you will want to redeploy your CloudFormation stacks.
+In the event that you update any of the core files in Libraries or in the lambdas, you may want to redeploy your CloudFormation stacks. Alternatively you can update elements as is.
 
-To do this you first must delete some of the stacks, copy the current data to a backup bucket, then delete the main stack formed in Part 1. 
+To upgrade by redploying, you first must delete some of the stacks. You can also copy the current data to a backup bucket.
+
+## Delete Main stack
+
+To delete the main stack i.e. _morfless-deployment-name_ from Part 1, you just delete it in the CloudFormation GIU or with the following AWS CLI command:
+
+    aws cloudformation delete-stack --stack-name <morfless-deployment-name>
+   
+## Upgrading
+
+Upload the new files to a package bucket and modify MorfLess-Part1-CreateMorflessElements.yml to refer to this (as in the Installation instructions). 
+
+# Extra tasks 
 
 ## Removing Notifications
 
@@ -52,7 +64,7 @@ Run the file in the GUI or by the following AWS CLI command giving the stack _mo
         
 ## Clear Buckets 
 
-Before the main stack is deleted, the buckets must be cleared, otherwise a DELETE_FAILED message will be displayed in Cloud Formation. 
+In the event you want to tear down all the stacks and buckets, the buckets must be cleared, otherwise a DELETE_FAILED message will be displayed in Cloud Formation when you try and delete the bucket stack. 
 
 Use the file MorfLess-ClearBuckets.yml and modify the Parameters section to match your bucket names:
 
@@ -87,13 +99,5 @@ Once the stacks run, you can delete the Backup and Clear Buckets formations eith
     
     aws cloudformation delete-stack --stack-name <morfless-deployment-cleardeploy>
     
-## Delete Main stack
 
-You can now delete the main stack i.e. _morfless-deployment-name_ from Part 1. The AWS CLI command is:
-
-    aws cloudformation delete-stack --stack-name <morfless-deployment-name>
-    
-## Upgrading
-
-Upload the new files to a package folder and modify MorfLess-Part1-CreateMorflessElements.yml to match (as in the Installation instructions). Repeat the steps of Installation but instead of using the package folder that contains defaults, use the Back up folder to restore all the content.
 

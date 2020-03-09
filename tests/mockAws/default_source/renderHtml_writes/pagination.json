@@ -1,32 +1,62 @@
 [
-  {
-      "name": "pagination--about.js",
-      "fileroot": "about",
-      "pagination": {
-          "index": 51,
-          "postname": "about.page",
-          "type": false,
-          "fileroot": "about"
-      }
-  },
-  {
-      "name": "pagination--test2.js",
-      "fileroot": "test2",
-      "pagination": {
-          "index": 77,
-          "postname": "test2.post",
-          "type": true,
-          "fileroot": "test2"
-      }
-  },
-  {
-      "name": "pagination--test1.js",
-      "fileroot": "test1",
-      "pagination": {
-          "index": 120,
-          "postname": "test1.post",
-          "type": true,
-          "fileroot": "test1"
-      }
-  }
+    {
+        "name": "pagination--test2.js",
+        "fileroot": "test2",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test2",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test2.post",
+            "type": true
+        }
+    },
+    {
+        "name": "pagination--test1.js",
+        "fileroot": "test1",
+        "pagination": {
+            "index": 186,
+            "fileroot": "test1",
+            "next_ref": "about.page",
+            "prev_ref": "test3.post",
+            "postname": "test1.post",
+            "type": true
+        }
+    },
+    {
+        "name": "pagination--test5.js",
+        "fileroot": "test5",
+        "pagination": {
+            "index": 64,
+            "fileroot": "test5",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test5.post",
+            "type": true
+        }
+    },
+    {
+        "name": "pagination--contact.js",
+        "fileroot": "contact",
+        "pagination": {
+            "index": 59,
+            "fileroot": "contact",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "contact.page",
+            "type": false
+        }
+    },
+    {
+        "name": "pagination--test3.js",
+        "fileroot": "test3",
+        "pagination": {
+            "index": 71,
+            "fileroot": "test3",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test3.post",
+            "type": true
+        }
+    }
 ]

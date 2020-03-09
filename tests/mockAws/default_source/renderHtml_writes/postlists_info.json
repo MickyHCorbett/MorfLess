@@ -4,70 +4,32 @@
         "fileroot": "test1",
         "postlists": [
             {
-                "index": 68,
+                "index": 75,
                 "fileroot": "test1",
                 "ppp": "5",
+                "manual_sticky": "False",
                 "content": "about.page"
             },
             {
-                "index": 76,
+                "index": 95,
                 "fileroot": "test1",
-                "ppp": "3",
-                "content": "test1.post, test2.post"
+                "ppp": "1",
+                "manual_sticky": "True",
+                "content": "test1.post,!!test3.post,test2.post,!!about.page"
             },
             {
-                "index": 108,
+                "index": 120,
                 "fileroot": "test1",
-                "ppp": "2",
-                "content": "about.page, test2.post"
-            }
-        ]
-    },
-    {
-        "name": "postlist--about.js",
-        "fileroot": "about",
-        "postlists": [
+                "ppp": "1",
+                "manual_sticky": "True",
+                "content": "test1.post,!!test3.post,test2.post"
+            },
             {
-                "index": 62,
-                "fileroot": "about",
-                "ppp": "5",
-                "content": "about.page"
-            }
-        ]
-    },
-    {
-        "name": "postlist--test2.js",
-        "fileroot": "test2",
-        "postlists": [
-            {
-                "index": 88,
-                "fileroot": "test2",
-                "ppp": "5",
-                "content": "about.page"
-            }
-        ]
-    },
-    {
-        "name": "postlist--test3.js",
-        "fileroot": "test3",
-        "postlists": [
-            {
-                "index": 51,
-                "fileroot": "test3",
-                "ppp": "5",
-                "content": "about.page"
-            }
-        ]
-    },
-    {
-        "name": "postlist--details_test1.js",
-        "fileroot": "details_test1",
-        "postlists": [
-            {
-                "index": 58,
-                "fileroot": "details_test1",
-                "ppp": "5",
-                "content": "about.page"
+                "index": 182,
+                "fileroot": "test1",
+                "ppp": "1",
+                "manual_sticky": "False",
+                "content": "about.page,test2.post"
             }
         ]
     }

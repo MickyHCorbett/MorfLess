@@ -1,0 +1,35 @@
+{
+    "no_of_author_pages": 1,
+    "authors": [
+        {
+            "name": "Corvos AE Team",
+            "shortname": "Team_CAE",
+            "thumbnail": "/images/CorvosTeam.jpg",
+            "description": "General information and content from the Corvos Astro Engineering site"
+        },
+        {
+            "name": "Micky H Corbett",
+            "shortname": "Micky",
+            "thumbnail": "/images/CorvosDefaultImage.jpg",
+            "description": "Aerospace and Space engineer with over 20 years experience in various fields including ion propulsion, aerospace systems, flight control, thruster control, prototype development. \nOther skills include cloud application development coding in multiple languages and enjoying the creative process!"
+        },
+        {
+            "name": "Albert",
+            "shortname": "Albert",
+            "thumbnail": "/images/Polimorf-shapes-background-2.jpg",
+            "description": ""
+        },
+        {
+            "name": "Jim O'Neill",
+            "shortname": "Jim O'Neill",
+            "thumbnail": "/images/Polimorf-shapes-background-2.jpg",
+            "description": ""
+        },
+        {
+            "name": "Contact",
+            "shortname": "Contact",
+            "thumbnail": "/images/Polimorf-shapes-background-2.jpg",
+            "description": ""
+        }
+    ]
+}

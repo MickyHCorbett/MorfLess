@@ -1,0 +1,25 @@
+{
+    "no_of_category_pages": 1,
+    "categories": [
+        {
+            "name": "something",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "description": ""
+        },
+        {
+            "name": "another category",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "description": ""
+        },
+        {
+            "name": "interesting",
+            "thumbnail": "/images/Polimorf-shapes-background-2.jpg",
+            "description": ""
+        },
+        {
+            "name": "things to write about",
+            "thumbnail": "/images/Polimorf-shapes-background-2.jpg",
+            "description": ""
+        }
+    ]
+}

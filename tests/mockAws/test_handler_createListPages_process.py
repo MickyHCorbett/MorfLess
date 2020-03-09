@@ -23,6 +23,10 @@ from collections import OrderedDict
 # constants for test
 SETTINGS_FILE = 'settings.txt'
 POSTLIST_FILE = 'postlist.json'
+POSTLISTS_INFO_FILE = 'postlists_info.json'
+PAGINATION_FILE = 'pagination.json'
+CATEGORIES_FILE = 'categories.json'
+AUTHORS_FILE = 'authors.json'
 ARCHIVE_FILE = 'archive.json'
 DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
@@ -109,6 +113,16 @@ class CreateListPagesProcess(unittest.TestCase):
         self.postlist_default = json.loads(get_file_content(file_source))
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,ARCHIVE_FILE)
         self.archive_default = json.loads(get_file_content(file_source))
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,PAGINATION_FILE)
+        self.pagination = json.loads(get_file_content(file_source))
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLISTS_INFO_FILE)
+        self.postlists_info = json.loads(get_file_content(file_source))
+
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,CATEGORIES_FILE)
+        categories = json.loads(get_file_content(file_source))
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,AUTHORS_FILE)
+        authors = json.loads(get_file_content(file_source))
+        self.list_meta = {'categories': categories, 'authors': authors}
 
         # create bucket and write json content to it
         self.s3resource = boto3.resource('s3', region_name=REGION)
@@ -171,6 +185,41 @@ class CreateListPagesProcess(unittest.TestCase):
         print('Search config content: {}'.format(self.read_content))
         self.assertTrue(processed)
         self.assertIn(sub_title_text,self.read_content)
+
+        # process search config - write search configuration js to file
+
+        print('\nTest 2- process pagination\n')
+
+        self.log = {'pagination_processed': [], 'outputs': []}
+        self.log = clp.process_pagination(self.pagination,self.postlist_default,self.log)
+
+        print('Log: {}'.format(self.log))
+
+        # check the pagination files
+        for entry in self.pagination:
+            config_key = "js/js-lists/" + entry['name']
+            self.log = {}
+            processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+            self.assertTrue(processed)
+            print('File {} found: {}'.format(entry['name'],processed))
+
+        print('\nTest 3- process postlists\n')
+
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': []}
+        self.log = clp.process_postlists_info(self.postlists_info,self.postlist_default,settings,self.list_meta,self.log)
+
+        print('Log: {}'.format(self.log))
+
+        # check the pagination files
+        for entry in self.postlists_info:
+            config_key = "js/js-lists/" + entry['name']
+            self.log = {}
+            processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+            self.assertTrue(processed)
+            print('File {} found: {}'.format(entry['name'],processed))
+
+
+
 
 
 if __name__ == '__main__':

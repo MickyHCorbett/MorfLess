@@ -30,6 +30,8 @@ AUTHORS_FILE = 'authors.json'
 ARCHIVE_FILE = 'archive.json'
 DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
+POSTS_TEMPLATE = libs.constants.PCOM_REQ_FILE_TEMPLATES['posts']
+
 FILENAME = "test_file.txt"
 OTHERFILE = "test_file_other.txt"
 REGION = "us-east-1"
@@ -136,6 +138,12 @@ class CreateListPagesProcess(unittest.TestCase):
         self.s3client.put_object(Bucket=clp.listbucket, Key=HTML_FILE, Body=HTML_TEXT)
         self.s3client.put_object(Bucket=clp.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_content)
 
+        # add templates
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTS_TEMPLATE)
+        self.posts_template_content = get_file_content(file_source)
+
+        self.local_settings = libs.globals.DEFAULT_SETTINGS
+
 
     def tearDown(self):
         self.log = {}
@@ -170,10 +178,10 @@ class CreateListPagesProcess(unittest.TestCase):
         print('\nTest 1 - process search config\n')
         config_key = "js/js-lists/" + libs.constants.PCOM_SEARCH_CONFIG_JS_NAME
         self.log = {'outputs': []}
-        settings = libs.globals.DEFAULT_SETTINGS
+        self.local_settings = libs.globals.DEFAULT_SETTINGS
         sub_title_text = 'This is a subtitle'
-        settings['template_main_header_text'][libs.constants.PCOM_SETTINGS_TYPE_SEARCH] = sub_title_text
-        self.log = clp.process_search_config(settings,self.log)
+        self.local_settings['template_main_header_text'][libs.constants.PCOM_SETTINGS_TYPE_SEARCH] = sub_title_text
+        self.log = clp.process_search_config(self.local_settings,self.log)
 
         print('Log: {}'.format(self.log))
         log_message = 'File: '+ libs.constants.PCOM_SEARCH_CONFIG_JS_NAME + ' processed and output as ' + config_key
@@ -203,10 +211,20 @@ class CreateListPagesProcess(unittest.TestCase):
             self.assertTrue(processed)
             print('File {} found: {}'.format(entry['name'],processed))
 
-        print('\nTest 3- process postlists\n')
+        print('\nTest 3- process pagination - no pagination file\n')
+
+        self.log = {'pagination_processed': [], 'outputs': []}
+        self.log = clp.process_pagination([],self.postlist_default,self.log)
+
+        print('Log: {}'.format(self.log))
+        self.assertEqual(self.log,{'pagination_processed': [], 'outputs': []})
+
+        # postlists info
+
+        print('\nTest 4- process postlists\n')
 
         self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': []}
-        self.log = clp.process_postlists_info(self.postlists_info,self.postlist_default,settings,self.list_meta,self.log)
+        self.log = clp.process_postlists_info(self.postlists_info,self.postlist_default,self.local_settings,self.list_meta,self.log)
 
         print('Log: {}'.format(self.log))
 
@@ -218,7 +236,78 @@ class CreateListPagesProcess(unittest.TestCase):
             self.assertTrue(processed)
             print('File {} found: {}'.format(entry['name'],processed))
 
+        # posts page
 
+        print('\nTest 5- process posts page - template = posts - no template file\n')
+        # delete settings file from bucket
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
+        self.local_settings = libs.globals.DEFAULT_SETTINGS
+        self.log = clp.process_posts_page(self.postlist_default,self.archive_default,self.local_settings,self.list_meta,self.log)
+
+        # check posts/index.html has been created
+        config_key = "posts/index.html"
+        self.log = {}
+        self.read_content = ''
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        print(self.read_content)
+        self.assertFalse(processed)
+        print("{} found: {}".format(config_key,processed))
+
+        # check posts constant has been created
+        config_key = "js/js-lists/postlist--posts.js"
+        self.log = {}
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        self.assertFalse(processed)
+        print("{} found: {}".format(config_key,processed))
+
+        # add posts template
+        self.s3client.put_object(Bucket=clp.listbucket, Key=POSTS_TEMPLATE, Body=self.posts_template_content)
+
+        print('\nTest 6- process posts page - template = entries\n')
+
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
+        self.local_settings = libs.globals.DEFAULT_SETTINGS
+        self.local_settings['template_types']['posts'] = "entries"
+        self.log = clp.process_posts_page(self.postlist_default,self.archive_default,self.local_settings,self.list_meta,self.log)
+
+        # check posts/index.html has been created
+        config_key = "entries/index.html"
+        self.log = {}
+        self.read_content = ''
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        self.assertTrue(processed)
+        print("{} found: {}".format(config_key,processed))
+
+        # check posts constant has been created
+        config_key = "js/js-lists/postlist--posts.js"
+        self.log = {}
+        self.read_content = ''
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        self.assertTrue(processed)
+        print("{} found: {}".format(config_key,processed))
+
+        print('\nTest 7- process posts page - template = posts\n')
+
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
+        self.local_settings = libs.globals.DEFAULT_SETTINGS
+        self.local_settings['template_types']['posts'] = "posts"
+        self.log = clp.process_posts_page(self.postlist_default,self.archive_default,self.local_settings,self.list_meta,self.log)
+
+        # check posts/index.html has been created
+        config_key = "posts/index.html"
+        self.log = {}
+        self.read_content = ''
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        self.assertTrue(processed)
+        print("{} found: {}".format(config_key,processed))
+
+        # check posts constant has been created
+        config_key = "js/js-lists/postlist--posts.js"
+        self.log = {}
+        self.read_content = ''
+        processed,self.read_content,self.log = clp.get_content_from_s3(config_key, clp.targetbucket,self.log)
+        self.assertTrue(processed)
+        print("{} found: {}".format(config_key,processed))
 
 
 

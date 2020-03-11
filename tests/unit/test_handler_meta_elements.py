@@ -10,6 +10,12 @@ from fixtures.decorators import testCall
 
 class MetaElementsCase(unittest.TestCase):
 
+    def setUp(self):
+        self.settings = libs.string_processes.pcom_build_dictionary(libs.globals.DEFAULT_SETTINGS)
+
+    def tearDown(self):
+        self.settings = dict()
+
     @testCall
     def test_pcom_process_meta_syntax_none(self):
 
@@ -20,8 +26,7 @@ class MetaElementsCase(unittest.TestCase):
             syntax = test['input']
             print(syntax)
 
-            settings = libs.globals.DEFAULT_SETTINGS
-            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,settings)
+            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,self.settings)
             print(result)
 
             # check asserts in
@@ -41,8 +46,7 @@ class MetaElementsCase(unittest.TestCase):
             test_element = test['element']
             print(syntax)
 
-            settings = libs.globals.DEFAULT_SETTINGS
-            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,settings)
+            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,self.settings)
             print(test_element + ': ' + str(result[test_element]))
 
             with self.subTest(msg='test - 2.'+str(ind+1)):
@@ -62,8 +66,8 @@ class MetaElementsCase(unittest.TestCase):
             test_element = test['element']
             print(syntax)
 
-            settings = libs.globals.DEFAULT_SETTINGS
-            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,settings)
+
+            result = libs.meta_elements.pcom_process_settings_meta_syntax(syntax,self.settings)
             print(test_element + ': ' + str(result[test_element]))
 
             # check asserts in

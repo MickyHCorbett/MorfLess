@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Categories%%#TITLE#%%</title>
+  <link rel="shortcut icon" type"image/x-icon" href="/images/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Categories%%#DESCRIPTION#%%">
+  <link rel="stylesheet" href="/extras/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/fonts/Faustina-FontFace.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/css/normalize.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/css/style-core.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/css/style-responsive.css" type="text/css" media="screen">
+  <!-- head additions -->
+  <!-- end of head additions -->
+  <!-- custom head additions -->
+  <!-- end of custom head additions -->
+</head>
+<body class="body-categories%%$TEMPLATE_JS_NAME$%%">
+<header id="header-fixed">
+<div class="header-outer">
+  <div class="header-inner">
+  <div class="pm-nav clearfix-small">
+    <div class="pm-responsive-icon">
+      <div class="pm-resp-icon">
+      <i class="fa fa-bars fa-x" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="pm-nav-menu-search clearfix-small">
+    <div class="pm-nav-menu clearfix-small">
+      <ul>
+      <li><a href="/" name="Home">Home</a></li>
+      <li><a href="/about/" name="About">About</a></li>
+      </ul>
+    </div><!-- end of NAV menu -->
+    <div id="pm-nav-searchbar" class="clearfix-small">
+    <div class="pm-searchbar clearfix-small">
+      <form action="/search/" autocomplete="on">
+      <input id="search" type="text" name="s" />
+      </form>
+      <span id="search-submit" class="pm-search-button" name="search-submit"></span>
+    </div><!-- end of #pm-searchbar -->
+    </div><!-- end of #pm-nav-searchbar-->
+    </div><!-- end of .pm-nav-menu-search -->
+  </div><!-- end of .pm-nav -->
+  </div><!-- end of .header-inner -->
+</div><!-- end of .header-outer -->
+</header><!-- end of #header-fixed -->
+<section id="main-wrap">
+<div class="main-outer clearfix-small">
+  <div class="main-inner clearfix-small">
+    <div class="pm-post-list-custom clearfix-small">
+      <div class="pm-postlist-entries clearfix-small postlist-template">
+      </div><!-- end postlist entries data -->
+      <div class="pm-postlist-pagination clearfix-small" data-postlist-name="postlist-template">
+      </div><!-- end of .pm-postlist-pagination -->
+    </div><!-- end of .pm-post-list -->
+  </div><!-- end of .main-inner -->
+</div><!-- end of .main-outer -->
+</section><!-- end of main-wrap -->
+<footer id="footer-wrap">
+<div class="footer-outer clearfix-small">
+  <div class="footer-inner clearfix-small">
+  <div class="pm-nav clearfix-small Footer-Class">
+  <div class="pm-general-menu clearfix-small Footer-Class">
+    <div class="pm-title-nav">A menu</div><!-- end of .pm-title-nav -->
+    <div class="pm-nav-menu clearfix-small">
+      <ul>
+      <li class="home-ref clearfix-small"><a href="/" name="Home"><img src="/images/home_icon.png" alt="Home" /></a></li>
+      <li><a href="/about/" name="About">About</a></li>
+      </ul>
+    </div><!-- end of NAV menu -->
+  </div><!-- end of .pm-general-menu -->
+  </div><!-- end of .pm-nav -->
+  </div><!-- end of .footer-inner -->
+</div><!-- end of .footer-outer -->
+</footer><!-- end of footer-wrap -->
+<!-- standard scripts-->
+<script src="/js/vendor/jquery-3.1.0.js"></script>
+<script src="/js/nav-menu-drop-down.js"></script>
+<script src="/js/width-change-zoom-fix.js"></script>
+<!-- end of standard scripts-->
+<!-- footer additions -->
+<!-- end of footer additions -->
+<!-- custom footer additions -->
+<script src="/js/js-lists/postlist--categories%%$TEMPLATE_JS_NAME$%%.js" data-template-constant-name="_postlist_categories%%$TEMPLATE_CONSTANT_NAME$%%"></script>
+<script src="/js/postlist-template-handler.js"></script>
+<!-- end of custom footer additions -->
+</body>
+</html>

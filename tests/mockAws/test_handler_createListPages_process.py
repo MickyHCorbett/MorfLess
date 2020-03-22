@@ -1,7 +1,9 @@
 import unittest
 import libraries.morflessLibs as libs
 import boto3
-import os, json
+import os
+import json
+import time
 
 """
 set environment to allow
@@ -31,6 +33,7 @@ ARCHIVE_FILE = 'archive.json'
 DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
 POSTS_TEMPLATE = libs.constants.PCOM_REQ_FILE_TEMPLATES['posts']
+CATEGORIES_TEMPLATE = libs.constants.PCOM_REQ_FILE_TEMPLATES['categories']
 
 FILENAME = "test_file.txt"
 OTHERFILE = "test_file_other.txt"
@@ -141,6 +144,8 @@ class CreateListPagesProcess(unittest.TestCase):
         # add templates
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTS_TEMPLATE)
         self.posts_template_content = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,CATEGORIES_TEMPLATE)
+        self.categories_template_content = get_file_content(file_source)
 
         self.local_settings = libs.globals.DEFAULT_SETTINGS
 
@@ -173,7 +178,9 @@ class CreateListPagesProcess(unittest.TestCase):
     @testCall
     def test_createListPages_process(self):
 
+        # ==============
         # process search config - write search configuration js to file
+        # ==============
 
         print('\nTest 1 - process search config\n')
         config_key = "js/js-lists/" + libs.constants.PCOM_SEARCH_CONFIG_JS_NAME
@@ -194,9 +201,11 @@ class CreateListPagesProcess(unittest.TestCase):
         self.assertTrue(processed)
         self.assertIn(sub_title_text,self.read_content)
 
-        # process search config - write search configuration js to file
+        # ==============
+        # process pagination -
+        # ==============
 
-        print('\nTest 2- process pagination\n')
+        print('\nTest 2 - process pagination\n')
 
         self.log = {'pagination_processed': [], 'outputs': []}
         self.log = clp.process_pagination(self.pagination,self.postlist_default,self.log)
@@ -211,7 +220,7 @@ class CreateListPagesProcess(unittest.TestCase):
             self.assertTrue(processed)
             print('File {} found: {}'.format(entry['name'],processed))
 
-        print('\nTest 3- process pagination - no pagination file\n')
+        print('\nTest 3 - process pagination - no pagination file\n')
 
         self.log = {'pagination_processed': [], 'outputs': []}
         self.log = clp.process_pagination([],self.postlist_default,self.log)
@@ -219,9 +228,11 @@ class CreateListPagesProcess(unittest.TestCase):
         print('Log: {}'.format(self.log))
         self.assertEqual(self.log,{'pagination_processed': [], 'outputs': []})
 
-        # postlists info
+        # ==============
+        # process postlists info
+        # ==============
 
-        print('\nTest 4- process postlists\n')
+        print('\nTest 4 - process postlists\n')
 
         self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': []}
         self.log = clp.process_postlists_info(self.postlists_info,self.postlist_default,self.local_settings,self.list_meta,self.log)
@@ -236,9 +247,19 @@ class CreateListPagesProcess(unittest.TestCase):
             self.assertTrue(processed)
             print('File {} found: {}'.format(entry['name'],processed))
 
-        # posts page
+        print('\nTest 5 - process postlists - no postlists info\n')
 
-        print('\nTest 5- process posts page - template = posts - no template file\n')
+        self.log = {'pagination_processed': [], 'outputs': []}
+        self.log = clp.process_postlists_info([],self.postlist_default,self.local_settings,self.list_meta,self.log)
+
+        print('Log: {}'.format(self.log))
+        self.assertEqual(self.log,{'pagination_processed': [], 'outputs': []})
+
+        # ==============
+        # process posts page
+        # ==============
+
+        print('\nTest 6 - process posts page - template = posts - no template file\n')
         # delete settings file from bucket
         self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
         self.local_settings = libs.globals.DEFAULT_SETTINGS
@@ -263,7 +284,7 @@ class CreateListPagesProcess(unittest.TestCase):
         # add posts template
         self.s3client.put_object(Bucket=clp.listbucket, Key=POSTS_TEMPLATE, Body=self.posts_template_content)
 
-        print('\nTest 6- process posts page - template = entries\n')
+        print('\nTest 7 - process posts page - template = entries\n')
 
         self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
         self.local_settings = libs.globals.DEFAULT_SETTINGS
@@ -286,7 +307,7 @@ class CreateListPagesProcess(unittest.TestCase):
         self.assertTrue(processed)
         print("{} found: {}".format(config_key,processed))
 
-        print('\nTest 7- process posts page - template = posts\n')
+        print('\nTest 8 - process posts page - template = posts\n')
 
         self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
         self.local_settings = libs.globals.DEFAULT_SETTINGS
@@ -309,7 +330,52 @@ class CreateListPagesProcess(unittest.TestCase):
         self.assertTrue(processed)
         print("{} found: {}".format(config_key,processed))
 
+        # ==============
+        # process info base pages
+        # ==============
+        print('\nTest 9 - process info base page - categories\n')
 
+        # add categories template
+        self.s3client.put_object(Bucket=clp.listbucket, Key=CATEGORIES_TEMPLATE, Body=self.categories_template_content)
+
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
+        bt = 'categories' # base type
+        st = libs.globals.DEFAULT_SETTINGS
+        lm = self.list_meta
+        postlist = self.postlist_default
+        archive = self.archive_default
+        info_list = self.list_meta['categories']['categories']
+        test_names = []
+        index_names = []
+        for entry in info_list:
+            name = 'postlist--categories-'+ entry['name'].replace(" ","-") + '.js'
+            test_names.append(name)
+            index = 'categories/' + entry['name'].replace(" ","-") + '/index.html'
+            index_names.append(index)
+
+        self.log = clp.process_info_base_pages(info_list,postlist,archive,bt,st,lm,self.log)
+        print(self.log['outputs'])
+
+        log_joined = ' '.join(self.log['outputs'])
+
+        for entry in test_names:
+            self.assertIn(entry,log_joined)
+
+        for entry in index_names:
+            self.assertIn(entry,log_joined)
+
+
+        print('\nTest 9 - process info base page - empty list\n')
+
+        self.log = {'pagination_processed': [], 'outputs': [], 'postlists_processed': [], 'template_names': []}
+        info_list = []
+        self.log = clp.process_info_base_pages(info_list,postlist,archive,bt,st,lm,self.log)
+        print(self.log['outputs'])
+        outputs = ['File: categories processed and output as categories/index.html',
+        'File: postlist--categories.js processed and output as js/js-lists/postlist--categories.js']
+        self.assertEqual(self.log['outputs'],outputs)
+
+        
 
 if __name__ == '__main__':
     unittest.main()

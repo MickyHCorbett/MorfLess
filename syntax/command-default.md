@@ -9,7 +9,7 @@ For example:
     ///HEADER:
     %%DEFAULT::
     
-Will add whatever the settings for the ///HEADER: tag where in Settings. 
+will add whatever the settings for the ///HEADER: tag are in Settings. 
 
 If this command is used in the Settings, the default ///HEADER: content as defined in [libraries/schematics.py](https://github.com/MickyHCorbett/MorfLess/blob/master/libraries/morflessLibs/schematics.py) will be used.
 

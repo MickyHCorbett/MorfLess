@@ -5,7 +5,7 @@ MorfLess uses the following schematic commands in relation to their placement. T
 | Command | Use  | Placement |
 | :-------| :----| :-------- |
 | [DEFAULT](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-default.md) | Use the default for the placement tag as defined in settings.txt | All placements |
-| NAV | Insert the nav bar | HEADER only |
+| [NAV](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-nav.md) | Insert the nav bar | HEADER only |
 | MENU | Insert a menu | All placements |
 | QUOTE | Add a quote | All placements |
 | CONTENT | Add content i.e. text/html | All placements |

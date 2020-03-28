@@ -10,6 +10,12 @@ For example:
     %%CONTENT::
     TEXT=[ <text, html etc> ]:
     
+or
+
+    ///SIDEBAR:
+    %%CONTENT::
+    TEXT=[ <text, html etc> ]:
+    
 ## Subschematic Commands 
 
 - TEXT (no arguments)

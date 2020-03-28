@@ -27,11 +27,11 @@ There are 3 keywords for NAV:
     
 To add a nav menu link:
 
-    mlk={ href"/path/" name="Text of link" }:
+    mlk={ href="/path/" name="Text of link" }:
     
 To add a logo:
 
-    logo={ src"/path/" }:
+    logo={ src="/path/" }:
     
 To add the search bar:
 

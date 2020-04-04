@@ -53,7 +53,42 @@ template_sub_header_back_link_text={
   }
 }:
 
+template_search_content={
 
+{
+    "categories": {
+        "name": "Categories",
+        "thumbnail": "/images/Polimorf-shapes-background-orange.jpg",
+        "description": "Posts listed by category"
+    },
+    "authors": {
+        "name": "Authors",
+        "thumbnail": "/images/Polimorf-shapes-background-yellow.jpg",
+        "description": "Posts and pages listed by author"
+    },
+    "archive": {
+        "name": "Archive",
+        "thumbnail": "/images/Polimorf-shapes-background-black.jpg",
+        "description": "Monthly archives arranged by most recent to older"
+    },
+    "posts": {
+        "name": "Posts",
+        "thumbnail": "/images/Polimorf-shapes-background-darkblue.jpg",
+        "description": "Posts by various authors and in various categories"
+    },
+    "index": {
+        "name": "Home",
+        "thumbnail": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        "description": "Welcome to the site! Feel free to browse around and follow the links to other pages and posts"
+    },
+    "404": {
+        "name": "Not Found",
+        "thumbnail": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        "description": "When you can"t find anything you end up here!"
+    }
+}
+
+}:
 
 categories={
 }:

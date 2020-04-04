@@ -78,12 +78,12 @@ template_search_content={
     },
     "index": {
         "name": "Home",
-        "thumbnail": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        "thumbnail": "/images/Polimorf-shapes-background.jpg",
         "description": "Welcome to the site! Feel free to browse around and follow the links to other pages and posts"
     },
     "404": {
         "name": "Not Found",
-        "thumbnail": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+        "thumbnail": "/images/Polimorf-shapes-background.jpg",
         "description": "When you can"t find anything you end up here!"
     }
 }

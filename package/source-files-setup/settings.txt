@@ -84,7 +84,7 @@ template_search_content={
     "404": {
         "name": "Not Found",
         "thumbnail": "/images/Polimorf-shapes-background.jpg",
-        "description": "When you can"t find anything you end up here!"
+        "description": "When you can't find anything you end up here!"
     }
 }
 

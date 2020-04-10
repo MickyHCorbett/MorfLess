@@ -18,3 +18,5 @@ For the case of Header this is:
     PM_HEADER_SCHEMATIC = """%%NAV::
     mlk={href="SITE_HOME" name="Home" src="IMAGES/home_icon.png"}:
     searchbar={}:"""
+    
+If you want to change the underlying default value as above, change the schematics.py file.

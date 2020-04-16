@@ -57,7 +57,7 @@ If you wish to run the site through Cloudfront you can also use Lambda@Edge to r
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 

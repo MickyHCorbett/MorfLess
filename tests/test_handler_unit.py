@@ -14,6 +14,7 @@ from mockAws.test_handler_bucket_operations import SearchContentBucketOperations
 from mockAws.test_handler_renderHtml_writes import RenderHtmlReadWrites
 from mockAws.test_handler_createListPages_writes import CreateListPagesReadWrites
 from mockAws.test_handler_createListPages_process import CreateListPagesProcess
+from mockAws.test_handler_searchContent_writes import SearchContentReadWrites
 
 def suite():
     suite = unittest.TestSuite()

@@ -31,62 +31,7 @@ AUTHORS_FILE = 'authors.json'
 ARCHIVE_FILE = 'archive.json'
 DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
-FILENAME = "test_file.txt"
-OTHERFILE = "test_file_other.txt"
 REGION = "us-east-1"
-
-JSON_FILE = 'test_json_file.json'
-JSON_FILE_2 = 'test_json_file_2.json'
-OTHER_JSON = 'test_other.json'
-HTML_FILE = 'test_html_file.html'
-STANDARD_FILE = 'test_standard_file.txt'
-
-JSON_TEXT = """
-{
-    "variable1": "this",
-    "variable2": "that"
-}
-"""
-JSON_TEXT_2 = """
-{
-    "variable3": "this",
-    "variable4": {
-        "variable5" : [
-            "that",
-            "that again"
-        ]
-    }
-}
-"""
-
-JSON_ORDERED = OrderedDict([('variable1', 'this'), ('variable2', 'that')])
-
-HTML_TEXT = """
-<html>
-<head>Something here</head>
-<body>Somethinf else here</body>
-</html>
-"""
-
-STANDARD_TEXT = """
-Something here
-"""
-CONTENT_DISPOSITION = 'ContentDisposition'
-
-CATEGORIES_DEFAULT = {
-    "no_of_category_pages": 1,
-    "categories": [
-    ]
-}
-AUTHORS_DEFAULT = {
-    "no_of_author_pages": 1,
-    "authors": [
-    ]
-}
-LIST_META_DEFAULT = { \
-'categories': CATEGORIES_DEFAULT,
-'authors': AUTHORS_DEFAULT
-}
 
 DEPENDENCIES_DEFAULT = [\
     {
@@ -140,7 +85,6 @@ class RenderHtmlProcess(unittest.TestCase):
         self.s3resource.create_bucket(Bucket=rdl.targetbucket)
 
         self.s3client = boto3.client('s3', region_name=REGION)
-        self.s3client.put_object(Bucket=rdl.listbucket, Key=JSON_FILE, Body=JSON_TEXT)
         self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_content)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=CATEGORIES_FILE, Body=categories)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=AUTHORS_FILE, Body=authors)

@@ -1,7 +1,9 @@
 import unittest
 import libraries.morflessLibs as libs
 import boto3
-import os, json
+import os
+import sys
+import json
 
 """
 set environment to allow
@@ -14,6 +16,7 @@ os.environ['SOURCE_BUCKET'] = "sourcebucket"
 os.environ['TARGET_BUCKET'] = "targetbucket"
 os.environ["LIST_BUCKET"] = "listbucket"
 os.environ["SEARCH_BUCKET"] = "searchbucket"
+
 
 import lambda_source.RenderHtml.renderHtml_handlerLibrary as rdl
 
@@ -66,15 +69,30 @@ class RenderHtmlProcess(unittest.TestCase):
         class_dir = os.getcwd()
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,SETTINGS_FILE)
         self.settings_content = get_file_content(file_source)
-        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLIST_FILE)
-        self.postlist_default = json.loads(get_file_content(file_source))
-        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,ARCHIVE_FILE)
-        self.archive_default = json.loads(get_file_content(file_source))
 
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLIST_FILE)
+        postlist = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,ARCHIVE_FILE)
+        archive = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,PAGINATION_FILE)
+        pagination = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLISTS_INFO_FILE)
+        postlists_info = get_file_content(file_source)
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,CATEGORIES_FILE)
         categories = get_file_content(file_source)
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,AUTHORS_FILE)
         authors = get_file_content(file_source)
+
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test1.post')
+        test1_post = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test2.post')
+        test2_post = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test1.html')
+        self.test1_html = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test2.html')
+        self.test2_html = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'puppies.txt')
+        puppies_txt = get_file_content(file_source)
 
         # create bucket and write json content to it
         self.s3resource = boto3.resource('s3', region_name=REGION)
@@ -88,6 +106,14 @@ class RenderHtmlProcess(unittest.TestCase):
         self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_content)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=CATEGORIES_FILE, Body=categories)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=AUTHORS_FILE, Body=authors)
+        self.s3client.put_object(Bucket=rdl.listbucket, Key=POSTLIST_FILE, Body=postlist)
+        self.s3client.put_object(Bucket=rdl.listbucket, Key=ARCHIVE_FILE, Body=archive)
+        self.s3client.put_object(Bucket=rdl.listbucket, Key=POSTLISTS_INFO_FILE, Body=postlists_info)
+        self.s3client.put_object(Bucket=rdl.listbucket, Key=PAGINATION_FILE, Body=pagination)
+
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key='test1.post', Body=test1_post)
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key='test2.post', Body=test2_post)
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key='puppies.txt', Body=puppies_txt)
 
     def tearDown(self):
         self.log = {}
@@ -202,8 +228,58 @@ class RenderHtmlProcess(unittest.TestCase):
         self.assertEqual({'filelist': "Dependencies for another_file.txt found: ['this.post', 'that.post']"},self.log)
 
         # ===========
-        # process schematic
+        # process uploaded files - includes process schematic
         # ===========
+        print('\nTest 6 - process uploaded files - empty filelist and expected empty log\n')
+        self.log = {}
+        self.log = rdl.process_uploaded_files([],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        self.assertEqual({},self.log)
+
+        print('\nTest 7 - process uploaded files - file with no inserts\n')
+        self.log = {'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []}
+
+        self.log = rdl.process_uploaded_files(['test1.post'],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        self.assertEqual(self.log['files_processed'],'Y')
+
+        # get output file - test1-the-first-post/index.html in target bucket
+        self.log = {}
+        target_content = ''
+        processed,target_content,self.log = \
+        rdl.get_content_from_s3('test1-the-first-post/index.html',rdl.targetbucket,self.log)
+        self.assertTrue(processed)
+        print('target content:\n{}'.format(target_content))
+        self.assertEqual(self.test1_html.strip(),target_content.strip())
+
+        print('\nTest 8 - process uploaded files - file with inserts\n')
+        self.log = {'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []}
+
+        self.log = rdl.process_uploaded_files(['test2.post'],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        self.assertEqual(self.log['files_processed'],'Y')
+
+        # get output file - test2-again/index.html in target bucket
+        self.log = {}
+        target_content = ''
+        processed,target_content,self.log = \
+        rdl.get_content_from_s3('test2-again/index.html',rdl.targetbucket,self.log)
+        self.assertTrue(processed)
+        print('target content:\n{}'.format(target_content))
+        self.assertEqual(self.test2_html.strip(),target_content.strip())
+
 
 if __name__ == '__main__':
     unittest.main()

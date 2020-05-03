@@ -1,0 +1,11 @@
+Add some content
+
+%%CONTENT::
+TEXT=[
+<p>Something here formatted in html from an insert - like Puppies</p>
+<p>And then when you <b>update the insert</b> like this the content will change for all files it is used in</b></p>
+<p>Then some more to add again!</p> ]:
+
+%%POSTLIST::
+list={ about.page }:
+posts_per_page={ 1 }:

@@ -111,16 +111,19 @@ def process_uploaded_files(filelist,dependencies,outputLog):
                 dependencies = htmlOut.dependencies
                 postlist = htmlOut.postlist
 
-                cn = htmlOut.postlist_constant_name
-                pn = htmlOut.pagination_name
-                flr = htmlOut.fileroot
-                local_pl = htmlOut.postlists_info
-                local_pg = htmlOut.pagination_info
-                is_t = htmlOut.is_template
-                is_s = htmlOut.is_search
+                postlists_info =  libs.lists.pcom_update_postlists_info(
+                                postlist_info=postlists_info,
+                                local_info=htmlOut.postlists_info,
+                                js_name=htmlOut.postlist_constant_name,
+                                fileroot=htmlOut.fileroot,
+                                is_template=htmlOut.is_template,
+                                is_search=htmlOut.is_search)
 
-                postlists_info =  libs.lists.pcom_update_postlists_info(postlists_info,local_pl,cn,flr,is_s,is_t)
-                pagination_info =  libs.lists.pcom_update_pagination_info(pagination_info,local_pg,pn,flr)
+                pagination_info = libs.lists.pcom_update_pagination_info(
+                                pagination_info=pagination_info,
+                                local_info=htmlOut.pagination_info,
+                                pagination_name=htmlOut.pagination_name,
+                                fileroot=htmlOut.fileroot)
 
                 # add addition info
                 htmlOut.log['file_header_additions'].append({file: htmlOut.site_settings['header_additions'] })

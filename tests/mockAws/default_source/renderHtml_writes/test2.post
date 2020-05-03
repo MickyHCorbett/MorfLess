@@ -1,0 +1,40 @@
+///META:
+title={ A new post }:
+url={ /test2-again/ }:
+
+categories={ something, another category, things to write about }:
+description={ A new post about something }:
+extract={
+
+Something longer here to describe what is going on.
+Like we can see there are more lines to add.
+
+You can add in quotes as well like "this" and even 'that'!
+
+Then more again! }:
+sticky={}:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+mlk={href="/test2/" name="Test Page 2"}:
+searchbar={}:
+
+///MAIN:
+%%CONTENT_CUSTOM: my-content-1 ::
+TEXT=[
+<p>Something here formatted in html</p>
+[p]Something else but formatted using substitutions[/p]
+[p]And then we can add other things here to see what is what and how it's formatted.[/p]
+[p]This line added to test Step Functions[/p]
+<p>This line is part of Test 2</p> ]:
+
+%%INSERT::
+ref={ puppies.txt }:
+
+///FOOTER:
+%%MENU::
+title={ A menu }:
+mlk={href="SITE_HOME" name="Home"}:
+mlk={href="/about/" name="About"}:

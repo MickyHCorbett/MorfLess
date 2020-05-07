@@ -1,4 +1,4 @@
-<- [Back to Syntax Commands](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/syntax-commands.md)
+<- [Back to Syntax Commands](syntax-commands.md)
 
 # MENU
 

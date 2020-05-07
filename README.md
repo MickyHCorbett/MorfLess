@@ -39,11 +39,11 @@ When a search request is made, the API Gateway communicates with Lambda and sear
 
 ## Installation 
 
-Go to [MorfLess Installation instructions](https://github.com/MickyHCorbett/MorfLess/blob/master/package/installation.md)
+Go to [MorfLess Installation instructions](package/installation.md)
 
 ## User Guide
 
-Go to [MorfLess User Guide](https://github.com/MickyHCorbett/MorfLess/blob/master/user-guide/)
+Go to [MorfLess User Guide](user-guide/)
 
 ## Dependencies
 You will need an AWS account and a user with Admin privileges (recommended NOT to be the root user). 

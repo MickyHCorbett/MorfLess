@@ -4,11 +4,11 @@ MorfLess uses the following schematic commands in relation to their placement. T
 
 | Command | Use  | Placement |
 | :-------| :----| :-------- |
-| [DEFAULT](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-default.md) | Use the default for the placement tag as defined in settings.txt | All placements |
-| [NAV](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-nav.md) | Insert the nav bar | HEADER only |
-| [MENU](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-menu.md) | Insert a menu | All placements |
+| [DEFAULT](command-default.md) | Use the default for the placement tag as defined in settings.txt | All placements |
+| [NAV](command-nav.md) | Insert the nav bar | HEADER only |
+| [MENU](command-menu.md) | Insert a menu | All placements |
 | QUOTE | Add a quote | All placements |
-| [CONTENT](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/command-content.md)  | Add content i.e. text/html | All placements |
+| [CONTENT](command-content.md)  | Add content i.e. text/html | All placements |
 | CONTENT_META |  Add the title, author, category, date modified and date created information to a post/page| MAIN only |
 | POSTLIST | Add a list of posts or pages | All placements except HEADER |
 | SECTION | Adds a general div element that wraps other commands creating a section | All placements except HEADER |

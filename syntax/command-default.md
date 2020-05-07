@@ -1,4 +1,4 @@
-<- [Back to Syntax Commands](https://github.com/MickyHCorbett/MorfLess/blob/master/syntax/syntax-commands.md)
+<- [Back to Syntax Commands](syntax-commands.md)
 
 # Default
 
@@ -11,7 +11,7 @@ For example:
     
 will add whatever the settings for the ///HEADER: tag are in Settings. 
 
-If this command is used in the Settings, the default ///HEADER: content as defined in [libraries/schematics.py](https://github.com/MickyHCorbett/MorfLess/blob/master/libraries/morflessLibs/schematics.py) will be used.
+If this command is used in the Settings, the default ///HEADER: content as defined in [libraries/schematics.py](../libraries/schematics.py) will be used.
 
 For the case of Header this is:
 

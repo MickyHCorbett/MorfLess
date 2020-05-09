@@ -165,7 +165,6 @@ def delete_files(filelist,dependencies,outputLog):
 
         # condition filename
         fileroot = file.lower().replace(".post","").replace(".page","")
-        outkey = fileroot + "/index.html"
         template_key = fileroot + ".template"
         raw_key = file + ".content"
 
@@ -177,6 +176,9 @@ def delete_files(filelist,dependencies,outputLog):
             template_deleted,outputLog = delete_content_from_s3(file,template_key,listbucket,outputLog)
         else:
             # delete from target
+            # get file url from post entry
+            file_data = libs.lists.pcom_find_post(postlist,file)
+            outkey = file_data['url'] + 'index.html'
             file_deleted,outputLog = delete_content_from_s3(file,outkey,targetbucket,outputLog)
 
         # delete from search

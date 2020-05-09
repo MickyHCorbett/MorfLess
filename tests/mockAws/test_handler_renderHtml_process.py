@@ -25,6 +25,7 @@ from fixtures.decorators import testCall
 from collections import OrderedDict
 
 # constants for test
+SETTINGS_DEFAULT_FILE = 'settings_default.txt'
 SETTINGS_FILE = 'settings.txt'
 POSTLIST_FILE = 'postlist.json'
 POSTLISTS_INFO_FILE = 'postlists_info.json'
@@ -69,8 +70,8 @@ class RenderHtmlProcess(unittest.TestCase):
         self.maxDiff = None
 
         class_dir = os.getcwd()
-        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,SETTINGS_FILE)
-        self.settings_content = get_file_content(file_source)
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,SETTINGS_DEFAULT_FILE)
+        self.settings_default = get_file_content(file_source)
 
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTLIST_FILE)
         postlist = get_file_content(file_source)
@@ -90,9 +91,9 @@ class RenderHtmlProcess(unittest.TestCase):
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test2.post')
         test2_post = get_file_content(file_source)
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test1.html')
-        self.test1_html = get_file_content(file_source)
+        self.test1_html = get_file_content(file_source).strip()
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'test2.html')
-        self.test2_html = get_file_content(file_source)
+        self.test2_html = get_file_content(file_source).strip()
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'puppies.txt')
         puppies_txt = get_file_content(file_source)
 
@@ -108,7 +109,7 @@ class RenderHtmlProcess(unittest.TestCase):
         self.s3resource.create_bucket(Bucket=rdl.targetbucket)
 
         self.s3client = boto3.client('s3', region_name=REGION)
-        self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_content)
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key=SETTINGS_FILE, Body=self.settings_default)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=CATEGORIES_FILE, Body=categories)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=AUTHORS_FILE, Body=authors)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=POSTLIST_FILE, Body=postlist)

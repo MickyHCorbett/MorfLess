@@ -1,0 +1,118 @@
+Settings
+
+To localise templates i.e. links, change the key values
+e.g. if you want posts to be "entries", set - "posts": "entries"
+Then go to your s3 website bucket and remove the folder for "posts"
+if it has been generated
+
+
+///META:
+
+posts_per_page={ 5 }:
+post_meta_default={ title, category, author, date_created, date_modified, show_time }:
+page_meta_default={ title, author, date_created, date_modified }:
+date_format={ UK }:
+title={ A Morfless Serverless Test Site }:
+description={ }:
+
+templates={
+  {
+    "search": "search",
+    "categories": "categories",
+    "authors": "authors",
+    "archive": "archive",
+    "posts": "posts"
+  }
+}:
+
+template_main_header_text={
+  {
+    "search": "Results for: ",
+    "categories": "Categories",
+    "authors": "Authors",
+    "archive": "Monthly Archives",
+    "posts": "Posts"
+  }
+}:
+
+
+template_sub_header_text={
+
+  {
+    "categories": "Posts for category: ",
+    "authors": "Posts by author: ",
+    "archive": "Posts for month: "
+  }
+}:
+
+template_sub_header_back_link_text={
+  {
+    "categories": "Back to Categories",
+    "authors": "Back to Authors",
+    "archive": "Back to Archives"
+  }
+}:
+
+template_search_content={
+
+{
+    "categories": {
+        "name": "Categories",
+        "thumbnail": "/images/Polimorf-shapes-background-orange.jpg",
+        "description": "Posts listed by category"
+    },
+    "authors": {
+        "name": "Authors",
+        "thumbnail": "/images/Polimorf-shapes-background-yellow.jpg",
+        "description": "Posts and pages listed by author"
+    },
+    "archive": {
+        "name": "Archive",
+        "thumbnail": "/images/Polimorf-shapes-background-black.jpg",
+        "description": "Monthly archives arranged by most recent to older"
+    },
+    "posts": {
+        "name": "Posts",
+        "thumbnail": "/images/Polimorf-shapes-background-darkblue.jpg",
+        "description": "Posts by various authors and in various categories"
+    },
+    "index": {
+        "name": "Home",
+        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+        "description": "Welcome to the site! Feel free to browse around and follow the links to other pages and posts"
+    },
+    "404": {
+        "name": "Not Found",
+        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+        "description": "When you can't find anything you end up here!"
+    }
+}
+
+}:
+
+categories={
+}:
+
+author={
+}:
+
+search_api_url={  }:
+
+
+///HEADER:
+%%DEFAULT::
+
+///BEFORE::
+NONE
+
+///MAIN:
+%%DEFAULT::
+
+///AFTER:
+NONE
+
+///SIDEBAR:
+NONE:
+
+///FOOTER:
+%%DEFAULT::

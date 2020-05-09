@@ -1,0 +1,18 @@
+// Posts template
+// Everything but main is reused for multiple post pages
+
+///META:
+title={ Blog }:
+description={ List of posts }:
+url={ / }:
+
+///HEADER:
+%%NAV::
+mlk={href="/" name="Home" }:
+mlk={href="/about/" name="About"}:
+searchbar={}:
+
+///MAIN:
+
+///FOOTER:
+%%DEFAULT::

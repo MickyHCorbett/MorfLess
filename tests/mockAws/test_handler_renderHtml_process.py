@@ -32,6 +32,8 @@ PAGINATION_FILE = 'pagination.json'
 CATEGORIES_FILE = 'categories.json'
 AUTHORS_FILE = 'authors.json'
 ARCHIVE_FILE = 'archive.json'
+POSTS_TEMPLATE_SOURCE = 'posts.page'
+POSTS_TEMPLATE = 'posts.template'
 DEFAULT_SOURCE_ROOT = "tests/mockAws/default_source/renderHtml_writes/"
 
 REGION = "us-east-1"
@@ -94,6 +96,9 @@ class RenderHtmlProcess(unittest.TestCase):
         file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,'puppies.txt')
         puppies_txt = get_file_content(file_source)
 
+        file_source = os.path.join(class_dir,DEFAULT_SOURCE_ROOT,POSTS_TEMPLATE_SOURCE)
+        posts_page = get_file_content(file_source)
+
         # create bucket and write json content to it
         self.s3resource = boto3.resource('s3', region_name=REGION)
 
@@ -111,9 +116,11 @@ class RenderHtmlProcess(unittest.TestCase):
         self.s3client.put_object(Bucket=rdl.listbucket, Key=POSTLISTS_INFO_FILE, Body=postlists_info)
         self.s3client.put_object(Bucket=rdl.listbucket, Key=PAGINATION_FILE, Body=pagination)
 
+
         self.s3client.put_object(Bucket=rdl.sourcebucket, Key='test1.post', Body=test1_post)
         self.s3client.put_object(Bucket=rdl.sourcebucket, Key='test2.post', Body=test2_post)
         self.s3client.put_object(Bucket=rdl.sourcebucket, Key='puppies.txt', Body=puppies_txt)
+        self.s3client.put_object(Bucket=rdl.sourcebucket, Key=POSTS_TEMPLATE_SOURCE, Body=posts_page)
 
     def tearDown(self):
         self.log = {}
@@ -280,6 +287,87 @@ class RenderHtmlProcess(unittest.TestCase):
         print('target content:\n{}'.format(target_content))
         self.assertEqual(self.test2_html.strip(),target_content.strip())
 
+        print('\nTest 9 - process uploaded files - template file\n')
+        self.log = {'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []}
+
+        self.log = rdl.process_uploaded_files(['posts.page'],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        self.assertEqual(self.log['files_processed'],'Y')
+
+        # show that no target file is created
+        self.log = {}
+        target_content = ''
+        processed,target_content,self.log = \
+        rdl.get_content_from_s3('posts/index.html',rdl.targetbucket,self.log)
+        self.assertFalse(processed)
+        print(f"Search for posts/index.html:\n{processed}")
+
+        # ===========
+        # delete files
+        # ===========
+
+        print('\nTest 10 - delete files - no files\n')
+        self.log = {}
+        self.log = rdl.delete_files([],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        self.assertEqual({'postlist.json': 'JSON File: postlist.json processed and updated'},self.log)
+
+        print('\nTest 11 - delete test2.post\n')
+        self.log = {}
+        self.log = rdl.delete_files(['test2.post'],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        log_message = {'postlist.json': 'JSON File: postlist.json processed and updated', 'files_processed': 'Y', 'test2.post': 'File: test2.post deleted from bucket searchbucket, File test2.post.content deleted from site'}
+        self.assertEqual(log_message,self.log)
+
+        # check buckets for files
+        self.log = {}
+        processed = False
+        processed,file_content,self.log = \
+        rdl.get_content_from_s3('test2-again/index.html',rdl.targetbucket,self.log)
+        print(f"File - test2-again/index.html in target bucket: {processed}")
+        self.assertFalse(processed)
+
+        self.log = {}
+        processed = False
+        processed,file_content,self.log = \
+        rdl.get_content_from_s3('test2.post.content',rdl.searchbucket,self.log)
+        print(f"File - test2.post.content in search bucket: {processed}")
+        self.assertFalse(processed)
+
+        # check postlist
+        self.log = {}
+        postlist_local,self.log = rdl.process_json_files(POSTLIST_FILE,rdl.listbucket,self.log)
+        file_data = libs.lists.pcom_find_post(postlist_local,'test2.post')
+        print(f"Result of search for test2.post in postlist.json: {file_data}")
+        self.assertEqual({'postname': 'NONE'},file_data)
+
+        print('\nTest 12 - delete posts.page - template \n')
+        self.log = {}
+        self.log = rdl.delete_files(['posts.page'],DEPENDENCIES_DEFAULT,self.log)
+        print('Log: {}'.format(self.log))
+        log_message = {'files_processed': 'Y', 'posts.page': 'File: posts.page deleted from bucket searchbucket, File posts.page.content deleted from site', 'postlist.json': 'JSON File: postlist.json processed and updated'}
+        self.assertEqual(log_message,self.log)
+
+        # check buckets for files
+        self.log = {}
+        processed = False
+        processed,file_content,self.log = \
+        rdl.get_content_from_s3('posts.template',rdl.listbucket,self.log)
+        print(f"File - posts.template in list bucket: {processed}")
+        self.assertFalse(processed)
+
+        self.log = {}
+        processed = False
+        processed,file_content,self.log = \
+        rdl.get_content_from_s3('posts.page.content',rdl.searchbucket,self.log)
+        print(f"File - posts.page.content in search bucket: {processed}")
+        self.assertFalse(processed)
 
 if __name__ == '__main__':
     unittest.main()

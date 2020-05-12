@@ -1,0 +1,30 @@
+Home
+About
+Test Page 2A new post
+Something here formatted in html from an insert - like Puppies
+And then when you update the insert like this the content will change for all files it is used in
+And then more!!!! Something here formatted in html from an insert - like Puppies 2Something here formatted in html
+Something else but formatted using substitutions
+And then we can add other things here to see what is what and how it's formatted.
+This line added to test Step Functions
+something,&nbsp;
+another category,&nbsp;
+things to write aboutCorvos AE Team12/10/2019
+INSERT=[MAIN:puppies.txt]:
+INSERT=[MAIN:puppies2.txt]:
+INSERT=[MAIN:puppies3.txt]:A Post list
+A menuAbout
+Something hereA Post list in a boxThe great tragedy of science - a beautiful theory slain by an ugly factThomas Huxley
+That's one small step for a man, one giant leap for mankindMy God! It's full of starsThe great tragedy of science - a beautiful theory slain by an ugly factThomas HuxleyA Second Post listA section test
+A menu
+Home
+Aboutabout
+
+A new post
+A new post about something
+Something longer here to describe what is going on.
+Like we can see there are more lines to add.
+
+You can add in quotes as well like "this" and even 'that'!
+
+Then more again!

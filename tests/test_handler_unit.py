@@ -4,7 +4,10 @@ from unit.test_handler_html_sections import HtmlSectionsHandlerCase
 from unit.test_handler_read_schematic import ReadSchematicHandlerCase
 from unit.test_handler_string_processes_1 import StringProcesses1HandlerCase
 from unit.test_handler_string_processes_2 import StringProcesses2HandlerCase
+
 from unit.test_handler_lists_1 import ListsHandler1Case
+from unit.test_handler_lists_2 import ListsHandler2Case
+
 from unit.test_handler_meta_elements import MetaElementsCase
 
 from mockAws.test_handler_bucket_operations import RenderHtmlBucketOperations

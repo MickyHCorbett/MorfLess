@@ -37,21 +37,14 @@ def pcom_find_template_search_content(settings,file):
     if file.lower().find('.page') > -1:
         fileroot = file.replace('.page','')
 
-    print(fileroot)
+
     post = {'name': ct.PCOM_NO_ENTRY }
     if fileroot:
         if fileroot in settings['template_search_content']:
             post = settings['template_search_content'][fileroot]
+            print('Template found: {}'.format(post))
 
     return post
-
-
-def pcom_find_post_index(post):
-    index = 0
-    if index in post:
-        index = post['index']
-
-    return index
 
 # sub type is an array of categories, authors etc.
 def pcom_find_sub_list(posts,authors,sub_type,sub_name,type,get_all=False):
@@ -177,8 +170,6 @@ def pcom_update_dependencies(dependency_list,filename,insert_name):
 def pcom_find_dependencies(dependency_list,insert_file):
 
     out = []
-    # construct array of dictionaries that does not include the
-    # entry for filename
     if dependency_list:
         for dependency in dependency_list:
             if insert_file in dependency[ct.PCOM_DEPENDENCY_LIST_DEPS]:

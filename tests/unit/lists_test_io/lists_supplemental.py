@@ -312,3 +312,115 @@ ARCHIVE_1 = \
         }
     ]
 }
+
+DEPENDENCIES_1 = \
+[
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt",
+            "extra.txt"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt",
+            "extra.txt"
+        ]
+    },
+    {
+        "filename": "search.page",
+        "dependencies": [
+            "settings.txt",
+            "search_insert.dat"
+        ]
+    },
+    {
+        "filename": "categories.page",
+        "dependencies": [
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "test1.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "about.page",
+        "dependencies": [
+            "puppies.txt"
+        ]
+    },
+    {
+        "filename": "test2.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    },
+    {
+        "filename": "test3.post",
+        "dependencies": [
+            "puppies_2.txt"
+        ]
+    },
+    {
+        "filename": "details/test1.post",
+        "dependencies": [
+            "puppies.txt",
+            "settings.txt"
+        ]
+    }
+]
+
+DEPENDENCIES_2 = \
+[
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt",
+            "extra1.txt"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt",
+            "extra2.txt"
+        ]
+    }
+]
+
+DEPENDENCIES_3 = \
+[
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt",
+            "extra2.txt"
+        ]
+    }
+]
+
+DEPENDENCIES_4 = \
+[
+    {
+        "filename": "index.page",
+        "dependencies": [
+            "settings.txt",
+            "extra1.txt",
+            "something.else"
+        ]
+    },
+    {
+        "filename": "404.page",
+        "dependencies": [
+            "settings.txt",
+            "extra2.txt"
+        ]
+    }
+]

@@ -3,7 +3,6 @@ import libraries.morflessLibs as libs
 
 # import test values and expected outputs
 # main includes sidebar data
-import unit.lists_test_io.lists_1_functions_io as tv
 
 from unit.lists_test_io.lists_supplemental import POSTLIST_1, CONTACT_PAGE_POST
 from unit.lists_test_io.lists_supplemental import TEMPLATE_SEARCH_CONTENT

@@ -1,5 +1,6 @@
 import unittest
 import libraries.morflessLibs as libs
+import datetime
 
 # import test values and expected outputs
 # main includes sidebar data
@@ -254,6 +255,88 @@ class ListsHandler3Case(unittest.TestCase):
         print(result)
         self.assertEqual(result,output)
 
+    @testCall
+    def test_pcom_get_date(self):
+
+        print('\nTest 1: pcom_get_date - UK format\n')
+        local_date = datetime.datetime.now().strftime("%d/%m/%Y")
+        local_date_parts = local_date.split("/")
+
+        result = libs.lists.pcom_get_date(libs.constants.PCOM_UK_DATE_FORMAT)
+        print(result)
+        result_parts = result.split("/")
+
+        for ind,part in enumerate(local_date_parts):
+            self.assertEqual(part,result_parts[ind])
+
+
+        print('\nTest 2: pcom_get_date - US format\n')
+        local_date = datetime.datetime.now().strftime("%m/%d/%Y")
+        local_date_parts = local_date.split("/")
+
+        result = libs.lists.pcom_get_date(libs.constants.PCOM_US_DATE_FORMAT)
+        print(result)
+        result_parts = result.split("/")
+
+        for ind,part in enumerate(local_date_parts):
+            self.assertEqual(part,result_parts[ind])
+
+
+        print('\nTest 3: pcom_get_date - any other format - default UK\n')
+        local_date = datetime.datetime.now().strftime("%d/%m/%Y")
+        local_date_parts = local_date.split("/")
+
+        result = libs.lists.pcom_get_date('something')
+        print(result)
+        result_parts = result.split("/")
+
+        for ind,part in enumerate(local_date_parts):
+            self.assertEqual(part,result_parts[ind])
+
+    @testCall
+    def test_pcom_get_comma_list(self):
+
+        print('\nTest 1: pcom_get_comma_list - empty list')
+        list = ''
+        result = libs.lists.pcom_get_comma_list(list)
+        print(result)
+        self.assertEqual(result,[''])
+
+        print('\nTest 2: pcom_get_comma_list - non-empty list')
+        list = 'this.one, that.one'
+        result = libs.lists.pcom_get_comma_list(list)
+        print(result)
+        self.assertEqual(result,['this.one','that.one'])
+
+    @testCall
+    def test_pcom_create_comma_list_from_array(self):
+
+        print('\nTest 1: pcom_create_comma_list_from_array - empty list')
+        list = []
+        result = libs.lists.pcom_create_comma_list_from_array(list)
+        print(result)
+        self.assertEqual(result,'')
+
+        print('\nTest 2: pcom_create_comma_list_from_array - non-empty list')
+        list = ['this.one', 'that.one']
+        result = libs.lists.pcom_create_comma_list_from_array(list)
+        print(result)
+        self.assertEqual(result,'this.one,that.one')
+
+    @testCall
+    def test_pcom_create_comma_list_from_dict(self):
+
+        print('\nTest 1: pcom_create_comma_list_from_array - empty dictionary')
+        dict = {}
+        result = libs.lists.pcom_create_comma_list_from_dict(dict)
+        print(result)
+        self.assertEqual(result,'')
+
+        print('\nTest 2: pcom_create_comma_list_from_array - non-empty dictionary')
+        dict = {'this.one': 'one', 'that.one': 'that'}
+        result = libs.lists.pcom_create_comma_list_from_dict(dict)
+        print(result)
+        self.assertEqual(result,'this.one,that.one')
 
 
 if __name__ == '__main__':

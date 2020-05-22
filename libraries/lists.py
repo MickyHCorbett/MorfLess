@@ -726,22 +726,6 @@ def pcom_update_pagination_info(pagination_info,local_info,pagination_name,filer
 
     return pagination_info
 
-# check or add new js_constant file
-def pcom_update_js_constants(js_constants,js_file):
-
-    if js_file not in js_constants:
-        js_constants.append(js_file)
-
-    return js_constants
-
-def pcom_delete_from_js_constants(js_constants,js_file):
-    out = []
-    for js in js_constants:
-        if js != js_file:
-            out.append(js)
-
-    return out
-
 # archive
 
 def pcom_get_archive_date_info(date_string,settings):

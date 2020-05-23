@@ -125,7 +125,69 @@ class ListsHandler4Case(unittest.TestCase):
         print(result)
         self.assertEqual(result,POSTLIST_2)
         self.assertEqual(result['no_posts'],1)
-        
+
+    @testCall
+    def test_pcom_find_post_pagination(self):
+
+        for ind,test in enumerate(tv.test_values_4):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            result,found = libs.lists.pcom_find_post_pagination(
+                    postlist=inputs['postlist'],
+                    postname=inputs['postname'],
+                    type=inputs['type'])
+
+            print(result)
+
+            with self.subTest(i=ind+1):
+                self.assertEqual(result,test['assertEqual']['out'])
+                self.assertEqual(found,test['assertEqual']['found'])
+
+    @testCall
+    def test_pcom_find_manual_pagination(self):
+
+        for ind,test in enumerate(tv.test_values_5):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            result,found = libs.lists.pcom_find_manual_pagination(
+                    postlist=inputs['postlist'],
+                    next=inputs['next'],
+                    prev=inputs['prev'])
+
+            print(result)
+
+            with self.subTest(i=ind+1):
+                self.assertEqual(result,test['assertEqual']['out'])
+                self.assertEqual(found,test['assertEqual']['found'])
+
+    @testCall
+    def test_pcom_get_pagination_info(self):
+
+        for ind,test in enumerate(tv.test_values_6):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+            html_array = inputs['html'].splitlines(True)
+            array,pag_info = libs.lists.pcom_get_pagination_info(
+                    html_array=html_array,
+                    postlist=inputs['postlist'],
+                    postname=inputs['postname'],
+                    fileroot=inputs['fileroot'])
+
+            print(array)
+            print(pag_info)
+
+            with self.subTest(i=ind+1):
+                self.assertEqual(array,test['assertEqual']['array'])
+                self.assertEqual(pag_info,test['assertEqual']['info'])
+
 
 if __name__ == '__main__':
     unittest.main()

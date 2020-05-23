@@ -417,7 +417,7 @@ def pcom_get_pagination_info(html_array,postlist,postname,fileroot):
     selected_post = pcom_find_post(postlist,postname)
 
     type = False
-    if selected_post['type'] == 'post':
+    if 'type' in selected_post and selected_post['type'] == 'post':
         type = True
 
     for ind,line in enumerate(html_array):

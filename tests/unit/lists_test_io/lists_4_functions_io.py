@@ -197,3 +197,319 @@ test_values_3 = [\
     'assertNotEqual': []
     }
 ]
+
+test_values_4 = [\
+{   'remark': 'Test 1: pcom_find_post_pagination - no postlist',
+    'inputs': {\
+        'postlist': [],
+        'postname': 'test1.post',
+        'type': True
+    },
+    'assertEqual': {\
+        "found": False,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': ct.PCOM_NO_ENTRY,
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': ct.PCOM_NO_ENTRY
+            }
+        }
+    },
+{   'remark': 'Test 2: pcom_find_post_pagination - test3.post - prev (more recent) links only',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'postname': 'test3.post',
+        'type': True
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': "/test2/",
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': "A new post - second coming - redux"
+            }
+        }
+    },
+{   'remark': 'Test 3: pcom_find_post_pagination - test2.post - next and prev',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'postname': 'test2.post',
+        'type': True
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': "/test3-post-something-new/",
+            'prev_url': "/test1-the-first-post/",
+            'next_title': "A new post",
+            'prev_title': "A new post"
+            }
+        }
+    },
+{   'remark': 'Test 4: pcom_find_post_pagination - about-this.post - next (older) only',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'postname': 'about-this.post',
+        'type': True
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': "/test1-the-first-post/",
+            'prev_url': ct.PCOM_NO_ENTRY,
+            'next_title': "A new post",
+            'prev_title': ct.PCOM_NO_ENTRY
+            }
+        }
+    },
+{   'remark': 'Test 5: pcom_find_post_pagination - about.page ',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'postname': 'about.page',
+        'type': False
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': "/contact/",
+            'prev_url': ct.PCOM_NO_ENTRY,
+            'next_title': "Contact",
+            'prev_title': ct.PCOM_NO_ENTRY
+            }
+        }
+    },
+{   'remark': 'Test 6: pcom_find_post_pagination - about.page but type = post',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'postname': 'about.page',
+        'type': True
+    },
+    'assertEqual': {\
+        "found": False,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': ct.PCOM_NO_ENTRY,
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': ct.PCOM_NO_ENTRY
+            }
+        }
+    },
+
+]
+
+test_values_5 = [\
+{   'remark': 'Test 1: pcom_find_manual_pagination - no next prev',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'next': '',
+        'prev': ''
+    },
+    'assertEqual': {\
+        "found": False,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': ct.PCOM_NO_ENTRY,
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': ct.PCOM_NO_ENTRY
+            }
+        }
+    },
+{   'remark': 'Test 2: pcom_find_manual_pagination - prev - no next',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'next': '',
+        'prev': 'about.page'
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': "/about/",
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': "About Morfless"
+            }
+        }
+    },
+{   'remark': 'Test 3: pcom_find_manual_pagination - next - no prev',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'next': '',
+        'prev': 'test2.post'
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': ct.PCOM_NO_ENTRY,
+            'prev_url': "/test2/",
+            'next_title': ct.PCOM_NO_ENTRY,
+            'prev_title': "A new post - second coming - redux"
+            }
+        }
+    },
+{   'remark': 'Test 4: pcom_find_manual_pagination - both',
+    'inputs': {\
+        'postlist': POSTLIST_1,
+        'next': 'test3.post',
+        'prev': 'test1.post'
+    },
+    'assertEqual': {\
+        "found": True,
+        "out": {\
+            'next_url': "/test3-post-something-new/",
+            'prev_url': "/test1-the-first-post/",
+            'next_title': "A new post",
+            'prev_title': "A new post"
+            }
+        }
+    }
+]
+
+test_values_6 = [\
+{   'remark': 'Test 1: pcom_get_pagination_info - no list data',
+    'inputs': {\
+        'html': '',
+        'postlist': POSTLIST_1,
+        'postname': 'this.post',
+        'fileroot': 'this'
+    },
+    'assertEqual': {\
+        "array": [],
+        "info": {}
+        }
+    },
+{   'remark': 'Test 2: pcom_get_pagination_info - array but no tags',
+    'inputs': {\
+        'html': '<div class="something">\nMARKER\n</div>',
+        'postlist': POSTLIST_1,
+        'postname': 'this.post',
+        'fileroot': 'this'
+    },
+    'assertEqual': {\
+        "array": ['<div class="something">\n','MARKER\n','</div>'],
+        "info": {}
+        }
+    },
+{   'remark': 'Test 3: pcom_get_pagination_info - tags no manual - ref not in list - no pagination',
+    'inputs': {\
+        'html': ('<div class="something">\n'
+                + ct.PCOM_INSERT_PAGINATION_TAG_OPEN + 'MAIN:'
+                + '' + ':' + '' + ct.PCOM_INSERT_PAGINATION_TAG_CLOSE + ct.NL
+                + '</div>'),
+        'postlist': POSTLIST_1,
+        'postname': 'this.post',
+        'fileroot': 'this'
+    },
+    'assertEqual': {\
+        "array": ['<div class="something">\n', '', '</div>'],
+        "info": {\
+            'index': 1,
+            'fileroot': 'this',
+            'next_ref': '',
+            'prev_ref': '',
+            'postname': 'this.post',
+            'type': False
+            }
+        }
+    },
+{   'remark': 'Test 4: pcom_get_pagination_info - tags no manual - ref in list',
+    'inputs': {\
+        'html': ('<div class="something">\n'
+                + ct.PCOM_INSERT_PAGINATION_TAG_OPEN + 'MAIN:'
+                + '' + ':' + '' + ct.PCOM_INSERT_PAGINATION_TAG_CLOSE + ct.NL
+                + '</div>'),
+        'postlist': POSTLIST_1,
+        'postname': 'test1.post',
+        'fileroot': 'test1'
+    },
+    'assertEqual': {\
+        "array": [\
+        '<div class="something">\n',
+        '\n<div class="main-outer clearfix-small">\n  <div class="main-inner clearfix-small">\n    <div class="pm-post-pagination">\n    </div><!-- end of .pm-post-pagination -->\n\n  </div><!-- end of .main-inner -->\n</div><!-- end of .main-outer -->',
+        '</div>'],
+        "info": {\
+            'index': 1,
+            'fileroot': 'test1',
+            'next_ref': '',
+            'prev_ref': '',
+            'postname': 'test1.post',
+            'type': True
+            }
+        }
+    },
+{   'remark': 'Test 5: pcom_get_pagination_info - tags no manual - ref in list - custom class',
+    'inputs': {\
+        'html': ('<div class="something">\n'
+                + ct.PCOM_INSERT_PAGINATION_TAG_OPEN + 'MAIN:'
+                + 'custom-1' + ':' + '' + ct.PCOM_INSERT_PAGINATION_TAG_CLOSE + ct.NL
+                + '</div>'),
+        'postlist': POSTLIST_1,
+        'postname': 'test1.post',
+        'fileroot': 'test1'
+    },
+    'assertEqual': {\
+        "array": [\
+        '<div class="something">\n',
+        '\n<div class="main-outer clearfix-small custom-1">\n  <div class="main-inner clearfix-small custom-1">\n    <div class="pm-post-pagination custom-1">\n    </div><!-- end of .pm-post-pagination -->\n\n  </div><!-- end of .main-inner -->\n</div><!-- end of .main-outer -->',
+        '</div>'],
+        "info": {\
+            'index': 1,
+            'fileroot': 'test1',
+            'next_ref': '',
+            'prev_ref': '',
+            'postname': 'test1.post',
+            'type': True
+            }
+        }
+    },
+{   'remark': 'Test 6: pcom_get_pagination_info - tags manual - next ref in list',
+    'inputs': {\
+        'html': ('<div class="something">\n'
+                + ct.PCOM_INSERT_PAGINATION_TAG_OPEN + 'MAIN:'
+                + '' + ':' + 'this.ref,' + ct.PCOM_INSERT_PAGINATION_TAG_CLOSE + ct.NL
+                + '</div>'),
+        'postlist': POSTLIST_1,
+        'postname': 'test1.post',
+        'fileroot': 'test1'
+    },
+    'assertEqual': {\
+        "array": [\
+        '<div class="something">\n',
+        '\n<div class="main-outer clearfix-small">\n  <div class="main-inner clearfix-small">\n    <div class="pm-post-pagination">\n    </div><!-- end of .pm-post-pagination -->\n\n  </div><!-- end of .main-inner -->\n</div><!-- end of .main-outer -->',
+        '</div>'],
+        "info": {\
+            'index': 1,
+            'fileroot': 'test1',
+            'next_ref': 'this.ref',
+            'prev_ref': '',
+            'postname': 'test1.post',
+            'type': True
+            }
+        }
+    },
+{   'remark': 'Test 7: pcom_get_pagination_info - tags manual - prev ref in list',
+    'inputs': {\
+        'html': ('<div class="something">\n'
+                + ct.PCOM_INSERT_PAGINATION_TAG_OPEN + 'MAIN:'
+                + '' + ':' + ',this.ref' + ct.PCOM_INSERT_PAGINATION_TAG_CLOSE + ct.NL
+                + '</div>'),
+        'postlist': POSTLIST_1,
+        'postname': 'test1.post',
+        'fileroot': 'test1'
+    },
+    'assertEqual': {\
+        "array": [\
+        '<div class="something">\n',
+        '\n<div class="main-outer clearfix-small">\n  <div class="main-inner clearfix-small">\n    <div class="pm-post-pagination">\n    </div><!-- end of .pm-post-pagination -->\n\n  </div><!-- end of .main-inner -->\n</div><!-- end of .main-outer -->',
+        '</div>'],
+        "info": {\
+            'index': 1,
+            'fileroot': 'test1',
+            'next_ref': '',
+            'prev_ref': 'this.ref',
+            'postname': 'test1.post',
+            'type': True
+            }
+        }
+    },
+]

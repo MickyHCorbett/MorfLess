@@ -1,8 +1,8 @@
 #
 POSTLIST_1 = \
 {
-    "no_posts": 5,
-    "post_index": 5,
+    "no_posts": 6,
+    "post_index": 6,
     "no_of_post_pages": 3,
     "posts": [
         {
@@ -136,6 +136,110 @@ POSTLIST_1 = \
             "sticky": "sticky"
         }
     ]
+}
+
+POSTLIST_2 = \
+{
+    "no_posts": 2,
+    "post_index": 6,
+    "no_of_post_pages": 1,
+    "posts": [
+        {
+            "index": 1,
+            "type": "page",
+            "url": "/contact/",
+            "title": "Contact",
+            "postname": "contact.page",
+            "description": "Morfless Contact page",
+            "categories": [
+                "NA"
+            ],
+            "authors": [
+                "Micky"
+            ],
+            "extract": "Contact Morfless",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "12/09/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/01/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        },
+        {
+            "index": 2,
+            "type": "post",
+            "url": "/test3-post-something-new/",
+            "title": "A new post",
+            "postname": "test5.post",
+            "description": "A new post about something again",
+            "categories": [
+                "something"
+            ],
+            "authors": [
+                "anon"
+            ],
+            "extract": "Something longer here to describe what is going on. And to see if it is included in a search",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "12/10/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/01/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        }
+    ]
+}
+
+POSTLIST_3 = \
+{
+    "no_posts": 1,
+    "post_index": 6,
+    "no_of_post_pages": 1,
+    "posts": [
+        {
+            "index": 1,
+            "type": "page",
+            "url": "/contact/",
+            "title": "Contact",
+            "postname": "contact.page",
+            "description": "Morfless Contact page",
+            "categories": [
+                "NA"
+            ],
+            "authors": [
+                "Micky"
+            ],
+            "extract": "Contact Morfless",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "12/09/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/01/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        }
+    ]
+}
+
+POST_ENTRY_1 = \
+{
+    "index": 14,
+    "type": "post",
+    "url": "/contact/",
+    "title": "Contact",
+    "postname": "test5.post",
+    "description": "Morfless Contact page",
+    "categories": [
+        "NA"
+    ],
+    "authors": [
+        "Micky"
+    ],
+    "extract": "Contact Morfless",
+    "thumbnail": "/images/Polimorf-shapes-background.jpg",
+    "creation_date": "12/09/2018",
+    "creation_time": "12:18:10",
+    "date_modified": "13/01/2020",
+    "time_modified": "12:18:10",
+    "sticky": ""
 }
 
 CONTACT_PAGE_POST = \

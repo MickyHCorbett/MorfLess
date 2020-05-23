@@ -334,9 +334,7 @@ def pcom_delete_from_postlist(postlist,postname):
 
         # set posts array to re_posts
         postlist['posts'] = re_posts
-
-        # adjust number of posts down by one
-        postlist['no_posts'] -= 1
+        postlist['no_posts'] = len(re_posts)
 
     return postlist
 

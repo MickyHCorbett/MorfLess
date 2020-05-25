@@ -1,4 +1,6 @@
 #
+from collections import OrderedDict
+
 POSTLIST_1 = \
 {
     "no_posts": 6,
@@ -526,5 +528,367 @@ DEPENDENCIES_4 = \
             "settings.txt",
             "extra2.txt"
         ]
+    }
+]
+
+POST_LISTS_INFO_1 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 68,
+                "fileroot": "test1",
+                "ppp": "5",
+                "content": "about.page"
+            },
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            },
+            {
+                "index": 108,
+                "fileroot": "test1",
+                "ppp": "2",
+                "content": "about.page, test2.post"
+            }
+        ]
+    },
+    {
+        "name": "postlist--about.js",
+        "fileroot": "about",
+        "postlists": [
+            {
+                "index": 62,
+                "fileroot": "about",
+                "ppp": "5",
+                "content": "about.page"
+            }
+        ]
+    },
+    {
+        "name": "postlist--search.js",
+        "fileroot": "search",
+        "postlists": [
+            {
+                "index": 62,
+                "fileroot": "search",
+                "ppp": "5",
+                "content": "search.page"
+            }
+        ]
+    },
+    {
+        "name": "postlist--test2.js",
+        "fileroot": "test2",
+        "postlists": [
+            {
+                "index": 88,
+                "fileroot": "test2",
+                "ppp": "5",
+                "content": "about.page"
+            }
+        ]
+    },
+    {
+        "name": "postlist--test3.js",
+        "fileroot": "test3",
+        "postlists": [
+            {
+                "index": 51,
+                "fileroot": "test3",
+                "ppp": "5",
+                "content": "about.page"
+            }
+        ]
+    },
+    {
+        "name": "postlist--details_test1.js",
+        "fileroot": "details_test1",
+        "postlists": [
+            {
+                "index": 58,
+                "fileroot": "details_test1",
+                "ppp": "5",
+                "content": "about.page"
+            }
+        ]
+    }
+]
+
+POST_LISTS_INFO_2 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 68,
+                "fileroot": "test1",
+                "ppp": "5",
+                "content": "about.page"
+            },
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            },
+            {
+                "index": 108,
+                "fileroot": "test1",
+                "ppp": "2",
+                "content": "about.page, test2.post"
+            }
+        ]
+    }
+]
+
+POST_LISTS_INFO_3 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 68,
+                "fileroot": "test1",
+                "ppp": "5",
+                "content": "about.page"
+            },
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            },
+            {
+                "index": 108,
+                "fileroot": "test1",
+                "ppp": "2",
+                "content": "about.page, test2.post"
+            }
+        ]
+    },
+    OrderedDict([('name', 'postlist__post1.js'), ('fileroot', 'test1'), ('postlists', ['this'])])
+]
+
+
+POST_LISTS_INFO_4 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 68,
+                "fileroot": "test1",
+                "ppp": "5",
+                "content": "about.page"
+            },
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            },
+            {
+                "index": 108,
+                "fileroot": "test1",
+                "ppp": "2",
+                "content": "about.page, test2.post"
+            }
+        ]
+    }
+]
+
+POST_LISTS_INFO_5 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            }
+        ]
+    }
+]
+
+POST_LISTS_INFO_6 = [\
+    OrderedDict([('name', 'postlist__post1.js'), ('fileroot', 'test1'), ('postlists', ['this'])])
+]
+
+POST_LISTS_INFO_7 = [\
+    {
+        "name": "postlist--test1.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            }
+        ]
+    },
+    OrderedDict([('name', 'postlist__post1.js'), ('fileroot', 'test1'), ('postlists', ['this'])])
+]
+
+POST_LISTS_INFO_8 = [\
+    {
+        "name": "postlist--test2.js",
+        "fileroot": "test1",
+        "postlists": [
+            {
+                "index": 76,
+                "fileroot": "test1",
+                "ppp": "3",
+                "content": "test1.post, test2.post"
+            }
+        ]
+    }
+]
+
+PAGINATION_1 = [\
+    {
+        "name": "pagination--test2.js",
+        "fileroot": "test2",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test2",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test2.post",
+            "type": True
+        }
+    },
+    {
+        "name": "pagination--test1.js",
+        "fileroot": "test1",
+        "pagination": {
+            "index": 186,
+            "fileroot": "test1",
+            "next_ref": "about.page",
+            "prev_ref": "test3.post",
+            "postname": "test1.post",
+            "type": True
+        }
+    },
+    {
+        "name": "pagination--test5.js",
+        "fileroot": "test5",
+        "pagination": {
+            "index": 64,
+            "fileroot": "test5",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test5.post",
+            "type": True
+        }
+    },
+    {
+        "name": "pagination--contact.js",
+        "fileroot": "contact",
+        "pagination": {
+            "index": 59,
+            "fileroot": "contact",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "contact.page",
+            "type": False
+        }
+    },
+    {
+        "name": "pagination--test3.js",
+        "fileroot": "test3",
+        "pagination": {
+            "index": 71,
+            "fileroot": "test3",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test3.post",
+            "type": True
+        }
+    }
+]
+
+PAGINATION_2 = [\
+    {
+        "name": "pagination--test2.js",
+        "fileroot": "test2",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test2",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test2.post",
+            "type": True
+        }
+    }
+]
+
+PAGINATION_3 = [\
+    {
+        "name": "pagination--test2.js",
+        "fileroot": "test2",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test2",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test2.post",
+            "type": True
+        }
+    },
+    OrderedDict([('name', 'pagination__post1.js'), ('fileroot', 'test1'), ('pagination', ['this'])])
+]
+
+PAGINATION_4 = [\
+    {
+        "name": "pagination--test1.js",
+        "fileroot": "test1",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test1",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test1.post",
+            "type": True
+        }
+    }
+]
+PAGINATION_5 = [\
+    {
+        "name": "pagination--test1.js",
+        "fileroot": "test1",
+        "pagination": {
+            'index': 1,
+            'fileroot': 'test1-here',
+            'next_ref': 'this.ref',
+            'prev_ref': 'that.ref',
+            'postname': 'test1-here.post',
+            'type': False
+        }
+    }
+]
+
+PAGINATION_6 = [\
+    OrderedDict([('name', 'pagination__post1.js'), ('fileroot', 'test1'), ('pagination', ['this'])])
+]
+
+PAGINATION_7 = [\
+    {
+        "name": "pagination--test2.js",
+        "fileroot": "test2",
+        "pagination": {
+            "index": 70,
+            "fileroot": "test2",
+            "next_ref": "",
+            "prev_ref": "",
+            "postname": "test2.post",
+            "type": True
+        }
     }
 ]

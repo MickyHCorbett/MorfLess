@@ -9,6 +9,7 @@ from unit.test_handler_lists_1 import ListsHandler1Case
 from unit.test_handler_lists_2 import ListsHandler2Case
 from unit.test_handler_lists_3 import ListsHandler3Case
 from unit.test_handler_lists_4 import ListsHandler4Case
+from unit.test_handler_lists_5 import ListsHandler5Case
 
 from unit.test_handler_meta_elements import MetaElementsCase
 

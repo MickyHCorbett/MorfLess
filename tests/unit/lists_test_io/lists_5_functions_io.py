@@ -22,6 +22,15 @@ from unit.lists_test_io.lists_supplemental import PAGINATION_5
 from unit.lists_test_io.lists_supplemental import PAGINATION_6
 from unit.lists_test_io.lists_supplemental import PAGINATION_7
 
+from unit.lists_test_io.lists_supplemental import ARCHIVE_POSTLIST_1
+from unit.lists_test_io.lists_supplemental import ARCHIVE_POSTLIST_2
+
+from unit.lists_test_io.lists_supplemental import ARCHIVE_1
+from unit.lists_test_io.lists_supplemental import ARCHIVE_2
+from unit.lists_test_io.lists_supplemental import ARCHIVE_3
+from unit.lists_test_io.lists_supplemental import ARCHIVE_4
+from unit.lists_test_io.lists_supplemental import ARCHIVE_5
+
 #
 
 test_values_1 = [\
@@ -182,4 +191,40 @@ test_values_2 = [\
     },
     'assertEqual': []
     },
+]
+
+
+test_values_3 = [\
+{   'remark': 'Test 1: test_pcom_update_archive - no archive or postlist',
+    'inputs': {\
+        'archive': [],
+        'postlist': {'posts':[]},
+        'settings': gb.DEFAULT_SETTINGS
+    },
+    'assertEqual': []
+    },
+{   'remark': 'Test 2: test_pcom_update_archive - postlist but not entries in archive',
+    'inputs': {\
+        'archive': {'created':[], 'modified': []},
+        'postlist': ARCHIVE_POSTLIST_1,
+        'settings': gb.DEFAULT_SETTINGS
+    },
+    'assertEqual': ARCHIVE_1
+    },
+{   'remark': 'Test 3: test_pcom_update_archive - postlist with entries, new entries in archive',
+    'inputs': {\
+        'archive': ARCHIVE_2,
+        'postlist': ARCHIVE_POSTLIST_1,
+        'settings': gb.DEFAULT_SETTINGS
+    },
+    'assertEqual': ARCHIVE_3
+    },
+{   'remark': 'Test 4: test_pcom_update_archive - postlist with entries, new post entries existing archive',
+    'inputs': {\
+        'archive': ARCHIVE_4,
+        'postlist': ARCHIVE_POSTLIST_2,
+        'settings': gb.DEFAULT_SETTINGS
+    },
+    'assertEqual': ARCHIVE_5
+    }
 ]

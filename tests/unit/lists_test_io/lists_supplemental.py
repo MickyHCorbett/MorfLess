@@ -892,3 +892,240 @@ PAGINATION_7 = [\
         }
     }
 ]
+
+ARCHIVE_POSTLIST_1 = \
+{
+    "no_posts": 2,
+    "post_index": 6,
+    "no_of_post_pages": 1,
+    "posts": [
+        {
+            "index": 1,
+            "type": "page",
+            "url": "/contact/",
+            "title": "Contact",
+            "postname": "contact.page",
+            "description": "Morfless Contact page",
+            "categories": [
+                "NA"
+            ],
+            "authors": [
+                "Micky"
+            ],
+            "extract": "Contact Morfless",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "12/09/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/02/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        },
+        {
+            "index": 6,
+            "type": "post",
+            "url": "/test3-post-something-new/",
+            "title": "A new post",
+            "postname": "test5.post",
+            "description": "A new post about something again",
+            "categories": [
+                "something"
+            ],
+            "authors": [
+                "anon"
+            ],
+            "extract": "Something longer here to describe what is going on. And to see if it is included in a search",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "12/10/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/01/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        }
+    ]
+}
+
+ARCHIVE_1 = {\
+    'created': [OrderedDict([('name', '09-2018'), ('fileroot', '09_2018'), ('posts', []), ('pages', ['contact.page'])]),
+    OrderedDict([('name', '10-2018'), ('fileroot', '10_2018'), ('posts', ['test5.post']), ('pages', [])])], 'modified': [OrderedDict([('name', '02-2020'), ('fileroot', '02_2020'), ('posts', []), ('pages', ['contact.page'])]),
+    OrderedDict([('name', '01-2020'), ('fileroot', '01_2020'), ('posts', ['test5.post']), ('pages', [])])]
+}
+
+ARCHIVE_2 = {\
+    "created": [
+        {
+            "name": "09-2016",
+            "fileroot": "09_2016",
+            "posts": [],
+            "pages": [
+                "test5.post"
+            ]
+        },
+        {
+            "name": "10-2016",
+            "fileroot": "10_2016",
+            "posts": [
+                "contact.page"
+            ],
+            "pages": []
+        }
+    ],
+    "modified": [
+        {
+            "name": "04-2020",
+            "fileroot": "04_2020",
+            "posts": [],
+            "pages": [
+                "test7.post"
+            ]
+        },
+        {
+            "name": "05-2020",
+            "fileroot": "05_2020",
+            "posts": [
+                "contact.page"
+            ],
+            "pages": []
+        }
+    ]
+}
+
+ARCHIVE_3 = {\
+    "created": [
+        {
+            "name": "09-2016",
+            "fileroot": "09_2016",
+            "posts": [],
+            "pages": [
+                "test5.post"
+            ]
+        },
+        {
+            "name": "10-2016",
+            "fileroot": "10_2016",
+            "posts": [
+                "contact.page"
+            ],
+            "pages": []
+        },
+        OrderedDict([('name', '09-2018'), ('fileroot', '09_2018'), ('posts', []), ('pages', ['contact.page'])]),
+        OrderedDict([('name', '10-2018'), ('fileroot', '10_2018'), ('posts', ['test5.post']), ('pages', [])])
+    ],
+    "modified": [
+        {
+            "name": "04-2020",
+            "fileroot": "04_2020",
+            "posts": [],
+            "pages": [
+                "test7.post"
+            ]
+        },
+        {
+            "name": "05-2020",
+            "fileroot": "05_2020",
+            "posts": [
+                "contact.page"
+            ],
+            "pages": []
+        },
+        OrderedDict([('name', '02-2020'), ('fileroot', '02_2020'), ('posts', []), ('pages', ['contact.page'])]),
+        OrderedDict([('name', '01-2020'), ('fileroot', '01_2020'), ('posts', ['test5.post']), ('pages', [])])
+    ]
+}
+
+ARCHIVE_POSTLIST_2 = \
+{
+    "no_posts": 2,
+    "post_index": 6,
+    "no_of_post_pages": 1,
+    "posts": [
+        {
+            "index": 1,
+            "type": "page",
+            "url": "/contact/",
+            "title": "Contact3",
+            "postname": "contact3.page",
+            "description": "Morfless Contact page",
+            "categories": [
+                "NA"
+            ],
+            "authors": [
+                "Micky"
+            ],
+            "extract": "Contact Morfless",
+            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+            "creation_date": "15/09/2018",
+            "creation_time": "12:18:10",
+            "date_modified": "13/05/2020",
+            "time_modified": "12:18:10",
+            "sticky": ""
+        }
+    ]
+}
+
+ARCHIVE_4 = {\
+    "created": [
+        {
+            "name": "09-2018",
+            "fileroot": "09_2018",
+            "posts": [
+                'this.post'
+            ],
+            "pages": [
+                "contact2.page"
+            ]
+        }
+    ],
+    "modified": [
+        {
+            "name": "05-2020",
+            "fileroot": "05_2020",
+            "posts": [
+                "test3.post",
+                "test2.post",
+                "test1.post",
+                "test5.post",
+                "test6.post"
+            ],
+            "pages": [
+                "contact.page",
+                "about.page",
+                "about-polimorfic.page"
+            ]
+        }
+    ]
+}
+
+ARCHIVE_5 = {\
+    "created": [
+        {
+            "name": "09-2018",
+            "fileroot": "09_2018",
+            "posts": [
+                'this.post'
+            ],
+            "pages": [
+                "contact2.page",
+                "contact3.page"
+            ]
+        }
+    ],
+    "modified": [
+        {
+            "name": "05-2020",
+            "fileroot": "05_2020",
+            "posts": [
+                "test3.post",
+                "test2.post",
+                "test1.post",
+                "test5.post",
+                "test6.post"
+            ],
+            "pages": [
+                "contact.page",
+                "about.page",
+                "about-polimorfic.page",
+                "contact3.page"
+            ]
+        }
+    ]
+}

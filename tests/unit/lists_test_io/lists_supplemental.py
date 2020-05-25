@@ -944,13 +944,13 @@ ARCHIVE_POSTLIST_1 = \
     ]
 }
 
-ARCHIVE_1 = {\
+ARCHIVE_UPDATE_1 = {\
     'created': [OrderedDict([('name', '09-2018'), ('fileroot', '09_2018'), ('posts', []), ('pages', ['contact.page'])]),
     OrderedDict([('name', '10-2018'), ('fileroot', '10_2018'), ('posts', ['test5.post']), ('pages', [])])], 'modified': [OrderedDict([('name', '02-2020'), ('fileroot', '02_2020'), ('posts', []), ('pages', ['contact.page'])]),
     OrderedDict([('name', '01-2020'), ('fileroot', '01_2020'), ('posts', ['test5.post']), ('pages', [])])]
 }
 
-ARCHIVE_2 = {\
+ARCHIVE_UPDATE_2 = {\
     "created": [
         {
             "name": "09-2016",
@@ -989,7 +989,7 @@ ARCHIVE_2 = {\
     ]
 }
 
-ARCHIVE_3 = {\
+ARCHIVE_UPDATE_3 = {\
     "created": [
         {
             "name": "09-2016",
@@ -1062,7 +1062,7 @@ ARCHIVE_POSTLIST_2 = \
     ]
 }
 
-ARCHIVE_4 = {\
+ARCHIVE_UPDATE_4 = {\
     "created": [
         {
             "name": "09-2018",
@@ -1095,7 +1095,7 @@ ARCHIVE_4 = {\
     ]
 }
 
-ARCHIVE_5 = {\
+ARCHIVE_UPDATE_5 = {\
     "created": [
         {
             "name": "09-2018",

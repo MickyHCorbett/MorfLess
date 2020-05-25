@@ -25,11 +25,11 @@ from unit.lists_test_io.lists_supplemental import PAGINATION_7
 from unit.lists_test_io.lists_supplemental import ARCHIVE_POSTLIST_1
 from unit.lists_test_io.lists_supplemental import ARCHIVE_POSTLIST_2
 
-from unit.lists_test_io.lists_supplemental import ARCHIVE_1
-from unit.lists_test_io.lists_supplemental import ARCHIVE_2
-from unit.lists_test_io.lists_supplemental import ARCHIVE_3
-from unit.lists_test_io.lists_supplemental import ARCHIVE_4
-from unit.lists_test_io.lists_supplemental import ARCHIVE_5
+from unit.lists_test_io.lists_supplemental import ARCHIVE_UPDATE_1
+from unit.lists_test_io.lists_supplemental import ARCHIVE_UPDATE_2
+from unit.lists_test_io.lists_supplemental import ARCHIVE_UPDATE_3
+from unit.lists_test_io.lists_supplemental import ARCHIVE_UPDATE_4
+from unit.lists_test_io.lists_supplemental import ARCHIVE_UPDATE_5
 
 #
 
@@ -209,22 +209,22 @@ test_values_3 = [\
         'postlist': ARCHIVE_POSTLIST_1,
         'settings': gb.DEFAULT_SETTINGS
     },
-    'assertEqual': ARCHIVE_1
+    'assertEqual': ARCHIVE_UPDATE_1
     },
 {   'remark': 'Test 3: test_pcom_update_archive - postlist with entries, new entries in archive',
     'inputs': {\
-        'archive': ARCHIVE_2,
+        'archive': ARCHIVE_UPDATE_2,
         'postlist': ARCHIVE_POSTLIST_1,
         'settings': gb.DEFAULT_SETTINGS
     },
-    'assertEqual': ARCHIVE_3
+    'assertEqual': ARCHIVE_UPDATE_3
     },
 {   'remark': 'Test 4: test_pcom_update_archive - postlist with entries, new post entries existing archive',
     'inputs': {\
-        'archive': ARCHIVE_4,
+        'archive': ARCHIVE_UPDATE_4,
         'postlist': ARCHIVE_POSTLIST_2,
         'settings': gb.DEFAULT_SETTINGS
     },
-    'assertEqual': ARCHIVE_5
+    'assertEqual': ARCHIVE_UPDATE_5
     }
 ]

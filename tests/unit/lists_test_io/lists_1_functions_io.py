@@ -132,3 +132,120 @@ test_values_1 = [\
     }
 
 ]
+
+test_values_2 = [\
+{   'remark': 'Test Case 1:pcom_update_categories_from_settings - new author from settings - categories array empty',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": []
+            },
+            'settings_categories': [\
+            { "name":           "Bill O'Reilly",
+              "thumbnail":      "",
+              "description":    "Something here" }
+            ],
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': [
+                   OrderedDict([('name', "Bill O'Reilly"),
+                    ('thumbnail', sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK), ('description', 'Something here') ])]
+                    },
+    'assertNotEqual': []
+    },
+
+{   'remark': 'Test Case 2:pcom_update_categories_from_settings - new category from settings - name only - categories array not empty\
+- posts per page = 1, no_of_category_pages = 1',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [\
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'settings_categories': [\
+            { "name":           "Bill",
+              "thumbnail":      "",
+              "description":    "" }
+            ],
+            "ppp": 1,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 2,
+                    'categories': [\
+                    {'name': 'anon', 'thumbnail': '/images/Polimorf-shapes-background.jpg', 'description': ''},
+                    OrderedDict([('name', 'Bill'),
+                   ('thumbnail', '/images/Polimorf-shapes-background.jpg'), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+
+{   'remark': 'Test Case 3:pcom_update_categories_from_settings - new category from settings with no name - categories array not empty\
+- posts per page = 1, no_of_category_pages = 1',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [\
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'settings_categories': [\
+            { "shortname":           "Bill",
+              "thumbnail":      "",
+              "description":    "" }
+            ],
+            "ppp": 1,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK,
+            "default_author": gb.DEFAULT_AUTHOR
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': [\
+                    OrderedDict([('name', 'anon'),
+                   ('thumbnail', '/images/Polimorf-shapes-background.jpg'), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+
+{   'remark': 'Test Case 4:pcom_update_categories_from_settings - new category from settings - characters in description',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [\
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'settings_categories': [\
+            { "name":           "Bill",
+              "thumbnail":      "/my-link.png",
+              "description":    "Something %here?&" }
+            ],
+            "ppp": 1,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 2,
+                    'categories': [\
+                    {'name': 'anon', 'thumbnail': '/images/Polimorf-shapes-background.jpg', 'description': ''},
+                   OrderedDict([('name', "Bill"),
+                   ('thumbnail', '/my-link.png'), ('description', 'Something %here?&') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    }
+
+]

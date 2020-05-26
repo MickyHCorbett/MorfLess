@@ -134,7 +134,7 @@ test_values_1 = [\
 ]
 
 test_values_2 = [\
-{   'remark': 'Test Case 1:pcom_update_categories_from_settings - new author from settings - categories array empty',
+{   'remark': 'Test Case 1:pcom_update_categories_from_settings - new category from settings - categories array empty',
     'inputs': {\
             'categories': {\
                 "no_of_category_pages": 1,
@@ -248,4 +248,336 @@ test_values_2 = [\
     'assertNotEqual': []
     }
 
+]
+
+
+test_values_3 = [\
+{   'remark': 'Test Case 1:test_pcom_update_authors_from_postlist_data  - authors array empty',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": []
+            },
+            'author_list': [],
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_author_pages': 1,
+                    'authors': []
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 2:test_pcom_update_authors_from_postlist_data - authors but author list empty',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": [
+                    {
+                        "name": "anon",
+                        "shortname": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'author_list': [],
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_author_pages': 1,
+                    'authors': [
+                        {
+                            "name": "anon",
+                            "shortname": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 3:test_pcom_update_authors_from_postlist_data - authors, author list author (name) already present',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": [
+                    {
+                        "name": "anon person",
+                        "shortname": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'author_list': ['anon person'],
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_author_pages': 1,
+                    'authors': [
+                        {
+                            "name": "anon person",
+                            "shortname": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 4:test_pcom_update_authors_from_postlist_data - authors, author list author (shortname) already present',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": [
+                    {
+                        "name": "anon person",
+                        "shortname": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'author_list': ['anon'],
+            'type': 'post',
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_author_pages': 1,
+                    'authors': [
+                        {
+                            "name": "anon person",
+                            "shortname": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 5:test_pcom_update_authors_from_postlist_data - authors, author list author already present plus one more - ppp = 1',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": [
+                    {
+                        "name": "anon",
+                        "shortname": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'author_list': ['anon','things'],
+            "ppp": 1,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_author_pages': 2,
+                    'authors': [
+                        {
+                            "name": "anon",
+                            "shortname": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        },
+                        OrderedDict([('name', "things"),('shortname', "things"),
+                        ('thumbnail', sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 5:test_pcom_update_authors_from_postlist_data - authors, cat list author already present plus one more - ppp = 1 - default thumbnail different',
+    'inputs': {\
+            'authors': {\
+                "no_of_author_pages": 1,
+                "authors": [
+                    {
+                        "name": "anon",
+                        "shortname": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'author_list': ['anon','things'],
+            "ppp": 1,
+            "default_thumb_link": 'this/link.png'
+    },
+    'assertEqual': { 'no_of_author_pages': 2,
+                    'authors': [
+                        {
+                            "name": "anon",
+                            "shortname": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        },
+                        OrderedDict([('name', "things"),('shortname', "things"),
+                        ('thumbnail', 'this/link.png'), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+]
+
+test_values_4 = [\
+{   'remark': 'Test Case 1:test_pcom_update_categories_from_postlist_data  - categories array empty',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": []
+            },
+            'cat_list': [],
+            'type': 'post',
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': []
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 2:test_pcom_update_categories_from_postlist_data - categories but cat list empty',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'cat_list': [],
+            'type': 'post',
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': [
+                        {
+                            "name": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 3:test_pcom_update_categories_from_postlist_data - categories, cat list category already present',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'cat_list': ['anon'],
+            'type': 'post',
+            "ppp": 3,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': [
+                        {
+                            "name": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 4:test_pcom_update_categories_from_postlist_data - categories, cat list category already present plus one more - ppp = 1',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'cat_list': ['anon','things'],
+            'type': 'post',
+            "ppp": 1,
+            "default_thumb_link": sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK
+    },
+    'assertEqual': { 'no_of_category_pages': 2,
+                    'categories': [
+                        {
+                            "name": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        },
+                        OrderedDict([('name', "things"),
+                        ('thumbnail', sch.PM_DEFAULT_THUMBNAIL_IMAGE_LINK), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 5:test_pcom_update_categories_from_postlist_data - categories, cat list category already present plus one more - ppp = 1 - default thumbnail different',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'cat_list': ['anon','things'],
+            'type': 'post',
+            "ppp": 1,
+            "default_thumb_link": 'this/link.png'
+    },
+    'assertEqual': { 'no_of_category_pages': 2,
+                    'categories': [
+                        {
+                            "name": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        },
+                        OrderedDict([('name', "things"),
+                        ('thumbnail', 'this/link.png'), ('description', '') ])
+                    ]
+                    },
+    'assertNotEqual': []
+    },
+{   'remark': 'Test Case 6:test_pcom_update_categories_from_postlist_data - categories, cat list category already present plus one more - ppp = 1 - default thumbnail different - type not post',
+    'inputs': {\
+            'categories': {\
+                "no_of_category_pages": 1,
+                "categories": [
+                    {
+                        "name": "anon",
+                        "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                        "description": ""
+                    }
+                ]
+            },
+            'cat_list': ['anon','things'],
+            'type': 'post1',
+            "ppp": 1,
+            "default_thumb_link": 'this/link.png'
+    },
+    'assertEqual': { 'no_of_category_pages': 1,
+                    'categories': [
+                        {
+                            "name": "anon",
+                            "thumbnail": "/images/Polimorf-shapes-background.jpg",
+                            "description": ""
+                        }
+                    ]
+                    },
+    'assertNotEqual': []
+    },
 ]

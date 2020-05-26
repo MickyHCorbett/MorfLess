@@ -62,5 +62,46 @@ class ListsHandler1Case(unittest.TestCase):
                 self.assertEqual(test['assertEqual'], result)
                 self.assertNotEqual(test['assertNotEqual'], result)
 
+
+    @testCall
+    def test_pcom_update_authors_from_postlist_data(self):
+
+        for ind,test in enumerate(tv.test_values_3):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            self.settings['posts_per_page'] = inputs['ppp']
+            self.settings['default_thumbnail'] = inputs['default_thumb_link']
+
+            result = libs.lists.pcom_update_authors_from_postlist_data(
+                authors=inputs['authors'],
+                author_list=inputs['author_list'],
+                settings=self.settings)
+
+            print(result)
+
+
+    @testCall
+    def test_pcom_update_categories_from_postlist_data(self):
+
+        for ind,test in enumerate(tv.test_values_4):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            self.settings['posts_per_page'] = inputs['ppp']
+            self.settings['default_thumbnail'] = inputs['default_thumb_link']
+
+            result = libs.lists.pcom_update_categories_from_postlist_data(
+                categories=inputs['categories'],
+                cat_list=inputs['cat_list'],
+                settings=self.settings,
+                type=inputs['type'])
+
+            print(result)
+
 if __name__ == '__main__':
     unittest.main()

@@ -39,7 +39,7 @@ When a search request is made, the API Gateway communicates with Lambda and sear
 
 ## Installation 
 
-Go to [MorfLess Installation instructions](package/installation.md)
+Go to [MorfLess Installation instructions](package/)
 
 ## User Guide
 

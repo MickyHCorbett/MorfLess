@@ -434,7 +434,7 @@ test_values = [\
 
 {   'remark': 'Test Case 10:pcom_get_schematic_tags - all tags with content, META after HEADER - no outputs',
     'inputs': { 'format':"""
-        
+
         ///HEADER:
         Header content
 

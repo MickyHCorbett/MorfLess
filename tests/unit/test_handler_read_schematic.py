@@ -3,8 +3,10 @@ import libraries.morflessLibs as libs
 
 # import test values and expected outputs
 # main includes sidebar data
-from unit.read_schematic_test_io.get_schematic_tags_test_io import test_values as gstags_tv
-from unit.read_schematic_test_io.determine_placement_test_io import test_values as dtplace_tv
+import unit.read_schematic_test_io.read_schematic_1_test_io as tv1
+import unit.read_schematic_test_io.read_schematic_2_test_io as tv2
+import unit.read_schematic_test_io.read_schematic_3_test_io as tv3
+
 from fixtures.decorators import testCall
 # define settings element for test
 settings = libs.globals.DEFAULT_SETTINGS
@@ -14,7 +16,7 @@ class ReadSchematicHandlerCase(unittest.TestCase):
     @testCall
     def test_pcom_get_schematic_tags(self):
 
-        for test in gstags_tv:
+        for ind,test in enumerate(tv1.test_values):
 
             print('\n' + test['remark'] + '\n')
 
@@ -64,7 +66,7 @@ class ReadSchematicHandlerCase(unittest.TestCase):
     @testCall
     def test_pcom_determine_placement(self):
 
-        for test in dtplace_tv:
+        for ind,test in enumerate(tv2.test_values):
 
             print('\n' + test['remark'] + '\n')
 
@@ -82,7 +84,48 @@ class ReadSchematicHandlerCase(unittest.TestCase):
             for assertNotIn in test['assertNotIn']:
                 self.assertNotIn(assertNotIn, result)
 
+    @testCall
+    def test_polimorf_process_settings_schematic(self):
 
+        for ind,test in enumerate(tv3.test_values_1):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            out,test_settings = libs.read_schematic.polimorf_process_settings_schematic(
+                        schematic=inputs['schematic'],
+                        args=inputs['args'],
+                        placement=inputs['placement'],
+                        type=inputs['type'],
+                        settings=inputs['settings'])
+
+            print(out)
+            print(f"{test['test_val']} - {test_settings[test['test_val']]}")
+
+            with self.subTest(i=ind+1):
+                self.assertEqual(test['assertEqual']['out'], out)
+                self.assertEqual(test['assertEqual'][test['test_val']], test_settings[test['test_val']])
+
+    @testCall
+    def test_polimorf_process_additions_schematic(self):
+
+        for ind,test in enumerate(tv3.test_values_2):
+
+            print('\n' + test['remark'] + '\n')
+
+            inputs = test['inputs']
+
+            out = libs.read_schematic.polimorf_process_additions_schematic(
+                        schematic=inputs['schematic'],
+                        args=inputs['args'],
+                        placement=inputs['placement'],
+                        type=inputs['type'])
+
+            print(out)
+
+            with self.subTest(i=ind+1):
+                self.assertEqual(test['assertEqual']['out'], out)
 
 if __name__ == '__main__':
     unittest.main()

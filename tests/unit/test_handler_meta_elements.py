@@ -8,7 +8,7 @@ import unit.meta_elements_test_io.meta_elements_io as tv
 from fixtures.decorators import testCall
 
 
-class MetaElementsCase(unittest.TestCase):
+class SetMetaElementsCase(unittest.TestCase):
 
     def setUp(self):
         self.settings = libs.string_processes.pcom_build_dictionary(libs.globals.DEFAULT_SETTINGS)

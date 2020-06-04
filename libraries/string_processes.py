@@ -134,7 +134,7 @@ def pcom_get_strings_syntax_separator(syntax,separator,trim):
     # set out_array to default - command_found = false
     out_array = pcom_build_dictionary(gb.DEFAULT_STRING_SEPARATOR)
     # find position of separator
-    if syntax.find(separator) > -1:
+    if separator and syntax.find(separator) > -1:
         out_array['command_found'] = True
         # get data
         split_array = syntax.split(separator,1) # splits into before and after
@@ -217,11 +217,9 @@ def pcom_process_command_open_close_syntax(syntax,args):
     out_array = pcom_build_dictionary(gb.DEFAULT_OPEN_CLOSE_SYNTAX_OUT_ARRAY)
 
     # condition input
-    if not (args):
-         args = args_used
-    #
-    args_used['open'] = args['open']
-    args_used['close'] = args['close']
+    if args:
+        args_used['open'] = args['open']
+        args_used['close'] = args['close']
 
     if (syntax != ct.PCOM_NO_ENTRY):
         # find command start
@@ -258,7 +256,7 @@ def pcom_remove_empty_lines(content):
     line_array = content.splitlines(True)
     out_html = ''
     for insert in line_array:
-        #remove tabs
+        #remove two spaces
         insert_stripped = insert.replace(ct.T1,'')
         if insert_stripped != ct.NL:
             out_html += insert
@@ -268,9 +266,10 @@ def pcom_remove_empty_lines(content):
 def pcom_build_dictionary(data_in):
     # copies a dictionary
     out_dict = {}
-    for key, val in data_in.items():
-        dict2 = {key: val}
-        out_dict.update(dict2)
+    if data_in:
+        for key, val in data_in.items():
+            dict2 = {key: val}
+            out_dict.update(dict2)
 
     return out_dict
 
@@ -500,7 +499,7 @@ def pcom_insert_default_additions_into_html(additions,content,placement):
 
     list = ''
     tab = ct.T1
-    
+
     # additions are added to header or footer
     if placement == ct.PCOM_HEADER_PLACEMENT:
         start_tag = sch.DEFAULT_HEADER_ADDITIONS_START

@@ -583,7 +583,7 @@ def pcom_create_search_response(search_content,postlist,settings,list_meta):
 
             # check template search content
             post = ls.pcom_find_template_search_content(settings,entry['name'])
-            print(json.dumps(post))
+            # print(json.dumps(post))
 
             if post['name'] != ct.PCOM_NO_ENTRY:
 

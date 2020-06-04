@@ -369,14 +369,13 @@ def pcom_process_insert_command(syntax, custom_class, placement, type, settings)
 
     out_string = ''
     args = {'open': ct.PCOM_KEYWORD_OPEN,'close': ct.PCOM_KEYWORD_CLOSE}
-    defaults = {ct.PCOM_INSERT_REF_KEYWORD: '' }
 
     # do not process settings.txt as an insert
     if syntax != ct.PCOM_REQ_FILE_SETTINGS:
 
         keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
 
-        if keywords['command_syntax']:
+        if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
             out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
 
     return out_string
@@ -393,7 +392,7 @@ def pcom_process_insert_additions_command(syntax, custom_class, placement, type,
 
         keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
 
-        if keywords['command_syntax']:
+        if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
             out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
 
     return out_string
@@ -757,15 +756,26 @@ def pcom_insert_content_meta_data(html_array,content_meta_info,settings,list_met
                     if info['title']:
                       out_html += ct.T3 + '<h1>' + post['title'] + '</h1>' + ct.NL
 
+                    # post,settings,list_meta_array,type,add_escape=False,no_js=False
                     if info['category']:
                         p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
-                        out_html += \
-                        pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,no_js=True)
+                        out_html += pcom_insert_author_category_in_post_list(
+                                        post=post,
+                                        settings=settings,
+                                        list_meta_array=list_meta[p_type][p_type],
+                                        type=p_type,
+                                        add_escape=False,
+                                        no_js=True)
 
                     if info['author']:
                         p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
-                        out_html += \
-                        pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,no_js=True)
+                        out_html += pcom_insert_author_category_in_post_list(
+                                        post=post,
+                                        settings=settings,
+                                        list_meta_array=list_meta[p_type][p_type],
+                                        type=p_type,
+                                        add_escape=False,
+                                        no_js=True)
 
                     if info['date_created']:
                         out_html += pcom_insert_date_created(post,settings,info['show_time'])
@@ -957,10 +967,22 @@ def pcom_create_post_list_entry(post,settings,list_meta,list_end,manual_sticky=F
 
     if post['type'] != 'page':
         p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
-        out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=True)
+        out_html += pcom_insert_author_category_in_post_list(
+                        post=post,
+                        settings=settings,
+                        list_meta_array=list_meta[p_type][p_type],
+                        type=p_type,
+                        add_escape=True,
+                        no_js=False)
 
     p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
-    out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=True)
+    out_html += pcom_insert_author_category_in_post_list(
+                        post=post,
+                        settings=settings,
+                        list_meta_array=list_meta[p_type][p_type],
+                        type=p_type,
+                        add_escape=True,
+                        no_js=False)
 
     out_html += ct.T5 + '<p>' + extract.replace('\n','<br/>') + '</p>' + js_escape + ct.NL
 
@@ -994,10 +1016,22 @@ def pcom_create_search_post_list_entry(post,settings,list_meta,ignore_meta=False
 
     if post['type'] != 'page':
         p_type = ct.PCOM_SETTINGS_TYPE_CATEGORIES
-        out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=False,no_js=True)
+        out_html += pcom_insert_author_category_in_post_list(
+                        post=post,
+                        settings=settings,
+                        list_meta_array=list_meta[p_type][p_type],
+                        type=p_type,
+                        add_escape=False,
+                        no_js=True)
 
     p_type = ct.PCOM_SETTINGS_TYPE_AUTHORS
-    out_html += pcom_insert_author_category_in_post_list(post,settings,list_meta[p_type][p_type],p_type,add_escape=False,no_js=True)
+    out_html += pcom_insert_author_category_in_post_list(
+                        post=post,
+                        settings=settings,
+                        list_meta_array=list_meta[p_type][p_type],
+                        type=p_type,
+                        add_escape=False,
+                        no_js=True)
 
     out_html += ct.T5 + '<p>' + extract.replace('\n','<br/>') + '</p>' + ct.NL
 
@@ -1294,7 +1328,13 @@ def pcom_process_section_command(syntax,custom_class,placement,type,settings):
             # loop over schematic data
             while schematic_commands['next_command'] != ct.PCOM_NO_ENTRY:
                 schematic_commands = sp.pcom_get_first_command(schematic,command_args)
-                syntax,settings = pcom_command_selection(schematic_commands['command'],schematic_commands['command_syntax'],placement,type,settings)
+                syntax,settings = pcom_command_selection(
+                                        command=schematic_commands['command'],
+                                        syntax=schematic_commands['command_syntax'],
+                                        placement=placement,
+                                        type=type,
+                                        settings=settings)
+
                 schematic = schematic_commands['next_command']
                 # append to out data
                 command = schematic_commands['command']

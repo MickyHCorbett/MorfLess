@@ -179,6 +179,7 @@ def pcom_process_settings_meta_syntax(syntax,settings):
 
         if commands['command'] == ct.PCOM_META_TEMPLATE_SEARCH_CONTENT:
             updates,error = sp.pcom_process_json(commands['command_syntax'].rstrip().lstrip())
+            print(error)
             if error != ct.PCOM_JSON_LOAD_ERROR:
                 settings['template_search_content'] = \
                 pcom_update_json_based_settings(settings['template_search_content'],updates,json_nested)

@@ -6,10 +6,13 @@ import libraries.morflessLibs as libs
 import unit.string_processes_test_io.string_processes_1_functions_io as tv
 from fixtures.decorators import testCall
 
-# define settings element for test
-settings = libs.globals.DEFAULT_SETTINGS
-
 class StringProcesses1HandlerCase(unittest.TestCase):
+
+    def setUp(self):
+        self.settings = libs.string_processes.pcom_build_dictionary(libs.globals.DEFAULT_SETTINGS)
+
+    def tearDown(self):
+        self.settings = dict()
 
     @testCall
     def test_pcom_process_json(self):
@@ -72,7 +75,7 @@ class StringProcesses1HandlerCase(unittest.TestCase):
 
             fileroot = test['input']
 
-            is_template,is_search = libs.string_processes.pcom_filter_template(fileroot,settings)
+            is_template,is_search = libs.string_processes.pcom_filter_template(fileroot,self.settings)
             print('Template: {}, Search: {}'.format(is_template,is_search))
 
             # check asserts in

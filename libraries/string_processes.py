@@ -311,7 +311,10 @@ def pcom_process_menu_command_mlk_keyword(command_string):
     allowed_args = {}
     default_args = pcom_build_dictionary(gb.DEFAULT_MENU_COMMAND_MLK_KEYWORD_ATTRIBUTES)
     html_string = ""
+    src = ''
     src_found = False
+    fa_html = ''
+    fa_found = False
     list_open_with_class = ct.T3 + """<li>"""
     list_class = ''
     html_string_start = ''
@@ -335,21 +338,25 @@ def pcom_process_menu_command_mlk_keyword(command_string):
             list_class = allowed_args['class']
             list_open_with_class = ct.T3 + '<li class="' + list_class + ' clearfix-small">'
 
-        # Font Awesome icon - adds to or replaces image src
+        # Font Awesome icon - replaces image src
         if ( allowed_args['fa'] != no_entry ):
             fa = allowed_args['fa']
             # set image src true - icon may be only image
-            src_found = True
+            src_found = False
+            fa_found = True
             # create icon - append to src
-            src = src + sch.PM_FA_ICON_OPEN + fa + sch.PM_FA_ICON_CLOSE
+            fa_html = sch.PM_FA_ICON_OPEN + fa + sch.PM_FA_ICON_CLOSE
 
         #
         html_string_start = list_open_with_class + sch.PM_NAV_MENU_LINK_HTML_1
         html_string_start += href + sch.PM_NAV_MENU_LINK_HTML_2 + name + sch.PM_NAV_MENU_LINK_HTML_3
+
         # add img or text
-        if ( src_found == True ):
+        if src_found:
             html_string_end = sch.PM_NAV_MENU_IMG_LINK_HTML_1 + src + sch.PM_NAV_MENU_IMG_LINK_HTML_2
             html_string_end += name + sch.PM_NAV_MENU_IMG_LINK_HTML_3 + sch.PM_NAV_MENU_LINK_HTML_4
+        elif fa_found:
+            html_string_end += fa_html + sch.PM_NAV_MENU_LINK_HTML_4
         else:
             html_string_end = name + sch.PM_NAV_MENU_LINK_HTML_4
 

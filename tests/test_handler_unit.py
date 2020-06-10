@@ -2,9 +2,12 @@ import unittest
 
 from unit.test_handler_read_schematic import ReadSchematicHandlerCase
 from unit.test_handler_html_sections import HtmlSectionsHandlerCase
+
 from unit.test_handler_string_processes_1 import StringProcesses1HandlerCase
 from unit.test_handler_string_processes_2 import StringProcesses2HandlerCase
 from unit.test_handler_string_processes_3 import StringProcesses3HandlerCase
+from unit.test_handler_string_processes_4 import StringProcesses4HandlerCase
+from unit.test_handler_string_processes_5 import StringProcesses5HandlerCase
 
 from unit.test_handler_lists_1 import ListsHandler1Case
 from unit.test_handler_lists_2 import ListsHandler2Case

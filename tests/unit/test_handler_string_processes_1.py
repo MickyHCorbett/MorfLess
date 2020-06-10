@@ -9,6 +9,7 @@ from fixtures.decorators import testCall
 class StringProcesses1HandlerCase(unittest.TestCase):
 
     def setUp(self):
+        self.maxDiff= None
         self.settings = libs.string_processes.pcom_build_dictionary(libs.globals.DEFAULT_SETTINGS)
 
     def tearDown(self):

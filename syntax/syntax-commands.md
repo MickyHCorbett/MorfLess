@@ -12,7 +12,7 @@ MorfLess uses the following schematic commands in relation to their placement. T
 | CONTENT_META |  Add the title, author, category, date modified and date created information to a post/page| MAIN only |
 | POSTLIST | Add a list of posts or pages | All placements except HEADER |
 | SECTION | Adds a general div element that wraps other commands creating a section | All placements except HEADER |
-| INSERT | Add in schematic commands from another file | All placements |
+| [INSERT](command-insert.md) | Add in schematic commands from another file | All placements |
 | PAGINATION | Add next and previous links for pages and posts | MAIN only |
 | SEARCHBAR| Add the search bar | All placements |
 | STYLING | Add manual style remarks | All placements |

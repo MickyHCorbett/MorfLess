@@ -14,7 +14,7 @@ MorfLess uses the following schematic commands in relation to their placement. T
 | [SECTION](command-section.md) | Adds a general div element that wraps other commands creating a section | All placements except HEADER |
 | [INSERT](command-insert.md) | Add in schematic commands from another file | All placements |
 | PAGINATION | Add next and previous links for pages and posts | MAIN only |
-| SEARCHBAR| Add the search bar | All placements |
+| [SEARCHBAR](command-searchbar.md) | Add the search bar | All placements |
 | STYLING | Add manual style remarks | All placements |
 
 As as a reminder the placements are as follows (* means mandatory): 

@@ -10,6 +10,7 @@ from unit.test_handler_string_processes_4 import StringProcesses4HandlerCase
 from unit.test_handler_string_processes_5 import StringProcesses5HandlerCase
 
 from unit.test_handler_html_elements_1 import HtmlElements1HandlerCase
+from unit.test_handler_html_elements_2 import HtmlElements2HandlerCase
 
 from unit.test_handler_lists_1 import ListsHandler1Case
 from unit.test_handler_lists_2 import ListsHandler2Case

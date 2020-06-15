@@ -74,28 +74,20 @@ def pcom_process_custom_command(command):
 # DEFAULT
 def pcom_use_defaults(command,syntax,placement,type, settings):
     syntax = ''
-    add_dependence = False
     # defaults inside a schematic
     if placement == ct.PCOM_HEADER_PLACEMENT:
         syntax = settings['default_header']
-        add_dependence = True
     if placement == ct.PCOM_MAIN_PLACEMENT:
         if type == ct.PCOM_BEFORE_TYPE:
             syntax  = settings['default_before']
-            add_dependence = True
-        if type == ct.PCOM_AFTER_TYPE:
+        elif type == ct.PCOM_AFTER_TYPE:
             syntax  = settings['default_after']
-            add_dependence = True
+        else:
+            syntax  = settings['default_main']
     if placement == ct.PCOM_SIDEBAR_PLACEMENT:
         syntax = settings['default_sidebar']
-        add_dependence = True
     if placement == ct.PCOM_FOOTER_PLACEMENT:
         syntax = settings['default_footer']
-        add_dependence = True
-
-    # update file dependence for settings.txt
-    if add_dependence:
-        settings['add_settings_to_dependencies'].append(ct.PCOM_REQ_FILE_SETTINGS)
 
     return syntax
 
@@ -370,12 +362,12 @@ def pcom_process_insert_command(syntax, custom_class, placement, type, settings)
     out_string = ''
     args = {'open': ct.PCOM_KEYWORD_OPEN,'close': ct.PCOM_KEYWORD_CLOSE}
 
-    # do not process settings.txt as an insert
-    if syntax != ct.PCOM_REQ_FILE_SETTINGS:
+    keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
 
-        keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
+    if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
 
-        if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
+        # do not process settings.txt as an insert
+        if keywords['command_syntax'] != ct.PCOM_REQ_FILE_SETTINGS:
             out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
 
     return out_string
@@ -387,12 +379,12 @@ def pcom_process_insert_additions_command(syntax, custom_class, placement, type,
     args = {'open': ct.PCOM_KEYWORD_OPEN,'close': ct.PCOM_KEYWORD_CLOSE}
     defaults = {ct.PCOM_INSERT_REF_KEYWORD: '' }
 
-    # do not process settings.txt as an insert
-    if syntax != ct.PCOM_REQ_FILE_SETTINGS:
+    keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
 
-        keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
+    if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
 
-        if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
+        # do not process settings.txt as an insert
+        if keywords['command_syntax'] != ct.PCOM_REQ_FILE_SETTINGS:
             out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
 
     return out_string
@@ -452,7 +444,7 @@ def pcom_create_pagination_link(links):
                 + prev_link + ct.JS_ESCAPE + ct.NL
                 + sch.PM_PAGINATION_CLOSE + "'" + ct.NL)
 
-    elif links['next_url'] == ct.PCOM_NO_ENTRY:
+    elif links['next_url'] == ct.PCOM_NO_ENTRY and links['prev_url'] != ct.PCOM_NO_ENTRY:
         pagination = True
         prev_link = ct.T4 + '<a href="' + links['prev_url'] + '">' + links['prev_title'] + '</a>'
         links_html = ("'" + ct.JS_ESCAPE + ct.NL
@@ -461,7 +453,7 @@ def pcom_create_pagination_link(links):
                 + prev_link + ct.JS_ESCAPE + ct.NL
                 + sch.PM_PAGINATION_CLOSE + "'" + ct.NL)
 
-    elif links['prev_url'] == ct.PCOM_NO_ENTRY:
+    elif links['prev_url'] == ct.PCOM_NO_ENTRY and links['next_url'] != ct.PCOM_NO_ENTRY:
         pagination = True
         next_link = ct.T4 + '<a href="' + links['next_url'] + '">' + links['next_title'] + '</a>'
         links_html = ("'" + ct.JS_ESCAPE + ct.NL

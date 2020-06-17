@@ -486,7 +486,7 @@ def pcom_process_n_box_command(syntax, custom_class, placement, settings, no_box
     out_html =  sp.pcom_open_placement_class(custom_class,placement)
     out_html += sp.pcom_open_custom_class_div(custom_class,sch.PM_N_BOX_OPEN)
 
-    out_html += ct.NL + pcom_parse_box_arguments(syntax,no_boxes,placement)
+    out_html += ct.NL + pcom_parse_box_arguments(syntax,no_boxes,placement,settings['posts_per_page'])
 
     out_html += ct.NL + sch.PM_N_BOX_CLOSE
     out_html += sp.pcom_close_placement_class(placement)
@@ -499,7 +499,7 @@ def pcom_process_n_box_command(syntax, custom_class, placement, settings, no_box
 # BOX PROCESSING
 # ==============
 #
-def pcom_parse_box_arguments(syntax,no_boxes,placement):
+def pcom_parse_box_arguments(syntax,no_boxes,placement,ppp):
 
     # only called if BOX commands exist
     sub_schem_end = ct.PCOM_SUB_SCHEMATIC_CLOSE
@@ -553,12 +553,13 @@ def pcom_parse_box_arguments(syntax,no_boxes,placement):
                         type = ct.PCOM_BOX_BOX + ' ' + class1.lower()
 
                     #
-                    out_html += pcom_add_box_for_n_box(split_strings2['syntax_before'],no_boxes,type,placement) + ct.NL
+                    out_html += \
+                    pcom_add_box_for_n_box(split_strings2['syntax_before'],no_boxes,type,placement,ppp) + ct.NL
 
                 else:
 
                     last_box = ct.PCOM_BOX_BOX + ' ' + class1.lower() + ' ' + ct.PCOM_BOX_BOX_END
-                    out_html += pcom_add_box_for_n_box(split_strings1['syntax_after'],no_boxes,last_box,placement)
+                    out_html += pcom_add_box_for_n_box(split_strings1['syntax_after'],no_boxes,last_box,placement,ppp)
 
                 #
 
@@ -575,7 +576,7 @@ def pcom_parse_box_arguments(syntax,no_boxes,placement):
 # Processes box data and outputs to screen
 #
 #
-def pcom_add_box_for_n_box(syntax,no_boxes,type,placement):
+def pcom_add_box_for_n_box(syntax,no_boxes,type,placement,ppp):
 
 
     # adds n box - depends on box type i.e. number
@@ -596,7 +597,10 @@ def pcom_add_box_for_n_box(syntax,no_boxes,type,placement):
             # filter out any custom classes - these should be applied to the top level
             command_custom = pcom_process_custom_command(commands['command'])
             #
-            out_html += pcom_process_n_box_subcommands(command_custom['command'],commands['command_syntax'])
+            out_html += pcom_process_n_box_subcommands(
+                                    command=command_custom['command'],
+                                    syntax=commands['command_syntax'],
+                                    ppp=ppp)
             # update syntax
             syntax = commands['syntax_after']
 
@@ -613,7 +617,7 @@ def pcom_add_box_for_n_box(syntax,no_boxes,type,placement):
 #  Processes box subcommands
 #
 
-def pcom_process_n_box_subcommands(command,syntax):
+def pcom_process_n_box_subcommands(command,syntax,ppp):
 
     out_html = ''
 
@@ -636,7 +640,8 @@ def pcom_process_n_box_subcommands(command,syntax):
             out_html = pcom_insert_quote_box_command(syntax,'',ct.PCOM_BOX_PLACEMENT,'',{})
 
         if command == ct.PCOM_POST_LIST_COMMAND :
-            out_html = pcom_add_post_list_command(syntax,'',ct.PCOM_BOX_PLACEMENT, '', {})
+            settings = {'posts_per_page': ppp}
+            out_html = pcom_add_post_list_command(syntax,'',ct.PCOM_BOX_PLACEMENT, '', settings)
 
 
 

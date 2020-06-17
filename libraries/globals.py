@@ -77,10 +77,8 @@ DEFAULT_AUTHOR = { 'name': md.DEFAULT_AUTHOR,
 'description': ''
 }
 
-DEFAULT_CONTENT_PAGE_META = {'title': True,
-'author': True,
-'date_created': True,
-'date_modified': True}
+DEFAULT_CONTENT_POST_META = 'title,category,author,date_created,date_modified,show_time'
+DEFAULT_CONTENT_PAGE_META = 'title,author,date_created,date_modified'
 
 DEFAULT_SETTINGS = {'site_title': md.DEFAULT_SITE_TITLE,
 'site_description': md.DEFAULT_SITE_DESCRIPTION,

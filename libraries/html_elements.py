@@ -694,8 +694,8 @@ def pcom_add_content_meta_command(syntax, custom_class, placement, type, setting
     out_html += ct.NL + ct.PCOM_CONTENT_META_TAG_OPEN + placement + ':'
 
     if syntax and syntax != ct.PCOM_NO_ENTRY:
-        meta_list = pcom_find_content_meta_keywords(syntax)
-        meta_list = ls.pcom_create_comma_list_from_array(meta_list)
+        meta_list_keys = pcom_find_content_meta_keywords(syntax)
+        meta_list = ls.pcom_create_comma_list_from_array(meta_list_keys)
 
     out_html += meta_list
     out_html += ct.PCOM_CONTENT_META_TAG_CLOSE

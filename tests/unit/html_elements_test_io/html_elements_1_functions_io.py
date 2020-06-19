@@ -38,7 +38,7 @@ test_values_1 = [\
 ]
 
 test_values_2 = [\
-{   'remark': 'Test Case 1:pcom_process_custom_command -  empty placement',
+{   'remark': 'Test Case 1:pcom_use_defaults-  empty placement',
     'command': '',
     'syntax': '',
     'placement': '',

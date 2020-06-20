@@ -1127,6 +1127,7 @@ def pcom_insert_author_category_in_post_list(post,settings,list_meta_array,type,
             out_html += ct.T5 + sch.PM_AUTHOR_ICON + js_escape + ct.NL
 
         for ind,entry in enumerate(post[type]):
+
             if ind == (len(post[type]) - 1):
                 delimiter = ''
 
@@ -1136,6 +1137,7 @@ def pcom_insert_author_category_in_post_list(post,settings,list_meta_array,type,
                 entry = sp.pcom_replace_quotes(entry)
                 sub_url = entry_for_url.lower().replace("'","-").replace(' ','-')
             else:
+                entry = sp.pcom_replace_quotes(entry)
                 sub_url = entry.lower().replace("'","-").replace(' ','-')
 
             url = base_url + sub_url + "/"
@@ -1261,7 +1263,7 @@ def pcom_add_footer_content_to_footer(syntax,custom_class,placement,type,setting
     commands = sp.pcom_build_dictionary(gb.DEFAULT_OPEN_CLOSE_SYNTAX_OUT_ARRAY)
     commands['command'] = ''
 
-    # only called in header
+    # only called in footer
     if placement == ct.PCOM_FOOTER_PLACEMENT:
 
         if syntax:
@@ -1301,21 +1303,26 @@ def pcom_process_section_command(syntax,custom_class,placement,type,settings):
 
     # process schematic data for name
     section_data = sp.pcom_process_command_open_close_syntax(syntax,name_args)
-    if section_data['command_found']:
+
+    if section_data['command_found'] and section_data['command_syntax'] != ct.PCOM_NO_ENTRY:
+
         section_name = section_data['command_syntax']
 
         section_sub_tab = ''
         if placement == ct.PCOM_MAIN_PLACEMENT:
             section_sub_tab = ct.PCOM_SECTION_SIDEBAR_TAB
 
-        # remove name and set as schematic
-        schematic = section_data['command'] + section_data['syntax_after']
+        # remove name and set as schematic, replace NONE strings
 
-        if schematic == ct.PCOM_NO_ENTRY:
+        schematic = section_data['command'] + section_data['syntax_after']
+        schematic = schematic.replace(ct.PCOM_NO_ENTRY,'')
+
+        if schematic == ct.PCOM_NO_ENTRY or not schematic:
             out = ct.PCOM_NO_ENTRY
         else:
             start_section = (section_sub_tab + '<div id="' + section_name + '"' +
             sch.PM_ADD_SECTION_CLASS + custom_class + '">' + ct.NL)
+
             out += start_section + ct.NL
 
             # set command data array

@@ -14,6 +14,7 @@ from unit.test_handler_html_elements_2 import HtmlElements2HandlerCase
 from unit.test_handler_html_elements_3 import HtmlElements3HandlerCase
 from unit.test_handler_html_elements_4 import HtmlElements4HandlerCase
 from unit.test_handler_html_elements_5 import HtmlElements5HandlerCase
+from unit.test_handler_html_elements_6 import HtmlElements6HandlerCase
 
 from unit.test_handler_lists_1 import ListsHandler1Case
 from unit.test_handler_lists_2 import ListsHandler2Case

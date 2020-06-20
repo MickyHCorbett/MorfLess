@@ -57,6 +57,8 @@ class HtmlElements6HandlerCase(unittest.TestCase):
             # check asserts in
             self.assertEqual(test['assertEqual'], result['header_additions'])
 
+        # reset
+        header_settings['header_additions'] = []
 
     @testCall
     def test_pcom_add_footer_content_to_footer(self):
@@ -79,6 +81,9 @@ class HtmlElements6HandlerCase(unittest.TestCase):
 
             # check asserts in
             self.assertEqual(test['assertEqual'], result['footer_additions'])
+
+        # reset
+        footer_settings['footer_additions'] = []
 
 
     @testCall

@@ -41,7 +41,7 @@ template_sub_header_text={
   {
     "categories": "Posts for category: ",
     "authors": "Posts by author: ",
-    "archive": "Posts for month: "
+    "archive": "Posts updated on: "
   }
 }:
 

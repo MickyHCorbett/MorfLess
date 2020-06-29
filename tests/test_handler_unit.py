@@ -22,6 +22,10 @@ from unit.test_handler_lists_3 import ListsHandler3Case
 from unit.test_handler_lists_4 import ListsHandler4Case
 from unit.test_handler_lists_5 import ListsHandler5Case
 
+from unit.test_handler_second_processes_1 import SecondProcessesHandler1Case
+from unit.test_handler_second_processes_2 import SecondProcessesHandler2Case
+from unit.test_handler_second_processes_3 import SecondProcessesHandler3Case
+#
 from unit.test_handler_meta_elements import SetMetaElementsCase
 
 from mockAws.test_handler_bucket_operations import RenderHtmlBucketOperations

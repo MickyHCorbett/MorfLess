@@ -106,5 +106,23 @@ class HtmlElements6HandlerCase(unittest.TestCase):
             self.assertEqual(test['assertEqual'].strip(), result.strip())
 
 
+    def test_pcom_add_raw_content_command(self):
+
+        for test in tv.test_values_5:
+
+            print('\n' + test['remark'] + '\n')
+
+            result = libs.html_elements.pcom_add_raw_content_command(
+                                            syntax=test['syntax'],
+                                            custom_class=test['custom_class'],
+                                            placement=test['placement'],
+                                            type=test['type'],
+                                            settings=test['settings'])
+
+            print(result)
+
+            # check asserts in
+            self.assertEqual(test['assertEqual'].strip(), result.strip())
+
 if __name__ == '__main__':
     unittest.main()

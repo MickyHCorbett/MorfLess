@@ -399,3 +399,98 @@ $$SIDEBAR_TAB%%</div><!-- end of section -->\n'
 
     },
 ]
+
+test_values_5 = [\
+{   'remark': 'Test Case 1:pcom_add_raw_content_command - custom class, no syntax, main with sidebar placement',
+    'syntax': """
+
+    """,
+    'custom_class': 'my-class',
+    'placement': ct.PCOM_MAIN_WITH_SIDEBAR_PLACEMENT,
+    'type': '',
+    'settings': gb.DEFAULT_SETTINGS,
+    'assertEqual': ''
+    },
+
+{   'remark': 'Test Case 2:pcom_add_raw_content_command - custom class, wrong subcommand, main placement',
+    'syntax': """
+
+THING=[
+        This text here
+
+        And this
+]:
+
+    """,
+    'custom_class': 'my-class',
+    'placement': ct.PCOM_MAIN_PLACEMENT,
+    'type': '',
+    'settings': gb.DEFAULT_SETTINGS,
+    'assertEqual': ''
+    },
+
+{   'remark': 'Test Case 3:pcom_add_raw_content_command - custom class, subcommand, main placement',
+    'syntax': """
+
+TEXT=[
+        This text here
+
+        And this
+]:
+
+    """,
+    'custom_class': 'my-class',
+    'placement': ct.PCOM_MAIN_PLACEMENT,
+    'type': '',
+    'settings': gb.DEFAULT_SETTINGS,
+    'assertEqual': """
+
+        This text here
+
+        And this
+
+    """
+    },
+
+{   'remark': 'Test Case 4:pcom_add_raw_content_command - custom class, subcommand, footer placement',
+    'syntax': """
+
+TEXT=[
+        This text here again
+
+        And this
+]:
+
+    """,
+    'custom_class': 'my-class',
+    'placement': ct.PCOM_FOOTER_PLACEMENT,
+    'type': 'this',
+    'settings': gb.DEFAULT_SETTINGS,
+    'assertEqual': """
+
+        This text here again
+
+        And this
+
+    """
+    },
+
+{   'remark': 'Test Case 5:pcom_add_raw_content_command - custom class, keyword, footer placement',
+    'syntax': """
+
+text={
+        This text here again
+
+        And this
+}:
+
+    """,
+    'custom_class': 'my-class',
+    'placement': ct.PCOM_FOOTER_PLACEMENT,
+    'type': 'this',
+    'settings': gb.DEFAULT_SETTINGS,
+    'assertEqual': """
+
+    """
+    },
+]

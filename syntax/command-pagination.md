@@ -22,7 +22,7 @@ None
 
 ## Keywords
 
-There are 2 keywords for QUOTE:
+There are 2 keywords for PAGINATION:
 
 - next - the name of the next page you wish to link to (not the url)
 - prev - the name of the previous page you wish to link to (not the url)

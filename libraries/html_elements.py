@@ -1349,3 +1349,33 @@ def pcom_process_section_command(syntax,custom_class,placement,type,settings):
             out += section_sub_tab + '</div><!-- end of section -->' + ct.NL
 
     return out,settings
+
+# ========
+# RAW CONTENT - no filtering of content or adding any div wrappers
+# ========
+
+def pcom_add_raw_content_command(syntax,custom_class,placement,type,settings):
+
+    args = {'open': ct.PCOM_SUB_COMMAND_OPEN, 'close': ct.PCOM_SUB_COMMAND_CLOSE }
+    # initialise open and close syntax
+    commands = sp.pcom_build_dictionary(gb.DEFAULT_OPEN_CLOSE_SYNTAX_OUT_ARRAY)
+    commands['command'] = ''
+
+    out_html = ''
+
+    if syntax:
+
+        #process syntax text subcommand
+        while commands['command'] != ct.PCOM_NO_ENTRY:
+
+            commands = sp.pcom_process_command_open_close_syntax(syntax,args)
+            # filter out any custom classes - these should be applied to the top level
+            command_custom = pcom_process_custom_command(commands['command'])
+            # process for text and reference
+            if command_custom['command'] == ct.PCOM_RAW_CONTENT_TEXT_SUBCOMMAND:
+                out_html = commands['command_syntax']
+
+            #update syntax
+            syntax = commands['syntax_after']
+
+    return out_html

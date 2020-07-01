@@ -30,6 +30,8 @@ from unit.test_handler_meta_elements import SetMetaElementsCase
 
 from unit.test_handler_classes_1 import ClassesHandler1Case
 
+from unit.test_handler_bucket_file_preparation import BucketFilePreparationHandler1Case
+
 from mockAws.test_handler_bucket_operations import RenderHtmlBucketOperations
 from mockAws.test_handler_bucket_operations import CreateListPagesBucketOperations
 from mockAws.test_handler_bucket_operations import SearchContentBucketOperations

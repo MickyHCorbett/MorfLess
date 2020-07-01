@@ -23,18 +23,18 @@ or
     }:
     posts_per_page={ 2 }:
 
-    or
+or
 
-        ///MAIN:
-        %%POSTLIST::
-        manual_sticky={}:
-        list={
-          article1.page,
-          !!latest_post1.post,
-          that_post2.post,
-          this_post3.post
-        }:
-        posts_per_page={ 2 }:
+    ///MAIN:
+    %%POSTLIST::
+    manual_sticky={}:
+    list={
+      article1.page,
+      !!latest_post1.post,
+      that_post2.post,
+      this_post3.post
+    }:
+    posts_per_page={ 2 }:
 
 ## Subschematic Commands
 

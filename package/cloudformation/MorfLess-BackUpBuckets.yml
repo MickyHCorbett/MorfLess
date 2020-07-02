@@ -124,17 +124,17 @@ Resources:
     Properties:
       Description: Copies objects from a source S3 bucket to a destinations
       Handler: index.handler
-      Runtime: python2.7
+      Runtime: python3.7
       Role: !GetAtt S3CopyRole.Arn
       Timeout: 120
       Code:
         ZipFile: |
           import os
           import json
-          import cfnresponse
-
           import boto3
-          from botocore.exceptions import ClientError
+          import urllib3
+
+          http = urllib3.PoolManager()
           s3resource = boto3.resource('s3')
           s3client = boto3.client('s3')
 
@@ -160,7 +160,7 @@ Resources:
               source_files_copied = False
               search_copied = False
 
-              result = cfnresponse.FAILED
+              result = 'FAILED'
 
               try:
                   if event['RequestType'] == 'Create' or event['RequestType'] == 'Update':
@@ -171,17 +171,17 @@ Resources:
                       search_copied = copy_objects(search_bucket, def_bucket, search_setup_prefix)
 
                       if web_copied and list_copied and source_files_copied and search_copied:
-                          result = cfnresponse.SUCCESS
+                          result = 'SUCCESS'
 
                   elif event['RequestType'] == 'Delete':
                       # don't delete files but send a successful response to be able to delete stack
-                      result = cfnresponse.SUCCESS
+                      result = 'SUCCESS'
 
               except ClientError as e:
                   logger.error('Error: %s', e)
-                  result = cfnresponse.FAILED
+                  result = 'FAILED'
 
-              cfnresponse.send(event, context, result, {})
+              cfnresponse_send(event, context, result, {})
 
 
           def copy_objects(source_bucket, target_bucket, prefix):
@@ -201,8 +201,44 @@ Resources:
                           'Key': file
                       }
                       s3resource.meta.client.copy(copy_source, target_bucket, file_out)
-
+                      logger.info("File copied: %s" % file_out)
+                      
               return copied
+
+
+          # copy of cfnresponse from https://github.com/awslabs/aws-cloudformation-templates/blob/master/aws/services/CloudFormation/MacrosExamples/StackMetrics/lambda/cfnresponse.py
+
+          def cfnresponse_send(event, context, responseStatus, responseData, physicalResourceId=None, noEcho=False):
+
+              responseUrl = event['ResponseURL']
+
+              print(responseUrl)
+
+              responseBody = {}
+              responseBody['Status'] = responseStatus
+              responseBody['Reason'] = 'See the details in CloudWatch Log Stream: ' + context.log_stream_name
+              responseBody['PhysicalResourceId'] = physicalResourceId or context.log_stream_name
+              responseBody['StackId'] = event['StackId']
+              responseBody['RequestId'] = event['RequestId']
+              responseBody['LogicalResourceId'] = event['LogicalResourceId']
+              responseBody['NoEcho'] = noEcho
+              responseBody['Data'] = responseData
+
+              json_responseBody = json.dumps(responseBody)
+
+              print("Response body:\n" + json_responseBody)
+
+              headers = {
+                  'content-type' : '',
+                  'content-length' : str(len(json_responseBody))
+              }
+
+              try:
+
+                  response = http.request('PUT',responseUrl,body=json_responseBody.encode('utf-8'),headers=headers)
+                  print("Status code: " + response.reason)
+              except Exception as e:
+                  print("send(..) failed executing requests.put(..): " + str(e))
 
 
     Type: AWS::Lambda::Function

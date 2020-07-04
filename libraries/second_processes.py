@@ -33,7 +33,7 @@ def pcom_process_postlist(postlist_info,postlist,settings,list_meta,fileroot):
                 list_of_posts,list_of_stickies = ls.pcom_find_sticky_posts(info['content'],info['manual_sticky'])
 
             if ind == 0:
-                postlist_constant += 'window._postlist_' + fileroot + ' = {' + ct.NL
+                postlist_constant += 'window._postlist_' + fileroot.replace('-','_') + ' = {' + ct.NL
                 postlist_constant += ct.T1 + "identifier: '" + sch.PM_POST_LIST_IDENTIFIER + "'," + ct.NL
                 postlist_constant += ct.T1 + "pagination_element: '" + sch.POSTLIST_PAGINATION + "'," + ct.NL
                 postlist_constant += ct.T1 + "page_numbers_selected_class: '" + ct.PCOM_PAGE_NUMBERS_CURRENT_CLASS + "'," + ct.NL
@@ -177,7 +177,7 @@ def pcom_process_template_postlist(postlist,archive,type,settings,list_meta,file
     # separate sticky posts from non sticky
     list_of_posts,list_of_stickies = ls.pcom_find_sticky_posts_by_meta(list_of_posts)
 
-    postlist_constant += 'window._postlist_' + fileroot + ' = {' + ct.NL
+    postlist_constant += 'window._postlist_' + fileroot.replace('-','_') + ' = {' + ct.NL
     postlist_constant += ct.T1 + "identifier: '" + sch.PM_POST_LIST_TEMPLATE_IDENTIFIER + "'," + ct.NL
     postlist_constant += ct.T1 + "pagination_element: '" + sch.POSTLIST_PAGINATION + "'," + ct.NL
     postlist_constant += ct.T1 + "page_numbers_selected_class: '" + ct.PCOM_PAGE_NUMBERS_CURRENT_CLASS + "'," + ct.NL
@@ -372,7 +372,7 @@ def pcom_create_template_info_references(list,base_string,settings):
         full_js_root = base_string.lower() + '-' + sub_js_constant_root
         filename = ct.PCOM_POSTLIST_CONSTANT_NAME_BASE + full_js_root + '.js'
 
-        sub_fileroot = '_' + entry['name'].lower().replace(' ','_').replace("'","_")
+        sub_fileroot = '_' + entry['name'].lower().replace(' ','_').replace("'","_").replace('-','_')
         fileroot = base_string.lower() + sub_fileroot
         base_name = sp.pcom_create_template_fileroot(base_string,settings)
         url = base_name + '/' +  sub_js_constant_root + "/"
@@ -449,7 +449,7 @@ def pcom_process_pagination(postlist,pg_name,fileroot,info):
         pagination,links_created = he.pcom_create_pagination_link(links)
 
         if found:
-            pagination_constant = 'window._pagination_' + fileroot + ' = {' + ct.NL
+            pagination_constant = 'window._pagination_' + fileroot.replace('-','_') + ' = {' + ct.NL
             pagination_constant += ct.T1 + 'pagination: ' + pagination
             pagination_constant += '};'
             processed = True

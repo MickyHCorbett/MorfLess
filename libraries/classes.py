@@ -203,7 +203,7 @@ class HtmlOut:
                                                     type=post['type'])
 
     def update_authors(self):
-        if (self.meta != ct.PCOM_NO_ENTRY and not self.is_template 
+        if (self.meta != ct.PCOM_NO_ENTRY and not self.is_template
         and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]):
 
             post = ls.pcom_find_post(self.postlist,self.filename)

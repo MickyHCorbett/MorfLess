@@ -555,7 +555,7 @@ def pcom_insert_additions_into_html(args):
     is_template = args['is_template']
     is_search = args['is_search']
 
-    fileroot = fileroot.replace("/","_")
+    fileroot = fileroot.replace("/","_").replace('-','_')
 
     # additions are added to header or footer
     if placement == ct.PCOM_HEADER_PLACEMENT:

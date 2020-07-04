@@ -36,12 +36,12 @@ test_values_1 = [\
     'postlist': POSTLIST_1,
     'settings': gb.DEFAULT_SETTINGS,
     'list_meta': LIST_META_1,
-    'fileroot': 'test5',
+    'fileroot': 'test5-again',
     'assertEqual': {\
         'processed': True,
         'result': """
 
-window._postlist_test5 = {
+window._postlist_test5_again = {
   identifier: 'postlist-list-',
   pagination_element: '        <span class="pm-page-numbers %%$_NUMBERIDENT_$%%">%%$_NUMBER_$%%</span>',
   page_numbers_selected_class: 'current',

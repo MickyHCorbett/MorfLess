@@ -31,7 +31,7 @@ test_values_1 = [\
 {   'remark': 'Test Case 2:pcom_process_pagination - info',
     'postlist': POSTLIST_1,
     'pg_name': 'pagination__list2.js',
-    'fileroot': 'test6',
+    'fileroot': 'test6-at-all',
     'info': {\
         'type': 'post',
         'postname': 'test3.post',
@@ -41,7 +41,7 @@ test_values_1 = [\
     'assertEqual': {\
         'result': """
 
-window._pagination_test6 = {
+window._pagination_test6_at_all = {
   pagination: '\\
       <div id="pm-single-post-link">\\
         <span class="pm-post-link-text"><i class="fa fa-arrow-left" aria-hidden="true"></i>\\

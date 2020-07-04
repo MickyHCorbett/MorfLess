@@ -119,7 +119,8 @@ class HtmlOut:
                     outlog=self.log)
 
     def process_pagination(self):
-        if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
+        if (not self.is_template and not self.is_root
+        and self.meta != ct.PCOM_NO_ENTRY and not self.meta[ct.PCOM_META_UNLISTED]):
 
             (self.html_array,
             self.pagination_info) = ls.pcom_get_pagination_info(
@@ -150,7 +151,7 @@ class HtmlOut:
         'pagination': self.pagination_info,
         'is_template': self.is_template,
         'is_search': self.is_search}
-        
+
         default_additions = ''
 
         self.html = sp.pcom_insert_additions_into_html(args)
@@ -166,7 +167,8 @@ class HtmlOut:
 
 
     def get_raw_content(self):
-        if not self.is_search and not self.meta[ct.PCOM_META_UNLISTED]:
+        if (not self.is_search and self.meta != ct.PCOM_NO_ENTRY
+        and not self.meta[ct.PCOM_META_UNLISTED]):
             self.raw_content = sp.pcom_create_raw_content(self.html, self.meta)
 
     # updates
@@ -174,7 +176,8 @@ class HtmlOut:
     def update_postlist(self):
         # get type and url from file name
         # only update is meta not NONE
-        if self.meta != ct.PCOM_NO_ENTRY and not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
+        if (self.meta != ct.PCOM_NO_ENTRY and not self.is_template
+        and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]):
 
             url,type = sp.pcom_create_url(self.filename,self.meta)
 
@@ -188,7 +191,8 @@ class HtmlOut:
                                 settings=self.site_settings)
 
     def update_categories(self):
-        if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
+        if (self.meta != ct.PCOM_NO_ENTRY and not self.is_template
+        and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]):
 
             post = ls.pcom_find_post(self.postlist,self.filename)
 
@@ -199,7 +203,8 @@ class HtmlOut:
                                                     type=post['type'])
 
     def update_authors(self):
-        if not self.is_template and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]:
+        if (self.meta != ct.PCOM_NO_ENTRY and not self.is_template 
+        and not self.is_root and not self.meta[ct.PCOM_META_UNLISTED]):
 
             post = ls.pcom_find_post(self.postlist,self.filename)
 

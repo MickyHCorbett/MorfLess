@@ -495,6 +495,50 @@ More here
 
     """
     },
+
+{   'remark': 'Test Case 4:HtmlOut:get_raw_content - meta is NONE',
+    'content': '',
+    'log': {\
+        'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []
+    },
+    'site_settings': gb.DEFAULT_SETTINGS,
+    'list_meta': LIST_META_1,
+    'filename': 'search-this.page',
+    'dependencies': DEPENDENCIES_1 ,
+    'postlist': POSTLIST_2,
+    'html_content': """
+<head>
+Content head_start_end
+</head>
+<section id="main">
+More here
+</section>
+<style>
+<!-- things here to add {{}} -->
+</style>
+<script src="this script" />
+<footer>
+<div class="footer content">
+    <div class="inner1"><h1>A title</h1></div>
+    <div class="inner2"><p>Lots of data to talk about</p></div>
+    <ul>
+        <li>one</li>
+        <li>Another here what!</li>
+    </ul>
+</div>
+</footer>
+    """,
+    'meta': ct.PCOM_NO_ENTRY,
+    'assertEqual': """
+
+    """
+    },
 ]
 
 test_values_5 = [\
@@ -642,6 +686,25 @@ test_values_5 = [\
     'assertEqual': ct.PCOM_NO_ENTRY
     },
 
+{   'remark': 'Test Case 6:HtmlOut:update_postlist - meta is none',
+    'content': '',
+    'log': {\
+        'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []
+    },
+    'site_settings': gb.DEFAULT_SETTINGS,
+    'list_meta': LIST_META_1,
+    'filename': 'test-update1.post',
+    'dependencies': DEPENDENCIES_1 ,
+    'postlist': POSTLIST_BLANK,
+    'meta': ct.PCOM_NO_ENTRY,
+    'assertEqual': ct.PCOM_NO_ENTRY
+    },
 ]
 
 
@@ -748,10 +811,32 @@ test_values_6 = [\
             "categories": []
             },
     },
+{   'remark': 'Test Case 5:HtmlOut:update_categories - meta is none',
+    'content': '',
+    'log': {\
+        'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []
+    },
+    'site_settings': gb.DEFAULT_SETTINGS,
+    'list_meta': LIST_META_BLANK_2,
+    'filename': 'contact.post',
+    'dependencies': DEPENDENCIES_1 ,
+    'postlist': POSTLIST_SINGLE,
+    'meta': ct.PCOM_NO_ENTRY,
+    'assertEqual': {\
+            "no_of_category_pages": 1,
+            "categories": []
+            },
+    },
 ]
 
 test_values_7 = [\
-{   'remark': 'Test Case 1:HtmlOut:update_authors - update category',
+{   'remark': 'Test Case 1:HtmlOut:update_authors - update author',
     'content': '',
     'log': {\
         'inserts_processed': [],
@@ -804,7 +889,29 @@ test_values_7 = [\
             "authors": []
             },
     },
-{   'remark': 'Test Case 3:HtmlOut:update_authors - template',
+{   'remark': 'Test Case 3:HtmlOut:update_authors - meta is none',
+    'content': '',
+    'log': {\
+        'inserts_processed': [],
+        'search_content': [],
+        'files_processed': 'N',
+        'default_header_additions': [],
+        'default_footer_additions': [],
+        'file_header_additions': [],
+        'file_footer_additions': []
+    },
+    'site_settings': gb.DEFAULT_SETTINGS,
+    'list_meta': LIST_META_BLANK_2,
+    'filename': 'contact.post',
+    'dependencies': DEPENDENCIES_1 ,
+    'postlist': POSTLIST_SINGLE,
+    'meta': ct.PCOM_NO_ENTRY,
+    'assertEqual': {\
+            "no_of_author_pages": 1,
+            "authors": []
+            },
+    },
+{   'remark': 'Test Case 4:HtmlOut:update_authors - template',
     'content': '',
     'log': {\
         'inserts_processed': [],
@@ -829,7 +936,7 @@ test_values_7 = [\
             },
     },
 
-{   'remark': 'Test Case 4:HtmlOut:update_authors - root = index ',
+{   'remark': 'Test Case 5:HtmlOut:update_authors - root = index ',
     'content': '',
     'log': {\
         'inserts_processed': [],

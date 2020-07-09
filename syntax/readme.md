@@ -133,6 +133,7 @@ Elements can be grouped into a general Section element (different than an HTML5 
         sticky={}: 
         unlisted={}:
         
-Author meta (author={}:) is singular as you tend to have one author, but you can have more. Categories tend to be plural hence the meta keyword is "categories".
+Author meta (author) is singular as you tend to have one author, but you can have more. Categories tend to be plural hence the meta keyword is "categories".
+
 Sticky (sticky={}: - no syntax ) is for posts and indicates you want this post to be at the top of the full posts list or in an author or category page. 
 Unlisted (unlisted={}: - no syntax) indicates that you don't want the post to appear in searches or listings. 

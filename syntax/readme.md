@@ -125,8 +125,8 @@ Elements can be grouped into a general Section element (different than an HTML5 
         ///META:
         title={ <title> }:
         url={ /path/to/page/ }:
-        author={ author1 <,author list? }:
-        categories={ <category list> }:
+        author={ author1, <author list> }:
+        categories={ category1, <category list> }:
         description={ <Short description for head of page> }:
         extract={ <More detailed description for when post/page is listed > }:
         thumbnail={ /link/to/thumbnail.png }:

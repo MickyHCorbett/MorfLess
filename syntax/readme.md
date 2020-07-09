@@ -115,3 +115,24 @@ Elements can be grouped into a general Section element (different than an HTML5 
         
         BOX3:
         <sub_command>=[ ]:
+        
+ ## Meta
+ 
+ The mandatory meta is title and url. If you don't add any other meta the defaults will be applied. These can be the ones within meta_defaults.py and also globals.py. But there is also the ability to change meta like default thumbnail, default author, author descriptions and category descriptions within settings.txt.
+ 
+ For pages and posts the full meta is as follows:
+ 
+        ///META:
+        title={ <title> }:
+        url={ /path/to/page/ }:
+        author={ author1 <,author list? }:
+        categories={ <category list> }:
+        description={ <Short description for head of page> }:
+        extract={ <More detailed description for when post/page is listed > }:
+        thumbnail={ /link/to/thumbnail.png }:
+        sticky={}: 
+        unlisted={}:
+        
+Author meta (author={}:) is singular as you tend to have one author, but you can have more. Categories tend to be plural hence the meta keyword is "categories".
+Sticky (sticky={}: - no syntax ) is for posts and indicates you want this post to be at the top of the full posts list or in an author or category page. 
+Unlisted (unlisted={}: - no syntax) indicates that you don't want the post to appear in searches or listings. 

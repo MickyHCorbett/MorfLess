@@ -31,7 +31,6 @@ There are also Addition commands:
 | :-------| :----| :-------- |
 | [HEADER_ADDITIONS](command-header-additions.md) | Adds text and scripts to the head | HEADER only |
 | [FOOTER_ADDITIONS](command-footer-additions.md) | Adds text and scripts just before close body tag | FOOTER only |
-| [HEADER_INSERT](command-header-insert.md) | Add in schematic commands from another file | HEADER only |
 
 ## Html structure
 

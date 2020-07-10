@@ -200,5 +200,4 @@ ct.PCOM_INSERT_SEARCHBAR_COMMAND:'pcom_insert_searchbar_command'}
 # addition functions list - global is predefined as empty in pcom_defaults
 ADDITIONS_LIST = {\
 ct.PCOM_HEADER_CONTENT_COMMAND:'pcom_add_header_content_to_head',
-ct.PCOM_FOOTER_CONTENT_COMMAND:'pcom_add_footer_content_to_footer',
-ct.PCOM_INSERT_ADDITIONS_COMMAND:'pcom_process_insert_additions_command' }
+ct.PCOM_FOOTER_CONTENT_COMMAND:'pcom_add_footer_content_to_footer'}

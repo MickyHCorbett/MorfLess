@@ -372,22 +372,22 @@ def pcom_process_insert_command(syntax, custom_class, placement, type, settings)
 
     return out_string
 
-# REMOTE INSERTS = other files in the folder
-def pcom_process_insert_additions_command(syntax, custom_class, placement, type, settings):
-
-    out_string = ''
-    args = {'open': ct.PCOM_KEYWORD_OPEN,'close': ct.PCOM_KEYWORD_CLOSE}
-    defaults = {ct.PCOM_INSERT_REF_KEYWORD: '' }
-
-    keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
-
-    if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
-
-        # do not process settings.txt as an insert
-        if keywords['command_syntax'] != ct.PCOM_REQ_FILE_SETTINGS:
-            out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
-
-    return out_string
+# # REMOTE INSERTS = other files in the folder
+# def pcom_process_insert_additions_command(syntax, custom_class, placement, type, settings):
+# 
+#     out_string = ''
+#     args = {'open': ct.PCOM_KEYWORD_OPEN,'close': ct.PCOM_KEYWORD_CLOSE}
+#     defaults = {ct.PCOM_INSERT_REF_KEYWORD: '' }
+#
+#     keywords = sp.pcom_process_command_open_close_syntax(syntax,args)
+#
+#     if keywords['command_syntax'] and keywords['command'] == ct.PCOM_INSERT_REF_KEYWORD:
+#
+#         # do not process settings.txt as an insert
+#         if keywords['command_syntax'] != ct.PCOM_REQ_FILE_SETTINGS:
+#             out_string = ct.PCOM_INSERT_TAG_OPEN + placement + ":" +  keywords['command_syntax'] + ct.PCOM_INSERT_TAG_CLOSE
+#
+#     return out_string
 
 def pcom_insert_pagination_command(syntax, custom_class, placement, type, settings):
 

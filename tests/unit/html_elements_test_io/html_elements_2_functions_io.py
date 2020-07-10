@@ -253,47 +253,47 @@ test_values_3 = [\
     },
 ]
 
-test_values_4 = [\
-{   'remark': 'Test Case 1:pcom_process_insert_addiitons_command - main placement syntax not with ref keyword',
-    'syntax': 'TEXT=[ [p][b]Something here[/b][/p] ]:',
-    'custom_class': 'my-class',
-    'placement': ct.PCOM_MAIN_PLACEMENT,
-    'type': 'this',
-    'settings': gb.DEFAULT_SETTINGS,
-    'assertEqual': """
-
-    """
-    },
-
-{   'remark': 'Test Case 2:pcom_process_insert_addiitons_command - main placement syntax with subschematic command and ref keyword',
-    'syntax': 'TEXT=[ some name ]: ref={ this_insert.txt }:',
-    'custom_class': 'my-class',
-    'placement': ct.PCOM_MAIN_PLACEMENT,
-    'type': 'this',
-    'settings': gb.DEFAULT_SETTINGS,
-    'assertEqual': """
-
-    """
-    },
-
-{   'remark': 'Test Case 3:pcom_process_insert_addiitons_command - main placement syntax with ref keyword',
-    'syntax': 'ref={ this_insert.txt }:',
-    'custom_class': 'my-class',
-    'placement': ct.PCOM_MAIN_PLACEMENT,
-    'type': 'this',
-    'settings': gb.DEFAULT_SETTINGS,
-    'assertEqual': 'INSERT=[MAIN:this_insert.txt]:'
-    },
-
-{   'remark': 'Test Case 4:pcom_process_insert_addiitons_command - header placement syntax with ref keyword',
-    'syntax': 'ref={ this_insert2.txt }:',
-    'custom_class': 'my-class',
-    'placement': ct.PCOM_HEADER_PLACEMENT,
-    'type': 'this',
-    'settings': gb.DEFAULT_SETTINGS,
-    'assertEqual': 'INSERT=[HEADER:this_insert2.txt]:'
-    },
-]
+# test_values_4 = [\
+# {   'remark': 'Test Case 1:pcom_process_insert_addiitons_command - main placement syntax not with ref keyword',
+#     'syntax': 'TEXT=[ [p][b]Something here[/b][/p] ]:',
+#     'custom_class': 'my-class',
+#     'placement': ct.PCOM_MAIN_PLACEMENT,
+#     'type': 'this',
+#     'settings': gb.DEFAULT_SETTINGS,
+#     'assertEqual': """
+#
+#     """
+#     },
+#
+# {   'remark': 'Test Case 2:pcom_process_insert_addiitons_command - main placement syntax with subschematic command and ref keyword',
+#     'syntax': 'TEXT=[ some name ]: ref={ this_insert.txt }:',
+#     'custom_class': 'my-class',
+#     'placement': ct.PCOM_MAIN_PLACEMENT,
+#     'type': 'this',
+#     'settings': gb.DEFAULT_SETTINGS,
+#     'assertEqual': """
+#
+#     """
+#     },
+#
+# {   'remark': 'Test Case 3:pcom_process_insert_addiitons_command - main placement syntax with ref keyword',
+#     'syntax': 'ref={ this_insert.txt }:',
+#     'custom_class': 'my-class',
+#     'placement': ct.PCOM_MAIN_PLACEMENT,
+#     'type': 'this',
+#     'settings': gb.DEFAULT_SETTINGS,
+#     'assertEqual': 'INSERT=[MAIN:this_insert.txt]:'
+#     },
+#
+# {   'remark': 'Test Case 4:pcom_process_insert_addiitons_command - header placement syntax with ref keyword',
+#     'syntax': 'ref={ this_insert2.txt }:',
+#     'custom_class': 'my-class',
+#     'placement': ct.PCOM_HEADER_PLACEMENT,
+#     'type': 'this',
+#     'settings': gb.DEFAULT_SETTINGS,
+#     'assertEqual': 'INSERT=[HEADER:this_insert2.txt]:'
+#     },
+# ]
 
 test_values_5 = [\
 {   'remark': 'Test Case 1:pcom_insert_pagination_command - main placement syntax with subschematic command and ref keyword',

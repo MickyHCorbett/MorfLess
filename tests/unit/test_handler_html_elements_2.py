@@ -73,24 +73,24 @@ class HtmlElements2HandlerCase(unittest.TestCase):
             # check asserts in
             self.assertEqual(test['assertEqual'].strip(), result.strip())
 
-    @testCall
-    def test_pcom_process_insert_additions_command(self):
-
-        for test in tv.test_values_4:
-
-            print('\n' + test['remark'] + '\n')
-
-            result = libs.html_elements.pcom_process_insert_additions_command(
-                                            syntax=test['syntax'],
-                                            custom_class=test['custom_class'],
-                                            placement=test['placement'],
-                                            type=test['type'],
-                                            settings=test['settings'])
-
-            print(result)
-
-            # check asserts in
-            self.assertEqual(test['assertEqual'].strip(), result.strip())
+    # @testCall
+    # def test_pcom_process_insert_additions_command(self):
+    #
+    #     for test in tv.test_values_4:
+    #
+    #         print('\n' + test['remark'] + '\n')
+    #
+    #         result = libs.html_elements.pcom_process_insert_additions_command(
+    #                                         syntax=test['syntax'],
+    #                                         custom_class=test['custom_class'],
+    #                                         placement=test['placement'],
+    #                                         type=test['type'],
+    #                                         settings=test['settings'])
+    #
+    #         print(result)
+    #
+    #         # check asserts in
+    #         self.assertEqual(test['assertEqual'].strip(), result.strip())
 
     @testCall
     def test_pcom_insert_pagination_command(self):

@@ -136,6 +136,89 @@ Similarly is you add a category to a post meta, it will be added to the category
 
 ## Site details
 
+The main site details that appear in the head part of the html source can be modified using the following meta:
+
+        title={ PoliMorfic }:
+        description={ Some description }:
+
+## Content meta and list defaults
+
+The default posts per page is 5 but can be modified. For postlists, this will be the default if no posts per page is defined by a keyword command. For category, author and search lists this will be the default.
+
+Content meta is defined for pages and posts as shown. Date format can be set to UK or US.
+
+        posts_per_page={ 5 }:
+        post_meta_default={ title, category, author, date_created, date_modified, show_time }:
+        page_meta_default={ title, author, date_created, date_modified }:
+        date_format={ UK }:
+
+## Templates and Localisation
+
+There are 5 templates: posts, categories, authors, archive and search. Do not use these names as your source files e.g. do not call a page schematic, "categories.page" unless you want the categories page to use this format. You can however change the name of the page as it is presented on the site.
+
+The full template meta is shown below:
+
+        templates={
+          {
+            "search": "search",
+            "categories": "categories",
+            "authors": "authors",
+            "archive": "archive",
+            "posts": "posts"
+          }
+        }:
+
+        template_main_header_text={
+          {
+            "search": "Results for: ",
+            "categories": "Categories",
+            "authors": "Authors",
+            "archive": "Monthly Archives",
+            "posts": "Posts"
+          }
+        }:
 
 
-## Content meta defaults
+        template_sub_header_text={
+
+          {
+            "categories": "Posts for category: ",
+            "authors": "Posts by author: ",
+            "archive": "Posts for month: "
+          }
+        }:
+
+        template_sub_header_back_link_text={
+          {
+            "categories": "Back to Categories",
+            "authors": "Back to Authors",
+            "archive": "Back to Archives"
+          }
+        }:
+
+If you wish to have an "entries" page that shows all the post type pages (blog entries) you change the value in the JSON under the templates keyword (templates={ ... }: shown below). You also change the header text on that template page (under template_main_header_text={ ... }:). You still upload the posts.page template to your source folder but it will now have a link as https://yoursite.com/entries/.
+
+
+        templates={
+          {
+            "search": "search",
+            "categories": "categories",
+            "authors": "authors",
+            "archive": "archive",
+            "posts": "entries"
+          }
+        }:
+
+        template_main_header_text={
+          {
+            "search": "Results for: ",
+            "categories": "Categories",
+            "authors": "Authors",
+            "archive": "Monthly Archives",
+            "posts": "Entries"
+          }
+        }:
+
+The sub header text is for sub-category and individual author pages. The backlink text is also present on each of these sub-pages.
+
+You can also change the language of this text and template output names meaning that it is quite easy to do localisation for your site. 

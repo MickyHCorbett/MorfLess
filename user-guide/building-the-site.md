@@ -221,4 +221,32 @@ If you wish to have an "entries" page that shows all the post type pages (blog e
 
 The sub header text is for sub-category and individual author pages. The backlink text is also present on each of these sub-pages.
 
-You can also change the language of this text and template output names meaning that it is quite easy to do localisation for your site. 
+You can also change the language of this text and template output names meaning that it is quite easy to do localisation for your site.
+
+## Default sections
+
+The last part of the settings file is where you define the different default elements for each section. If you set any of these to default, the default schematic (in schematics.py) will be used. It is up to you if you wish to change this in the python. An easier way is to define schematic commands within each section. Then when a DEFAULT command is used in a page or post schematic it will use this information. Also, when you update the settings.txt file it will regenerate any schematic which includes DEFAULT commands.
+
+The bare section settings in the basic settings file are:
+
+        ///HEADER:
+        %%DEFAULT::
+
+        ///BEFORE::
+        NONE
+
+        ///MAIN:
+        %%DEFAULT::
+
+        ///AFTER:
+        NONE
+
+        ///SIDEBAR:
+        NONE:
+
+        ///FOOTER:
+        %%DEFAULT::
+
+# Inserts
+
+Inserts are where you use schematic commands from another file to add content to your current file. The insert command is replaced with schematic commands and then these generate html elements. Inserts can also include addition commands, where content is added to the head or the footer before the close body tag.

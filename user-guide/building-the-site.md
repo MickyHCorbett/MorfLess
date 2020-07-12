@@ -250,3 +250,28 @@ The bare section settings in the basic settings file are:
 # Inserts
 
 Inserts are where you use schematic commands from another file to add content to your current file. The insert command is replaced with schematic commands and then these generate html elements. Inserts can also include addition commands, where content is added to the head or the footer before the close body tag.
+
+An example of an insert being used in the Main section is:
+
+        ///MAIN:
+        %%INSERT::
+        ref={ insert1.txt }:
+
+The file insert1.txt could be:
+
+        %%CONTENT::
+        TEXT=[
+        <p>Add this content</p>
+        ]:
+
+During parsing the insert will be processed and the result added to the html where the insert was called. Effectively the insert is the same as the following:
+
+        ///MAIN:
+        %%CONTENT::
+        TEXT=[
+        <p>Add this content</p>
+        ]:
+
+***Note:**** It is best not to use insert commands within insert files.
+
+For more information see [Morfless - Inserts](https://polimorfic.com/morfless/inserts/)

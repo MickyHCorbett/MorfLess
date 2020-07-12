@@ -176,10 +176,12 @@ def delete_files(filelist,dependencies,outputLog):
             template_deleted,outputLog = delete_content_from_s3(file,template_key,listbucket,outputLog)
         else:
             # delete from target
-            # get file url from post entry
+            # get file url from post entry - minus initial frontslash for a valid url
             file_data = libs.lists.pcom_find_post(postlist,file)
-            outkey = file_data['url'] + 'index.html'
-            file_deleted,outputLog = delete_content_from_s3(file,outkey,targetbucket,outputLog)
+            
+            if 'url' in file_data and file_data['url']:
+                outkey = file_data['url'][1:] + 'index.html'
+                file_deleted,outputLog = delete_content_from_s3(file,outkey,targetbucket,outputLog)
 
         # delete from search
         raw_deleted,outputLog = delete_content_from_s3(file,raw_key,searchbucket,outputLog)

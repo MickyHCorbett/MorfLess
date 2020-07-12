@@ -272,6 +272,6 @@ During parsing the insert will be processed and the result added to the html whe
         <p>Add this content</p>
         ]:
 
-***Note:**** It is best not to use insert commands within insert files.
+***Note:*** It is best not to use insert commands within insert files.
 
 For more information see [Morfless - Inserts](https://polimorfic.com/morfless/inserts/)

@@ -1,3 +1,5 @@
+<- [Go to Syntax](../syntax/)
+
 # Building The Site
 
 Once MorfLess is installed, the task now turns to adding post and page schematics. The first thing to do is to download the Source Bucket content to a local folder

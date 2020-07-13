@@ -100,6 +100,8 @@ Elements can be grouped into a general Section element (different than an HTML5 
         BOX3:
         <sub_command>=[ ]:
         
+ If you create html elements using React or Vue, add the section id at the very start just after the SECTION command. That way it will be processed as expected and not mistaken for a parameter. The section id can be placed anywhere within the syntax and for standard html there is expected to be only one.
+        
  ## Custom classes
  
  Custom classes can be added to commands by using a CUSTOM tag as follows:

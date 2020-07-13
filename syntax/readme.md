@@ -5,6 +5,7 @@ MorfLess uses a template syntax that is a simplified version of the PoliMorf syn
 Schematic files (templates) are used to create the html page on the site. Syntax contained in other files can be referenced and will be imported into the file. 
 
 [Go here for syntax command details](syntax-commands.md)
+[Go here for details on the settings file and schematics](../user-guide/building-the-site.md)
 
 ## Schematic Requirements
 

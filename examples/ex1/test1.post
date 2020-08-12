@@ -21,16 +21,17 @@ mlk={href="/about/" name="About"}:
 mlk={href="/test2/" name="Test Page 2"}:
 searchbar={}:
 
-%%STYLESHEET::
-/css/custom-style.css
-
-%%STYLE::
-  .something-class {
-    font-size: 1em;
-  }
-
-%%HEADER_CONTENT::
+%%HEADER_ADDITIONS::
+content={
+<link rel="stylesheet" href="/css/custom-style.css" type="text/css" media="screen">
+<style>
+.something-class {
+  font-size: 1em;
+}
+</style>
 <!-- add something here but watch out -->
+}:
+
 
 ///MAIN:
 %%CONTENT_META::
@@ -66,10 +67,16 @@ manual_sticky={}:
 list={ test1.post, !!test3.post, test2.post, !!about.page }:
 title={ A Post list }:
 
-%%STYLE::
+%%RAW::
+TEXT=[
+  <style>
+  <!--
   .something-class-again {
     font-size: 1em;
   }
+  -->
+  </style>
+]:
 
 %%3_BOX_CUSTOM: my-3-box ::
 BOX1:
@@ -127,7 +134,6 @@ prev={ test3.post }:
 TEXT=[
 <p>A section test</p> ]:
 
-_CUSTOM: Footer-Class ::
 
 ///FOOTER:
 %%MENU::
@@ -139,7 +145,11 @@ mlk={href="/about/" name="About"}:
 
 %%DEFAULT::
 
-%%STYLE::
+%%FOOTER_ADDITIONS::
+content={
+<style>
 .something-class {
   font-size: 1em;
 }
+</style>
+}:

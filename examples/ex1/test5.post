@@ -25,10 +25,16 @@ TEX=[
 
 ///MAIN:
 
-%%STYLE::
-.some-class-again {
-background: none;
-}
+%%RAW::
+TEXT=[
+  <style>
+  <!--
+  .some-class-again {
+  background: none;
+  }
+  </style>
+-->
+]:
 
 %%CONTENT_META::
 title={}: author={}: date_created={}:

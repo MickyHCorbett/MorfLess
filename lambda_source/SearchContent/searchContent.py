@@ -14,14 +14,16 @@ def handler(event, context):
     #logger.setLevel(logging.INFO)
 
     outputLog = {'search_term': '', 'search_content_info': []}
-
     response = {'search_term': '', 'content': ''}
 
-    search_term = urllib.parse.unquote_plus(event['pathParameters']['search'])
+    try:
+        search_term = urllib.parse.unquote_plus(event['pathParameters']['search'])
 
-    response['search_term'] = search_term
-    outputLog['search_term'] = search_term
-    response['content'],outputLog = hl.process_search_request(search_term,outputLog)
+        response['search_term'] = search_term
+        outputLog['search_term'] = search_term
+        response['content'],outputLog = hl.process_search_request(search_term,outputLog)
+    except:
+        outputLog['error'] = 'Path parameters search term incorrect'
 
     # add data to log
     #logger.info(outputLog)

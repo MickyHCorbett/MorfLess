@@ -24,34 +24,38 @@ def handler(event, context):
     'default_header_additions': [],
     'default_footer_additions': [],
     'file_header_additions': [],
-    'file_footer_additions': []}
+    'file_footer_additions': [],
+    'error': []}
 
-    bucket_request = event["detail"]["requestParameters"]["bucketName"]
+    try:
+        bucket_request = event["detail"]["requestParameters"]["bucketName"]
 
-    if bucket_request == sourcebucket:
+        if bucket_request == sourcebucket:
 
-        fr = event["detail"]["requestParameters"]["key"]
+            fr = event["detail"]["requestParameters"]["key"]
 
-        dependencies,outputLog = hl.process_json_files(dep_file,listbucket,outputLog)
+            dependencies,outputLog = hl.process_json_files(dep_file,listbucket,outputLog)
 
-        # if file is post or page - individual file is processed
-        # if file is an insert or settings.txt dependencies are checked to get a list
-        # of all files to be changed
+            # if file is post or page - individual file is processed
+            # if file is an insert or settings.txt dependencies are checked to get a list
+            # of all files to be changed
 
-        if fr.upper().find('.HTML') == -1 and fr.upper().find('.JSON') == -1:
+            if fr.upper().find('.HTML') == -1 and fr.upper().find('.JSON') == -1:
 
-            filelist,outputLog = hl.determine_upload_type(fr,dependencies,outputLog)
+                filelist,outputLog = hl.determine_upload_type(fr,dependencies,outputLog)
 
-            # two types of trigger - put and delete
+                # two types of trigger - put and delete
 
-            if  event["detail"]["eventName"] == "PutObject":
+                if  event["detail"]["eventName"] == "PutObject":
 
-                outputLog = hl.process_uploaded_files(filelist,dependencies,outputLog)
+                    outputLog = hl.process_uploaded_files(filelist,dependencies,outputLog)
 
-            if event["detail"]["eventName"] == "DeleteObject":
+                if event["detail"]["eventName"] == "DeleteObject":
 
-                outputLog = hl.delete_files(filelist,dependencies,outputLog)
+                    outputLog = hl.delete_files(filelist,dependencies,outputLog)
 
+    except:
+        outputLog['error'].append('Event not properly formatted')
 
     # add data to log
     logger.info(outputLog)
